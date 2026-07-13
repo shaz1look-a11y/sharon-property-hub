@@ -46,9 +46,6 @@
 html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--text1);font-size:14px;line-height:1.5;overscroll-behavior:none}
 #app{display:flex;flex-direction:column;height:100dvh;max-width:480px;margin:0 auto;position:relative;background:var(--bg0)}
 
-/* ── DESKTOP DASHBOARD ───────────────────────────────────────────── */
-@media(min-width:768px){
-  *{box-sizing:border-box}
   html,body{height:100%;overflow:hidden}
   body{background:var(--bg0)}
 
@@ -451,6 +448,198 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 .fb-status.connected{background:var(--sage)}
 .fb-status.error{background:var(--red)}
 
+
+/* ═══════════════════════════════════════════════════
+   DESKTOP DASHBOARD — CSS ONLY, NO HTML CHANGES
+   ═══════════════════════════════════════════════════ */
+@media (min-width: 900px) {
+
+  /* Reset body */
+  html, body { height: 100vh; overflow: hidden; background: #080e0b; }
+
+  /* App: full screen grid */
+  #app {
+    max-width: 100% !important;
+    width: 100vw;
+    height: 100vh;
+    display: grid !important;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 56px 1fr;
+    grid-template-areas:
+      "nav  header"
+      "nav  main";
+    margin: 0;
+    box-shadow: none;
+  }
+
+  /* Header top bar */
+  .hdr {
+    grid-area: header;
+    flex-direction: row !important;
+    align-items: center;
+    padding: 0 24px !important;
+    height: 56px;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hdr-top { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .brand-name { font-size: 14px !important; margin: 0 !important; white-space: nowrap; }
+  .brand-sub { display: none; }
+  .scr-title { font-size: 14px !important; font-weight: 500; margin: 0 !important; white-space: nowrap; }
+  .scr-sub { font-size: 8px !important; margin: 0 !important; white-space: nowrap; }
+  #hdrBadge { display: none; }
+  #statsStrip {
+    display: flex !important;
+    flex-direction: row !important;
+    border: none !important;
+    margin: 0 !important;
+    margin-left: auto !important;
+    flex-shrink: 0;
+  }
+  .stat { padding: 4px 16px !important; border-right: 1px solid var(--border) !important; border-bottom: none !important; }
+  .stat:last-child { border-right: none !important; }
+  .stat-v { font-size: 15px !important; }
+  .stat-l { font-size: 7px !important; }
+
+  /* Sidebar nav */
+  .bnav {
+    grid-area: nav;
+    position: static !important;
+    transform: none !important;
+    width: 200px !important;
+    max-width: 200px !important;
+    height: 100% !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    background: var(--bg1) !important;
+    border-right: 1px solid var(--border) !important;
+    border-top: none !important;
+    padding: 0 !important;
+    padding-bottom: 0 !important;
+    overflow-y: auto;
+    z-index: 10;
+  }
+  .bnav::before {
+    content: 'Sharon Marais';
+    display: block;
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text1);
+    padding: 20px 18px 3px;
+  }
+  .bnav::after {
+    content: 'Vermaak Properties';
+    display: block;
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--sage);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 0 18px 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .nbtn {
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 11px 18px !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    border-left: 3px solid transparent;
+  }
+  .nbtn.active {
+    background: rgba(90,173,122,.1) !important;
+    border-left: 3px solid var(--sage) !important;
+  }
+  .nicon { font-size: 15px !important; }
+  .nlbl {
+    font-size: 12px !important;
+    text-transform: none !important;
+    letter-spacing: .01em !important;
+    color: var(--text2) !important;
+    display: block !important;
+  }
+  .nbtn.active .nlbl { color: var(--sage) !important; }
+
+  /* All screens go in main area */
+  .scr { grid-area: main; overflow: hidden; }
+  .scr.active { display: flex !important; flex-direction: column; height: 100%; }
+  .scr-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px 28px !important;
+    height: 100%;
+  }
+  .scr-body::-webkit-scrollbar { width: 4px; }
+  .scr-body::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+  /* Notification banner and firebase dot go outside grid */
+  .enq-notif { grid-area: unset; z-index: 200; }
+  .fb-status { bottom: 16px; right: 16px; z-index: 200; }
+
+  /* Card grids */
+  #listCon, #mktCon {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 12px;
+    align-items: start;
+  }
+  #listCon .card, #mktCon .card { margin-bottom: 0 !important; }
+
+  #clCon, #llCon {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 10px;
+    align-items: start;
+  }
+  #clCon .ccard, #llCon .ccard { margin-bottom: 0 !important; }
+
+  #pipeCon {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    align-items: start;
+  }
+  #pipeCon .pipe-card { margin-bottom: 0 !important; }
+
+  #mGreen, #mYellow, #mMkt {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 10px;
+  }
+  #mGreen .mcrd, #mYellow .mcrd, #mMkt .mcrd { margin-bottom: 0 !important; }
+
+  /* Commission centred */
+  #scr-commission .scr-body { max-width: 660px; }
+
+  /* Filter pills wrap */
+  .fprow { flex-wrap: wrap; }
+  .srch-wrap { max-width: 360px; }
+
+  /* Toast */
+  .toast { bottom: 20px; left: calc(200px + 16px); transform: none; max-width: calc(100vw - 232px); }
+
+  /* Drawer = centred modal */
+  .drw-handle { display: none; }
+  .drw {
+    top: 50% !important;
+    left: calc(200px + 50%) !important;
+    bottom: auto !important;
+    transform: translate(-50%, -60%) !important;
+    width: 500px;
+    max-width: 80vw;
+    max-height: 80vh;
+    border-radius: 10px;
+    border: 1px solid var(--border2);
+  }
+  .drw.open { transform: translate(-50%, -50%) !important; }
+}
 </style>
 </head>
 <body>
@@ -475,13 +664,8 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
   </div>
 </div>
 
-<div class="desktop-body">
 <!-- BOTTOM NAV / SIDEBAR -->
 <nav class="bnav">
-  <div class="sidebar-brand">
-    <div class="sidebar-brand-name">Sharon Marais</div>
-    <div class="sidebar-brand-sub">Vermaak Properties</div>
-  </div>
   <button class="nbtn active" data-s="listings"><span class="nicon">🏢</span><span class="nlbl">Listings</span></button>
   <button class="nbtn" data-s="enquiry"><span class="nicon">🔍</span><span class="nlbl">Enquiry</span></button>
   <button class="nbtn" data-s="market"><span class="nicon">📊</span><span class="nlbl">Market</span></button>
@@ -491,7 +675,6 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
   <button class="nbtn" data-s="pipeline"><span class="nicon">📋</span><span class="nlbl">Pipeline</span></button>
 </nav>
 
-<div class="screens-wrap">
 <!-- ═══════════════════════════════════════════════════ SCREEN 1: LISTINGS -->
 <div class="scr active" id="scr-listings">
   <div class="scr-body">
@@ -703,8 +886,6 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
   </div>
 </div>
 
-</div><!-- /screens-wrap -->
-</div><!-- /desktop-body -->
 
   <!-- ENQUIRY NOTIFICATION BANNER -->
   <div class="enq-notif" id="enqNotif">
@@ -725,7 +906,6 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 </div>
 
 
-</div><!-- #app -->
 
 <!-- DRAWER -->
 <div class="dov" id="dOv"></div>
