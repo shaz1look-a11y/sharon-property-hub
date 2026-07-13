@@ -496,30 +496,7 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
     overflow-x: hidden;
   }
 
-  /* Sidebar branding via pseudo-elements */
-  .bnav::before {
-    content: 'Sharon Marais';
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: #f0ede8;
-    padding: 24px 20px 2px;
-    flex-shrink: 0;
-  }
-  .bnav::after {
-    content: 'Vermaak Properties';
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 8px;
-    color: #5aad7a;
-    text-transform: uppercase;
-    letter-spacing: .09em;
-    padding: 0 20px 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    margin-bottom: 10px;
-    flex-shrink: 0;
-  }
+
 
   /* Each nav button — horizontal row with icon + label */
   .nbtn {
@@ -708,6 +685,28 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
     max-width: none !important;
   }
   .enq-notif.show { transform: translateY(0) !important; }
+  /* Sidebar brand div (injected by JS) */
+  .sb-brand {
+    padding: 22px 20px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+  .sb-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #f0ede8;
+    margin-bottom: 3px;
+  }
+  .sb-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: #5aad7a;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+  }
+
 }
 
 </style>
@@ -1731,6 +1730,20 @@ window.addEventListener('load', () => {
       showToast('📥 New enquiry: ' + (payload.notification?.title || 'Check Clients tab'));
     });
   } catch(e){}
+
+
+// ── DESKTOP SIDEBAR BRAND ─────────────────────────────────────────
+function injectSidebarBrand(){
+  if(window.innerWidth < 900) return;
+  const nav = document.querySelector('.bnav');
+  if(!nav || nav.querySelector('.sb-brand')) return;
+  const brand = document.createElement('div');
+  brand.className = 'sb-brand';
+  brand.innerHTML = '<div class="sb-name">Sharon Marais</div><div class="sb-sub">Vermaak Properties</div>';
+  nav.insertBefore(brand, nav.firstChild);
+}
+window.addEventListener('load', injectSidebarBrand);
+window.addEventListener('resize', injectSidebarBrand);
 
 </script>
 </body>
