@@ -6,9 +6,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#080e0b">
-<meta name="apple-mobile-web-app-title" content="Property Hub">
-<meta name="description" content="Sharon Marais · Vermaak Properties · CBD · Foreshore · Northgate">
-<link rel="manifest" href="manifest.json">
 <title>Sharon Marais · Property Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -243,6 +240,23 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 .add-form{display:none}
 .add-form.open{display:block}
 .divider{height:1px;background:var(--border);margin:11px 0}
+
+/* ENQUIRY NOTIFICATION BANNER */
+.enq-notif{position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-100%);width:100%;max-width:480px;background:var(--moss);z-index:500;transition:transform .35s cubic-bezier(.32,.72,0,1);border-bottom:2px solid var(--sage)}
+.enq-notif.show{transform:translateX(-50%) translateY(0)}
+.enq-notif-inner{padding:12px 16px;display:flex;align-items:center;gap:10px}
+.enq-notif-icon{font-size:22px;flex-shrink:0}
+.enq-notif-text h4{font-size:13px;font-weight:600;color:#fff}
+.enq-notif-text p{font-size:11px;color:var(--mist);margin-top:2px}
+.enq-notif-acts{margin-left:auto;display:flex;gap:6px;flex-shrink:0}
+.enq-notif-btn{font-family:var(--mono);font-size:8px;padding:5px 10px;border-radius:5px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.enq-notif-btn.primary{background:#fff;color:var(--moss)}
+
+/* FIREBASE STATUS INDICATOR */
+.fb-status{position:fixed;bottom:calc(var(--nav-h) + var(--safe) + 8px);right:12px;width:8px;height:8px;border-radius:50%;background:var(--text3);z-index:99;transition:background .3s}
+.fb-status.connected{background:var(--sage)}
+.fb-status.error{background:var(--red)}
+
 </style>
 </head>
 <body>
@@ -488,6 +502,23 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
   <button class="nbtn" data-s="landlords"><span class="nicon">🏦</span><span class="nlbl">Landlords</span></button>
   <button class="nbtn" data-s="pipeline"><span class="nicon">📋</span><span class="nlbl">Pipeline</span></button>
 </nav>
+
+  <!-- ENQUIRY NOTIFICATION BANNER -->
+  <div class="enq-notif" id="enqNotif">
+    <div class="enq-notif-inner">
+      <div class="enq-notif-icon">📥</div>
+      <div class="enq-notif-text">
+        <h4 id="enqNotifTitle">New enquiry received</h4>
+        <p id="enqNotifSub">Tap to view</p>
+      </div>
+      <div class="enq-notif-acts">
+        <button class="enq-notif-btn" onclick="dismissEnqNotif()">Dismiss</button>
+        <button class="enq-notif-btn primary" onclick="goToClients()">View</button>
+      </div>
+    </div>
+  </div>
+  <div class="fb-status" id="fbStatus" title="Firebase sync status"></div>
+
 </div>
 
 <!-- DRAWER -->
@@ -1078,6 +1109,173 @@ document.getElementById('drw').addEventListener('touchmove',e=>{if(e.touches[0].
 
 // ══════════ INIT
 updateStats();renderListings();renderMarket();renderClients();renderLandlords();renderPipeline();
+
+
+// ── ENQUIRY NOTIFICATION ──────────────────────────────────────────────────────
+function showEnquiryNotification(client, matched){
+  const name = [client.first, client.last].filter(Boolean).join(' ') || 'New enquiry';
+  const sub  = matched && matched.length
+    ? `Possible match: ${matched[0].building}`
+    : client.req || 'Check Clients tab';
+  document.getElementById('enqNotifTitle').textContent = '📥 ' + name;
+  document.getElementById('enqNotifSub').textContent   = sub;
+  const banner = document.getElementById('enqNotif');
+  banner.classList.add('show');
+  // Auto-dismiss after 8 seconds
+  setTimeout(() => banner.classList.remove('show'), 8000);
+  // Also show toast
+  showToast('New enquiry from ' + name + ' — added to Clients');
+}
+function dismissEnqNotif(){ document.getElementById('enqNotif').classList.remove('show'); }
+function goToClients(){
+  dismissEnqNotif();
+  switchScr('clients');
+}
+
+// ── FIREBASE STATUS ───────────────────────────────────────────────────────────
+function setFBStatus(state){
+  const el = document.getElementById('fbStatus');
+  if(!el) return;
+  el.className = 'fb-status ' + state;
+  el.title = state === 'connected' ? 'Firebase: live sync active'
+           : state === 'error'     ? 'Firebase: connection error — check config'
+           : 'Firebase: not configured';
+}
+// Check if Firebase is configured
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const key = localStorage.getItem('fcm_token');
+    // Will be set to connected by Firebase module once it loads successfully
+    if(document.querySelector('script[type="module"]')){
+      setFBStatus('connected');
+    }
+  }, 3000);
+});
+
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getMessaging, getToken, onMessage }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
+
+  // ── FIREBASE CONFIG (filled in after setup) ──────────────────────────
+  // Sharon: replace these values with your Firebase project config
+  const firebaseConfig = {
+    apiKey:            "AIzaSyCgAusQ4KygDyHOfgwPtluLXRtatjRmuQ0",
+    authDomain:        "sharon-property-hub.firebaseapp.com",
+    projectId:         "sharon-property-hub",
+    storageBucket:     "sharon-property-hub.firebasestorage.app",
+    messagingSenderId: "1017385477196",
+    appId:             "1:1017385477196:web:fa090abcad0558df2d80e9"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const db   = getFirestore(app);
+
+  // ── REAL-TIME LISTENER: new enquiries → Clients tab ──────────────────
+  const q = query(collection(db, 'enquiries'), orderBy('createdAt', 'desc'));
+  onSnapshot(q, snapshot => {
+    snapshot.docChanges().forEach(change => {
+      if(change.type === 'added'){
+        const data = change.doc.data();
+        const id   = change.doc.id;
+
+        // Only process if not already in local clients list
+        const exists = clients.some(c => c.email === data.email || c.phone === data.phone);
+        if(!exists && data.createdAt){ // skip seed data without timestamp
+          const newClient = {
+            id:     'fb_' + id,
+            first:  data.firstName || data.name?.split(' ')[0] || 'Unknown',
+            last:   data.lastName  || data.name?.split(' ').slice(1).join(' ') || '',
+            company: data.company  || '',
+            phone:  data.phone     || '',
+            email:  data.email     || '',
+            req:    data.requirement || buildReq(data),
+            notes:  data.source    || 'Auto-imported enquiry',
+            notes2: [{date: new Date().toISOString().slice(0,10), text: '📥 Auto-imported from ' + (data.source||'enquiry feed')}],
+            source: data.source    || 'inbound',
+            listingRef: data.listingRef || null,
+          };
+          clients.unshift(newClient);
+          save();
+          renderClients();
+          updateStats();
+
+          // Auto-match to a listing
+          const matched = autoMatch(newClient);
+
+          // Show in-app notification
+          showEnquiryNotification(newClient, matched);
+
+          // Request push notification permission if not already granted
+          requestPushPermission();
+        }
+      }
+    });
+  });
+
+  function buildReq(data){
+    const parts = [];
+    if(data.minSize||data.maxSize) parts.push((data.minSize||'?')+'–'+(data.maxSize||'?')+'m²');
+    if(data.budget) parts.push('R'+Number(data.budget).toLocaleString('en-ZA')+' pm');
+    if(data.node) parts.push(data.node);
+    if(data.type) parts.push(data.type);
+    return parts.join(', ') || 'Enquiry — see notes';
+  }
+
+  function autoMatch(client){
+    // Simple keyword match against listings
+    const req = (client.req||'').toLowerCase();
+    const matched = listings.filter(l => {
+      if(req.includes('cbd') && l.node!=='CBD') return false;
+      if(req.includes('foreshore') && l.node!=='Foreshore') return false;
+      if(req.includes('northgate') && l.node!=='Northgate') return false;
+      if(req.includes('to let') && l.type!=='let') return false;
+      if(req.includes('for sale') && l.type!=='sale') return false;
+      return true;
+    }).slice(0,3);
+    return matched;
+  }
+
+  // ── EXPOSE addEnquiry globally so Claude daily scan can call it ───────
+  window.addEnquiryToFirebase = async (enquiry) => {
+    try {
+      await addDoc(collection(db, 'enquiries'), {
+        ...enquiry,
+        createdAt: serverTimestamp()
+      });
+      console.log('Enquiry added to Firebase');
+    } catch(e) {
+      console.error('Firebase write error:', e);
+    }
+  };
+
+  // ── PUSH NOTIFICATIONS ────────────────────────────────────────────────
+  async function requestPushPermission(){
+    try {
+      const messaging = getMessaging(app);
+      const permission = await Notification.requestPermission();
+      if(permission === 'granted'){
+        const token = await getToken(messaging, {
+          vapidKey: 'BFexT_K1hT7tKF491u6qSJQaFIlG5DC3_Oqfs9Ov0ZEIaKStFRjYXlEoW6-fOAkBNLBQEyx1kMxjbK62tn6QxMU'
+        });
+        console.log('Push token:', token);
+        localStorage.setItem('fcm_token', token);
+      }
+    } catch(e){ console.log('Push not available:', e); }
+  }
+
+  // Handle foreground push messages
+  try {
+    const messaging = getMessaging(app);
+    onMessage(messaging, payload => {
+      showToast('📥 New enquiry: ' + (payload.notification?.title || 'Check Clients tab'));
+    });
+  } catch(e){}
+
 </script>
 </body>
 </html>
