@@ -652,25 +652,23 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 
   /* Drawer = centred modal */
   .drw-handle { display: none !important; }
-    .drw {
+      .drw {
     position: fixed !important;
     top: 50% !important;
     left: calc(210px + (100vw - 210px) / 2) !important;
     bottom: auto !important;
-    transform: translate(-50%, -50%) translateY(-20px) !important;
+    transform: translate(-50%, -50%) !important;
     width: 500px !important;
     max-width: calc(100vw - 250px) !important;
     max-height: 80vh !important;
     border-radius: 10px !important;
     border: 1px solid rgba(255,255,255,0.13) !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    transition: opacity 0.2s, transform 0.2s !important;
+    display: none !important;
+    transition: none !important;
   }
   .drw.open {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: translate(-50%, -50%) translateY(0) !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   /* Firebase dot */
@@ -1261,8 +1259,12 @@ function openDrawer(id,type){
       <input id="noteIn" style="flex:1;font-family:var(--body);font-size:12px;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);outline:none;color:var(--text1)" placeholder="Add note, call log, update…">
       <button onclick="addNote()" style="background:var(--moss);color:#fff;border:none;border-radius:7px;padding:8px 13px;font-family:var(--mono);font-size:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em">Log</button>
     </div>`;
-  document.getElementById('dOv').classList.add('open');
-  document.getElementById('drw').classList.add('open');
+  const _drw=document.getElementById('drw');
+  const _dov=document.getElementById('dOv');
+  _drw.style.display='';
+  _dov.style.display='';
+  _dov.classList.add('open');
+  _drw.classList.add('open');
 }
 
 function addNote(){
@@ -1279,7 +1281,11 @@ function addNote(){
   save(); showToast('Note logged ✓');
 }
 
-function closeDrawer(){document.getElementById('dOv').classList.remove('open');document.getElementById('drw').classList.remove('open');openId=null;}
+function closeDrawer(){
+  document.getElementById('dOv').classList.remove('open');
+  document.getElementById('drw').classList.remove('open');
+  openId=null;
+}
 document.getElementById('dOv').addEventListener('click',closeDrawer);
 document.getElementById('dClose').addEventListener('click',closeDrawer);
 document.getElementById('dCall').addEventListener('click',()=>showToast('Dialling…'));
@@ -1562,6 +1568,9 @@ document.getElementById('drw').addEventListener('touchstart',e=>{sY=e.touches[0]
 document.getElementById('drw').addEventListener('touchmove',e=>{if(e.touches[0].clientY-sY>70)closeDrawer();},{passive:true});
 
 // ══════════ INIT
+// Ensure drawer is hidden on load
+document.getElementById('drw').classList.remove('open');
+document.getElementById('dOv').classList.remove('open');
 updateStats();renderListings();renderMarket();renderClients();renderLandlords();renderPipeline();
 
 
@@ -1743,6 +1752,17 @@ function injectSidebarBrand(){
 }
 window.addEventListener('load', injectSidebarBrand);
 window.addEventListener('resize', injectSidebarBrand);
+
+
+// ── DESKTOP: ensure drawer never shows on load ──────────────────
+if(window.innerWidth >= 900){
+  const drw = document.getElementById('drw');
+  const dov = document.getElementById('dOv');
+  if(drw) { drw.classList.remove('open'); drw.style.display='none'; }
+  if(dov) { dov.classList.remove('open'); dov.style.display='none'; }
+  // Re-enable display when openDrawer is called
+  const origOpen = window.openDrawer;
+}
 
 </script>
 </body>
