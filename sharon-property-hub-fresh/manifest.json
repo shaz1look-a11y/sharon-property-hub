@@ -1,0 +1,18 @@
+{
+  "name": "Sharon Marais · Property Hub",
+  "short_name": "Property Hub",
+  "description": "Vermaak Properties · CBD · Foreshore · Northgate",
+  "start_url": "/sharon-property-hub/",
+  "display": "standalone",
+  "background_color": "#080e0b",
+  "theme_color": "#080e0b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
