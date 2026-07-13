@@ -476,6 +476,21 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 </div>
 
 <div class="desktop-body">
+<!-- BOTTOM NAV / SIDEBAR -->
+<nav class="bnav">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-name">Sharon Marais</div>
+    <div class="sidebar-brand-sub">Vermaak Properties</div>
+  </div>
+  <button class="nbtn active" data-s="listings"><span class="nicon">🏢</span><span class="nlbl">Listings</span></button>
+  <button class="nbtn" data-s="enquiry"><span class="nicon">🔍</span><span class="nlbl">Enquiry</span></button>
+  <button class="nbtn" data-s="market"><span class="nicon">📊</span><span class="nlbl">Market</span></button>
+  <button class="nbtn" data-s="commission"><span class="nicon">💰</span><span class="nlbl">Calc</span></button>
+  <button class="nbtn" data-s="clients"><span class="nicon">👤</span><span class="nlbl">Clients</span></button>
+  <button class="nbtn" data-s="landlords"><span class="nicon">🏦</span><span class="nlbl">Landlords</span></button>
+  <button class="nbtn" data-s="pipeline"><span class="nicon">📋</span><span class="nlbl">Pipeline</span></button>
+</nav>
+
 <div class="screens-wrap">
 <!-- ═══════════════════════════════════════════════════ SCREEN 1: LISTINGS -->
 <div class="scr active" id="scr-listings">
@@ -689,21 +704,7 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 </div>
 
 </div><!-- /screens-wrap -->
-
-<!-- BOTTOM NAV / SIDEBAR -->
-<nav class="bnav">
-  <div class="sidebar-brand">
-    <div class="sidebar-brand-name">Sharon Marais</div>
-    <div class="sidebar-brand-sub">Vermaak Properties</div>
-  </div>
-  <button class="nbtn active" data-s="listings"><span class="nicon">🏢</span><span class="nlbl">Listings</span></button>
-  <button class="nbtn" data-s="enquiry"><span class="nicon">🔍</span><span class="nlbl">Enquiry</span></button>
-  <button class="nbtn" data-s="market"><span class="nicon">📊</span><span class="nlbl">Market</span></button>
-  <button class="nbtn" data-s="commission"><span class="nicon">💰</span><span class="nlbl">Calc</span></button>
-  <button class="nbtn" data-s="clients"><span class="nicon">👤</span><span class="nlbl">Clients</span></button>
-  <button class="nbtn" data-s="landlords"><span class="nicon">🏦</span><span class="nlbl">Landlords</span></button>
-  <button class="nbtn" data-s="pipeline"><span class="nicon">📋</span><span class="nlbl">Pipeline</span></button>
-</nav>
+</div><!-- /desktop-body -->
 
   <!-- ENQUIRY NOTIFICATION BANNER -->
   <div class="enq-notif" id="enqNotif">
@@ -722,6 +723,9 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
   <div class="fb-status" id="fbStatus" title="Firebase sync status"></div>
 
 </div>
+
+
+</div><!-- #app -->
 
 <!-- DRAWER -->
 <div class="dov" id="dOv"></div>
