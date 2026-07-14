@@ -2073,7 +2073,61 @@ function closeLLProfile(){
   document.getElementById('llProfileOverlay').classList.remove('open');
   activeLLId=null;
 }
-
+// ══ CLIENT PROFILE ══
+let activeClientId=null,activeLLId=null;
+function openClientProfile(id){
+  const cl=clients.find(x=>x.id===id);if(!cl)return;activeClientId=id;
+  document.getElementById('cpAv').textContent=initials(cl.first,cl.last);
+  document.getElementById('cpName').textContent=[cl.first,cl.last].filter(Boolean).join(' ');
+  document.getElementById('cpRole').textContent=cl.company||'—';
+  document.getElementById('cpPhone').textContent=cl.phone?'📱 '+cl.phone:'—';
+  document.getElementById('cpEmail').textContent=cl.email||'—';
+  document.getElementById('cpReq').textContent=cl.req||'—';
+  document.getElementById('cpReqDetail').textContent=[cl.req,cl.notes].filter(Boolean).join(' · ')||'—';
+  document.getElementById('cpCallBtn').onclick=()=>cl.phone&&(window.location='tel:'+cl.phone);
+  document.getElementById('cpWABtn').onclick=()=>cl.phone&&window.open('https://wa.me/'+cl.phone.replace(/\D/g,''));
+  document.getElementById('cpEmailBtn').onclick=()=>cl.email&&(window.location='mailto:'+cl.email);
+  const introduced=pipeline.filter(p=>p.client&&p.client.toLowerCase().includes((cl.first||'').toLowerCase()));
+  document.getElementById('cpPropCt').textContent=introduced.length;
+  document.getElementById('cpProps').innerHTML=introduced.length?introduced.map(p=>{const l=listings.find(x=>x.id===p.listingId);return'<div class="prop-intro-item"><div class="prop-intro-name">'+( l?l.building:'Unknown')+'</div><div class="prop-intro-detail">'+(l?l.address:'')+'</div><span class="prop-intro-status status-introduced">'+p.stage+'</span></div>';}).join(''):'<div style="font-size:11px;color:var(--text3)">No properties introduced yet</div>';
+  renderClientProfileNotes(cl);
+  document.getElementById('clientProfileOverlay').classList.add('open');
+}
+function renderClientProfileNotes(cl){
+  const notes=cl.notes2||[];document.getElementById('cpNoteCt').textContent=notes.length;
+  document.getElementById('cpNotes').innerHTML=notes.length?notes.slice().reverse().map(n=>'<div class="hs-note"><div class="hs-note-date">'+n.date+'</div><div class="hs-note-txt">'+n.text+'</div></div>').join(''):'<div style="font-size:11px;color:var(--text3)">No activity yet.</div>';
+}
+function addClientProfileNote(){
+  const text=document.getElementById('cpNoteInput').value.trim();if(!text||!activeClientId)return;
+  const cl=clients.find(x=>x.id===activeClientId);if(!cl)return;if(!cl.notes2)cl.notes2=[];
+  cl.notes2.push({date:new Date().toISOString().slice(0,10),text});document.getElementById('cpNoteInput').value='';
+  save();renderClientProfileNotes(cl);showToast('Note logged');
+}
+function closeClientProfile(){document.getElementById('clientProfileOverlay').classList.remove('open');activeClientId=null;}
+// ══ LANDLORD PROFILE ══
+function openLandlordProfile(id){
+  const ll=landlords.find(x=>x.id===id);if(!ll)return;activeLLId=id;
+  const relCol={Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
+  document.getElementById('llpAv').textContent=initials(ll.first,ll.last);
+  document.getElementById('llpName').textContent=[ll.first,ll.last].filter(Boolean).join(' ');
+  document.getElementById('llpRole').textContent=ll.company||'—';
+  document.getElementById('llpPhone').textContent=ll.phone?'📱 '+ll.phone:'—';
+  document.getElementById('llpEmail').textContent=ll.email||'—';
+  document.getElementById('llpCallBtn').onclick=()=>ll.phone&&(window.location='tel:'+ll.phone);
+  document.getElementById('llpWABtn').onclick=()=>ll.phone&&window.open('https://wa.me/'+ll.phone.replace(/\D/g,''));
+  document.getElementById('llpEmailBtn').onclick=()=>ll.email&&(window.location='mailto:'+ll.email);
+  document.getElementById('llpPortfolio').innerHTML='<div><div class="det-row"><span class="det-k">Node</span><span class="det-v">'+(ll.node||'—')+'</span></div><div class="det-row"><span class="det-k">Buildings</span><span class="det-v">'+(ll.buildings||'—')+'</span></div><div class="det-row"><span class="det-k">Relationship</span><span class="det-v" style="color:'+(relCol[ll.rel]||'var(--text3)')+'">'+ll.rel+'</span></div>'+(ll.notes?'<div class="det-row"><span class="det-k">Notes</span><span class="det-v">'+ll.notes+'</span></div>':'')+'</div>';
+  const llB=(ll.buildings||'').split(',').map(b=>b.trim().toLowerCase()).filter(Boolean);
+  const llL=listings.filter(l=>llB.some(b=>l.building.toLowerCase().includes(b)||l.address.toLowerCase().includes(b)));
+  document.getElementById('llpPropCt').textContent=llL.length;
+  document.getElementById('llpProps').innerHTML=llL.length?llL.map(l=>{const p=pipeline.find(x=>x.listingId===l.id);return'<div class="prop-intro-item"><div class="prop-intro-name">'+l.building+'</div><div class="prop-intro-detail">'+l.address+'</div><span class="prop-intro-status status-introduced">'+(p?p.stage+' — '+p.client:'Available')+'</span></div>';}).join(''):'<div style="font-size:11px;color:var(--text3)">No listings matched</div>';
+  renderLLProfileNotes2(ll);
+  document.getElementById('llProfileOverlay').classList.add('open');
+}
+function renderLLProfileNotes2(ll){
+  const notes=ll.notes2||[];document.getElementById('llpNoteCt').textContent=notes.length;
+  document.getElementById('llpNotes').innerHTML=notes.length?notes.slice().reverse().map(n=>'<div class="hs-note"><div class="hs-note-date">'+n.date+'</div><div class="hs-note-txt">'+n.text+'</div></div>').join(''):'<div style="font-size:11px;color:var(--text3)">No activity yet.</div>';
+}
 </script>
 </body>
 </html>
