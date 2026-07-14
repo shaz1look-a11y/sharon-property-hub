@@ -706,6 +706,48 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 
 }
 
+
+/* ── PROFILE MODAL ──────────────────────────────────────────────── */
+.profile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.profile-overlay.open{display:flex}
+.profile-modal{background:var(--bg1);width:640px;max-width:96vw;max-height:90vh;border-radius:14px;border:1px solid var(--border2);overflow:hidden;display:flex;flex-direction:column}
+.profile-hdr{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:16px;flex-shrink:0}
+.profile-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;flex-shrink:0}
+.profile-av-c{background:rgba(74,144,196,.2);color:var(--blue);border:2px solid rgba(74,144,196,.3)}
+.profile-av-l{background:rgba(201,149,58,.2);color:var(--gold);border:2px solid rgba(201,149,58,.3)}
+.profile-name{font-size:18px;font-weight:600;color:var(--text1)}
+.profile-role{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.profile-phone{font-family:var(--mono);font-size:12px;color:var(--sage);margin-top:5px}
+.profile-close{margin-left:auto;width:30px;height:30px;background:var(--bg3);border:none;border-radius:50%;font-size:16px;cursor:pointer;color:var(--text2);flex-shrink:0}
+.profile-body{overflow-y:auto;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0}
+.profile-body::-webkit-scrollbar{width:4px}
+.profile-body::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+.profile-col{padding:18px 22px;border-right:1px solid var(--border)}
+.profile-col:last-child{border-right:none}
+.profile-sec-title{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.09em;color:var(--text3);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.profile-sec-ct{background:var(--bg3);color:var(--sage);font-size:8px;padding:1px 7px;border-radius:8px;border:1px solid var(--border2)}
+.prop-intro-item{background:var(--bg2);border-radius:8px;padding:9px 11px;margin-bottom:7px;border:1px solid var(--border)}
+.prop-intro-name{font-size:12px;font-weight:500;color:var(--text1)}
+.prop-intro-detail{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px}
+.prop-intro-status{font-family:var(--mono);font-size:8px;margin-top:5px;padding:2px 7px;border-radius:8px;display:inline-block}
+.status-introduced{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(74,144,196,.2)}
+.status-enquired{background:var(--green-bg);color:var(--sage);border:1px solid var(--green-bd)}
+.status-offer{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-bd)}
+.hs-note{background:var(--bg2);border-left:3px solid var(--gold);padding:8px 11px;border-radius:0 7px 7px 0;margin-bottom:7px}
+.hs-note-date{font-family:var(--mono);font-size:8px;color:var(--text3);margin-bottom:2px}
+.hs-note-src{font-family:var(--mono);font-size:7px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.hs-note-txt{font-size:11px;color:var(--text2);line-height:1.5}
+.profile-contact-row{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.profile-cta{flex:1;padding:9px;border-radius:7px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.06em;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;text-align:center}
+.profile-cta.primary{background:var(--moss);border-color:var(--moss);color:#fff}
+.profile-add-note{display:flex;gap:7px;margin-top:10px}
+.profile-add-note input{flex:1;font-family:var(--body);font-size:12px;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text1);outline:none}
+.profile-add-note input:focus{border-color:var(--moss)}
+.profile-add-note button{background:var(--moss);color:#fff;border:none;border-radius:7px;padding:8px 13px;font-family:var(--mono);font-size:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+@media(max-width:600px){
+  .profile-body{grid-template-columns:1fr}
+  .profile-col{border-right:none;border-bottom:1px solid var(--border)}
+}
 </style>
 </head>
 <body>
@@ -972,6 +1014,80 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 </div>
 
 
+
+  <!-- CLIENT PROFILE MODAL -->
+  <div class="profile-overlay" id="clientProfileOverlay" onclick="if(event.target===this)closeClientProfile()">
+    <div class="profile-modal">
+      <div class="profile-hdr">
+        <div class="profile-av profile-av-c" id="cpAv">—</div>
+        <div style="flex:1;min-width:0">
+          <div class="profile-name" id="cpName">—</div>
+          <div class="profile-role" id="cpRole">—</div>
+          <div class="profile-phone" id="cpPhone">—</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px" id="cpEmail">—</div>
+        </div>
+        <button class="profile-close" onclick="closeClientProfile()">✕</button>
+      </div>
+      <div class="profile-body">
+        <div class="profile-col">
+          <div class="profile-sec-title">Requirement <span class="profile-sec-ct" id="cpReq">—</span></div>
+          <div id="cpReqDetail" style="font-size:11px;color:var(--text2);margin-bottom:14px;line-height:1.6"></div>
+          <div class="profile-sec-title">Properties Introduced <span class="profile-sec-ct" id="cpPropCt">0</span></div>
+          <div id="cpProps"></div>
+          <div class="profile-contact-row">
+            <button class="profile-cta primary" id="cpCallBtn">📞 Call</button>
+            <button class="profile-cta" id="cpWABtn">💬 WhatsApp</button>
+            <button class="profile-cta" id="cpEmailBtn">✉️ Email</button>
+          </div>
+        </div>
+        <div class="profile-col">
+          <div class="profile-sec-title">Activity & Notes <span class="profile-sec-ct" id="cpNoteCt">0</span></div>
+          <div id="cpNotes"></div>
+          <div class="profile-add-note">
+            <input id="cpNoteInput" placeholder="Add note, call log, HubSpot update…">
+            <button onclick="addClientProfileNote()">Log</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANDLORD PROFILE MODAL -->
+  <div class="profile-overlay" id="llProfileOverlay" onclick="if(event.target===this)closeLLProfile()">
+    <div class="profile-modal">
+      <div class="profile-hdr">
+        <div class="profile-av profile-av-l" id="llpAv">—</div>
+        <div style="flex:1;min-width:0">
+          <div class="profile-name" id="llpName">—</div>
+          <div class="profile-role" id="llpRole">—</div>
+          <div class="profile-phone" id="llpPhone">—</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px" id="llpEmail">—</div>
+        </div>
+        <button class="profile-close" onclick="closeLLProfile()">✕</button>
+      </div>
+      <div class="profile-body">
+        <div class="profile-col">
+          <div class="profile-sec-title">Portfolio</div>
+          <div id="llpPortfolio"></div>
+          <div class="profile-sec-title" style="margin-top:14px">Properties Introduced <span class="profile-sec-ct" id="llpPropCt">0</span></div>
+          <div id="llpProps"></div>
+          <div class="profile-contact-row">
+            <button class="profile-cta primary" id="llpCallBtn">📞 Call</button>
+            <button class="profile-cta" id="llpWABtn">💬 WhatsApp</button>
+            <button class="profile-cta" id="llpEmailBtn">✉️ Email</button>
+          </div>
+        </div>
+        <div class="profile-col">
+          <div class="profile-sec-title">Activity & Notes <span class="profile-sec-ct" id="llpNoteCt">0</span></div>
+          <div id="llpNotes"></div>
+          <div class="profile-add-note">
+            <input id="llpNoteInput" placeholder="Add note, call log, deal update…">
+            <button onclick="addLLProfileNote()">Log</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!-- DRAWER -->
 <div class="dov" id="dOv"></div>
@@ -1484,16 +1600,17 @@ function renderClients(){
   const c=document.getElementById('clCon');
   if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">👤</div><div class="empty-title">No clients</div><div class="empty-sub">Add your first client</div></div>';return;}
   c.innerHTML=fl.map(cl=>`
-    <div class="ccard">
+    <div class="ccard" onclick="openClientProfile('${cl.id}')" style="cursor:pointer">
       <div class="ccard-av"><div class="av-circle av-client">${initials(cl.first,cl.last)}</div></div>
-      <div class="ccard-info" onclick="openDrawer('${cl.id}','client')" style="cursor:pointer">
+      <div class="ccard-info">
         <div class="cc-name">${cl.first} ${cl.last}</div>
-        <div class="cc-role">${cl.company}</div>
+        <div class="cc-role">${cl.company||'—'}</div>
         <div class="cc-meta">${cl.req||'—'}</div>
+        ${cl.phone?`<div style="font-family:var(--mono);font-size:9px;color:var(--sage);margin-top:3px">📱 ${cl.phone}</div>`:''}
       </div>
       <div class="ccard-acts">
-        <button class="ic-btn" onclick="window.location='tel:${cl.phone}'" title="Call">📞</button>
-        <button class="ic-btn" onclick="window.location='mailto:${cl.email}'" title="Email">✉️</button>
+        <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${cl.phone}'" title="Call">📞</button>
+        <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${cl.email}'" title="Email">✉️</button>
       </div>
     </div>`).join('');
 }
@@ -1521,17 +1638,18 @@ function renderLandlords(){
   if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">🏦</div><div class="empty-title">No landlords</div><div class="empty-sub">Add your first landlord</div></div>';return;}
   const relCol={Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
   c.innerHTML=fl.map(ll=>`
-    <div class="ccard">
+    <div class="ccard" onclick="openLandlordProfile('${ll.id}')" style="cursor:pointer">
       <div class="ccard-av"><div class="av-circle av-landlord">${initials(ll.first,ll.last)}</div></div>
-      <div class="ccard-info" onclick="openDrawer('${ll.id}','landlord')" style="cursor:pointer">
+      <div class="ccard-info">
         <div class="cc-name">${ll.first} ${ll.last}</div>
         <div class="cc-role">${ll.company}</div>
         <div class="cc-meta">${ll.buildings||'—'}</div>
+        ${ll.phone?`<div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-top:3px">📱 ${ll.phone}</div>`:''}
         <div style="margin-top:4px"><span style="font-family:var(--mono);font-size:7px;color:${relCol[ll.rel]||'var(--text3)'};text-transform:uppercase;letter-spacing:.05em">● ${ll.rel}</span></div>
       </div>
       <div class="ccard-acts">
-        <button class="ic-btn" onclick="window.location='tel:${ll.phone}'" title="Call">📞</button>
-        <button class="ic-btn" onclick="window.location='mailto:${ll.email}'" title="Email">✉️</button>
+        <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${ll.phone}'" title="Call">📞</button>
+        <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${ll.email}'" title="Email">✉️</button>
       </div>
     </div>`).join('');
 }
@@ -1762,6 +1880,197 @@ if(window.innerWidth >= 900){
   if(dov) { dov.classList.remove('open'); dov.style.display='none'; }
   // Re-enable display when openDrawer is called
   const origOpen = window.openDrawer;
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// CLIENT PROFILE
+// ══════════════════════════════════════════════════════════════════
+let activeClientId = null;
+let activeLLId = null;
+
+function openClientProfile(id){
+  const cl = clients.find(x=>x.id===id);
+  if(!cl) return;
+  activeClientId = id;
+
+  // Header
+  document.getElementById('cpAv').textContent = initials(cl.first,cl.last);
+  document.getElementById('cpName').textContent = [cl.first,cl.last].filter(Boolean).join(' ');
+  document.getElementById('cpRole').textContent = cl.company||'—';
+  document.getElementById('cpPhone').textContent = cl.phone ? '📱 '+cl.phone : '—';
+  document.getElementById('cpEmail').textContent = cl.email||'—';
+  document.getElementById('cpReq').textContent = cl.req||'—';
+  document.getElementById('cpReqDetail').textContent = [cl.req, cl.notes].filter(Boolean).join(' · ') || '—';
+
+  // Contact buttons
+  document.getElementById('cpCallBtn').onclick = ()=>cl.phone&&(window.location='tel:'+cl.phone);
+  document.getElementById('cpWABtn').onclick = ()=>cl.phone&&window.open('https://wa.me/'+cl.phone.replace(/\D/g,''));
+  document.getElementById('cpEmailBtn').onclick = ()=>cl.email&&(window.location='mailto:'+cl.email);
+
+  // Properties introduced — match from pipeline + listings introduced field
+  const introduced = pipeline.filter(p=>
+    p.client&&p.client.toLowerCase().includes((cl.first||'').toLowerCase())
+  );
+  // Also check if client has introduced listings stored
+  const clListings = cl.introducedListings||[];
+  document.getElementById('cpPropCt').textContent = Math.max(introduced.length, clListings.length);
+
+  let propsHtml = '';
+  if(introduced.length){
+    introduced.forEach(p=>{
+      const l = listings.find(x=>x.id===p.listingId);
+      propsHtml += `<div class="prop-intro-item">
+        <div class="prop-intro-name">${l?l.building:'Unknown property'}</div>
+        <div class="prop-intro-detail">${l?l.address:''}</div>
+        <div class="prop-intro-detail">${l?fP(l.price,l.type):''} ${l?'· '+fG(l.gla):''}</div>
+        <span class="prop-intro-status ${p.stage==='HOA drafting'?'status-offer':p.stage==='Proposal sent'?'status-enquired':'status-introduced'}">${p.stage}</span>
+      </div>`;
+    });
+  } else if(clListings.length){
+    clListings.forEach(li=>{
+      propsHtml += `<div class="prop-intro-item">
+        <div class="prop-intro-name">${li.name}</div>
+        <div class="prop-intro-detail">${li.address||''}</div>
+        <span class="prop-intro-status status-introduced">${li.status||'Introduced'}</span>
+      </div>`;
+    });
+  } else {
+    propsHtml = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No properties introduced yet</div>';
+  }
+  document.getElementById('cpProps').innerHTML = propsHtml;
+
+  // Notes — local + HubSpot label
+  renderClientProfileNotes(cl);
+
+  document.getElementById('clientProfileOverlay').classList.add('open');
+}
+
+function renderClientProfileNotes(cl){
+  const notes = cl.notes2||[];
+  document.getElementById('cpNoteCt').textContent = notes.length;
+  if(!notes.length){
+    document.getElementById('cpNotes').innerHTML = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No activity logged yet.</div>';
+    return;
+  }
+  document.getElementById('cpNotes').innerHTML = notes.slice().reverse().map(n=>`
+    <div class="hs-note">
+      <div class="hs-note-date">${n.date}</div>
+      ${n.source?`<div class="hs-note-src">📊 ${n.source}</div>`:''}
+      <div class="hs-note-txt">${n.text}</div>
+    </div>`).join('');
+}
+
+function addClientProfileNote(){
+  const text = document.getElementById('cpNoteInput').value.trim();
+  if(!text||!activeClientId) return;
+  const cl = clients.find(x=>x.id===activeClientId);
+  if(!cl) return;
+  if(!cl.notes2) cl.notes2=[];
+  cl.notes2.push({date:new Date().toISOString().slice(0,10),text,source:null});
+  document.getElementById('cpNoteInput').value='';
+  save();
+  renderClientProfileNotes(cl);
+  showToast('Note logged ✓');
+}
+
+function closeClientProfile(){
+  document.getElementById('clientProfileOverlay').classList.remove('open');
+  activeClientId=null;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// LANDLORD PROFILE
+// ══════════════════════════════════════════════════════════════════
+function openLandlordProfile(id){
+  const ll = landlords.find(x=>x.id===id);
+  if(!ll) return;
+  activeLLId = id;
+
+  const relCol={Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
+
+  // Header
+  document.getElementById('llpAv').textContent = initials(ll.first,ll.last);
+  document.getElementById('llpName').textContent = [ll.first,ll.last].filter(Boolean).join(' ');
+  document.getElementById('llpRole').textContent = ll.company||'—';
+  document.getElementById('llpPhone').textContent = ll.phone ? '📱 '+ll.phone : '—';
+  document.getElementById('llpEmail').textContent = ll.email||'—';
+
+  // Contact buttons
+  document.getElementById('llpCallBtn').onclick = ()=>ll.phone&&(window.location='tel:'+ll.phone);
+  document.getElementById('llpWABtn').onclick = ()=>ll.phone&&window.open('https://wa.me/'+ll.phone.replace(/\D/g,''));
+  document.getElementById('llpEmailBtn').onclick = ()=>ll.email&&(window.location='mailto:'+ll.email);
+
+  // Portfolio section
+  document.getElementById('llpPortfolio').innerHTML = `
+    <div style="margin-bottom:10px">
+      <div class="det-row"><span class="det-k">Node</span><span class="det-v">${ll.node||'—'}</span></div>
+      <div class="det-row"><span class="det-k">Buildings</span><span class="det-v" style="text-align:left">${ll.buildings||'—'}</span></div>
+      <div class="det-row"><span class="det-k">Relationship</span><span class="det-v" style="color:${relCol[ll.rel]||'var(--text3)'}">${ll.rel}</span></div>
+      ${ll.notes?`<div class="det-row"><span class="det-k">Notes</span><span class="det-v" style="text-align:left;font-size:11px;color:var(--text2)">${ll.notes}</span></div>`:''}
+    </div>`;
+
+  // Properties the landlord has — match from listings by building name
+  const llBuildings = (ll.buildings||'').split(',').map(b=>b.trim().toLowerCase()).filter(Boolean);
+  const llListings = listings.filter(l=>
+    llBuildings.some(b=>l.building.toLowerCase().includes(b)||l.address.toLowerCase().includes(b))
+  );
+  document.getElementById('llpPropCt').textContent = llListings.length;
+
+  let llPropsHtml = '';
+  if(llListings.length){
+    llListings.forEach(l=>{
+      // Check if in pipeline
+      const inPipe = pipeline.find(p=>p.listingId===l.id);
+      llPropsHtml += `<div class="prop-intro-item">
+        <div class="prop-intro-name">${l.building}</div>
+        <div class="prop-intro-detail">${l.address}</div>
+        <div class="prop-intro-detail">${fP(l.price,l.type)} · ${fG(l.gla)} · ${l.grade}-Grade</div>
+        <span class="prop-intro-status ${inPipe?'status-enquired':'status-introduced'}">${inPipe?inPipe.stage+' — '+inPipe.client:'Available'}</span>
+      </div>`;
+    });
+  } else {
+    llPropsHtml = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No listings matched</div>';
+  }
+  document.getElementById('llpProps').innerHTML = llPropsHtml;
+
+  // Notes
+  renderLLProfileNotes(ll);
+
+  document.getElementById('llProfileOverlay').classList.add('open');
+}
+
+function renderLLProfileNotes(ll){
+  const notes = ll.notes2||[];
+  document.getElementById('llpNoteCt').textContent = notes.length;
+  if(!notes.length){
+    document.getElementById('llpNotes').innerHTML = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No activity logged yet.</div>';
+    return;
+  }
+  document.getElementById('llpNotes').innerHTML = notes.slice().reverse().map(n=>`
+    <div class="hs-note">
+      <div class="hs-note-date">${n.date}</div>
+      ${n.source?`<div class="hs-note-src">📊 ${n.source}</div>`:''}
+      <div class="hs-note-txt">${n.text}</div>
+    </div>`).join('');
+}
+
+function addLLProfileNote(){
+  const text = document.getElementById('llpNoteInput').value.trim();
+  if(!text||!activeLLId) return;
+  const ll = landlords.find(x=>x.id===activeLLId);
+  if(!ll) return;
+  if(!ll.notes2) ll.notes2=[];
+  ll.notes2.push({date:new Date().toISOString().slice(0,10),text,source:null});
+  document.getElementById('llpNoteInput').value='';
+  save();
+  renderLLProfileNotes(ll);
+  showToast('Note logged ✓');
+}
+
+function closeLLProfile(){
+  document.getElementById('llProfileOverlay').classList.remove('open');
+  activeLLId=null;
 }
 
 </script>
