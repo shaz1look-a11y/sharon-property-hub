@@ -1609,7 +1609,7 @@ function renderClients(){
   const c=document.getElementById('clCon');
   if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">👤</div><div class="empty-title">No clients</div><div class="empty-sub">Add your first client</div></div>';return;}
   c.innerHTML=fl.map(cl=>`
-    <div class="ccard" onclick="openClientProfile('${cl.id}')" style="cursor:pointer">
+    <div class="ccard" onclick="openDrawer('${cl.id}','client')" style="cursor:pointer">
       <div class="ccard-av"><div class="av-circle av-client">${initials(cl.first,cl.last)}</div></div>
       <div class="ccard-info">
         <div class="cc-name">${cl.first} ${cl.last}</div>
