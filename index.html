@@ -1896,10 +1896,7 @@ if(window.innerWidth >= 900){
 // ══════════════════════════════════════════════════════════════════
 // CLIENT PROFILE
 // ══════════════════════════════════════════════════════════════════
-let activeClientId = null;
-let activeLLId = null;
-
-
+var activeClientId=null;var activeLLId=null;
 function openClientProfile(id){
   const cl = clients.find(x=>x.id===id);
   if(!cl) return;
