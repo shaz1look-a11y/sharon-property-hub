@@ -1648,7 +1648,7 @@ function renderLandlords(){
   if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">🏦</div><div class="empty-title">No landlords</div><div class="empty-sub">Add your first landlord</div></div>';return;}
   const relCol={Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
   c.innerHTML=fl.map(ll=>`
-    <div class="ccard" onclick="openLandlordProfile('${ll.id}')" style="cursor:pointer">
+    <div class="ccard" onclick="openDrawer('${ll.id}')" style="cursor:pointer">
       <div class="ccard-av"><div class="av-circle av-landlord">${initials(ll.first,ll.last)}</div></div>
       <div class="ccard-info">
         <div class="cc-name">${ll.first} ${ll.last}</div>
@@ -1990,7 +1990,7 @@ function closeClientProfile(){
 // ══════════════════════════════════════════════════════════════════
 // LANDLORD PROFILE
 // ══════════════════════════════════════════════════════════════════
-function openLandlordProfile(id){
+function openDrawer(id){
   const ll = landlords.find(x=>x.id===id);
   if(!ll) return;
   activeLLId = id;
