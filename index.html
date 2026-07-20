@@ -1780,6 +1780,11 @@ function toggleClientCard(id){
 }
 
 
+function getFL2(){
+  let l=[...landlords];
+  if(llSrch){const q=llSrch.toLowerCase();l=l.filter(x=>(x.first+' '+x.last+' '+(x.company||'')+(x.buildings||'')).toLowerCase().includes(q));}
+  return l;
+}
 function renderLandlords(){
   const fl=getFL2();
   document.getElementById('llCt').textContent=fl.length;
