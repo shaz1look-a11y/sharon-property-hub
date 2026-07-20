@@ -2662,28 +2662,6 @@ document.getElementById('toggleAddLL').addEventListener('click',()=>{
   const f=document.getElementById('addLLForm');
   const o=f.classList.toggle('open');
   document.getElementById('toggleAddLL').textContent=o?'✕ Cancel':'+ Add Landlord';
-})
-document.getElementById('saveLL').addEventListener('click',()=>{
-  const g=id=>document.getElementById(id).value.trim();
-  landlords.unshift({
-    id:'ll'+Date.now(),
-    first:g('llfN'),last:g('lllN'),
-    company:g('llcN'),
-    phone:g('llpN'),email:g('lleN'),
-    buildings:g('llbN'),
-    node:document.getElementById('llnN').value,
-    rel:document.getElementById('llrN').value,
-    notes:g('llnotes'),
-    notes2:[]
-  });
-  save();renderLandlords();
-  document.getElementById('addLLForm').classList.remove('open');
-  document.getElementById('toggleAddLL').textContent='+ Add Landlord';
-  ['llfN','lllN','llcN','llpN','lleN','llbN','llnotes'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.value='';
-  });
-  showToast('Landlord saved ✓');
 });
 ;
 
