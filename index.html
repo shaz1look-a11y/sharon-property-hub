@@ -1,0 +1,2689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#080e0b">
+<title>Sharon Marais · Property Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg0:      #080e0b;
+  --bg1:      #0f1a13;
+  --bg2:      #152019;
+  --bg3:      #1c2d22;
+  --bg4:      #243529;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.13);
+  --moss:     #3a7d56;
+  --sage:     #5aad7a;
+  --mint:     #8dd4aa;
+  --mist:     #b8d9c6;
+  --text1:    #f0ede8;
+  --text2:    #9aaa9f;
+  --text3:    #5c6e63;
+  --gold:     #c9953a;
+  --gold-bg:  rgba(201,149,58,0.12);
+  --gold-bd:  rgba(201,149,58,0.3);
+  --red:      #d95f4b;
+  --red-bg:   rgba(217,95,75,0.12);
+  --purple:   #9b7fd4;
+  --purple-bg:rgba(155,127,212,0.12);
+  --blue:     #4a90c4;
+  --blue-bg:  rgba(74,144,196,0.12);
+  --green-bg: rgba(90,173,122,0.12);
+  --green-bd: rgba(90,173,122,0.3);
+  --display:  'Inter', sans-serif;
+  --body:     'Inter', sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+  --nav-h:    62px;
+  --safe:     env(safe-area-inset-bottom, 0px);
+  --r:        10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--text1);font-size:14px;line-height:1.5;overscroll-behavior:none}
+#app{display:flex;flex-direction:column;height:100dvh;max-width:480px;margin:0 auto;position:relative;background:var(--bg0)}
+
+@media (min-width: 900px) {
+  html,body{height:100%;overflow:hidden}
+  body{background:var(--bg0)}
+
+  #app{
+    max-width:100% !important;
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    margin:0;
+    box-shadow:none;
+  }
+
+  /* HEADER — full width top bar */
+  .hdr{
+    width:100%;
+    flex-shrink:0;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    padding:0 24px;
+    height:60px;
+    border-bottom:1px solid var(--border);
+    gap:16px;
+    background:var(--bg1);
+  }
+  .hdr-top{display:flex;align-items:center;gap:12px;flex:1}
+  .brand-name{font-size:15px;white-space:nowrap}
+  .brand-sub{display:none}
+  .scr-title{font-size:15px;font-weight:500;margin:0;white-space:nowrap;color:var(--text1)}
+  .scr-sub{font-size:8px;margin:0;color:var(--sage);text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+  #statsStrip{
+    display:flex !important;
+    border:none;
+    margin:0;
+    margin-left:auto;
+    gap:0;
+    flex-shrink:0;
+  }
+  .stat{padding:4px 18px;border-right:1px solid var(--border);border-bottom:none}
+  .stat:last-child{border-right:none}
+  .stat-v{font-size:15px}
+  .stat-l{font-size:7px}
+  #hdrBadge{display:none}
+
+  /* BODY AREA — sidebar + content side by side */
+  .desktop-body{
+    display:flex;
+    flex:1;
+    overflow:hidden;
+    width:100%;
+  }
+
+  /* SIDEBAR NAV */
+  .bnav{
+    position:static !important;
+    transform:none !important;
+    width:220px;
+    min-width:220px;
+    height:100%;
+    flex-direction:column;
+    background:var(--bg1);
+    border-right:1px solid var(--border);
+    border-top:none;
+    justify-content:flex-start;
+    padding:16px 0 0;
+    overflow-y:auto;
+    flex-shrink:0;
+  }
+  /* Remove safe area padding on desktop */
+  .bnav{padding-bottom:0 !important}
+
+  .nbtn{
+    flex-direction:row !important;
+    justify-content:flex-start;
+    align-items:center;
+    gap:12px;
+    padding:11px 20px;
+    border-radius:0;
+    width:100%;
+    border-left:3px solid transparent;
+  }
+  .nbtn.active{background:rgba(90,173,122,.08);border-left:3px solid var(--sage)}
+  .nicon{font-size:15px}
+  .nlbl{
+    font-size:12px !important;
+    letter-spacing:.01em !important;
+    text-transform:none !important;
+    color:var(--text2) !important;
+    display:block !important;
+  }
+  .nbtn.active .nlbl{color:var(--sage) !important}
+
+  /* SIDEBAR LOGO AREA */
+  .sidebar-brand{
+    display:block;
+    padding:4px 20px 16px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:8px;
+  }
+  .sidebar-brand-name{
+    font-size:13px;
+    font-weight:600;
+    color:var(--text1);
+  }
+  .sidebar-brand-sub{
+    font-family:var(--mono);
+    font-size:8px;
+    color:var(--sage);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-top:2px;
+  }
+
+  /* SCREENS CONTAINER */
+  .screens-wrap{
+    flex:1;
+    overflow:hidden;
+    position:relative;
+  }
+
+  /* SCREENS */
+  .scr{position:absolute;inset:0;overflow:hidden}
+  .scr.active{display:flex;flex-direction:column}
+  .scr-body{
+    flex:1;
+    overflow-y:auto;
+    padding:24px 32px 24px;
+    height:100%;
+  }
+  .scr-body::-webkit-scrollbar{width:5px}
+  .scr-body::-webkit-scrollbar-track{background:transparent}
+  .scr-body::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+
+  /* CARD GRIDS */
+  #listCon,#mktCon{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:12px;
+    align-items:start;
+  }
+  #listCon .card,#mktCon .card{margin-bottom:0}
+
+  #clCon,#llCon{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:10px;
+    align-items:start;
+  }
+  #clCon .ccard,#llCon .ccard{margin-bottom:0}
+  #clCon .ccard:has(.ccard-detail:not([style*="none"])),
+  #llCon .ccard:has(.ccard-detail:not([style*="none"])){grid-column:1/-1}
+
+  #pipeCon{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:12px;
+    align-items:start;
+  }
+  #pipeCon .pipe-card{margin-bottom:0}
+
+  #mGreen,#mYellow,#mMkt{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:10px;
+  }
+  #mGreen .mcrd,#mYellow .mcrd,#mMkt .mcrd{margin-bottom:0}
+
+  #scr-commission .scr-body{max-width:680px}
+
+  .fprow{flex-wrap:wrap}
+  .srch-wrap{max-width:380px}
+
+  /* TOAST */
+  .toast{bottom:24px;left:calc(220px + 50%)}
+
+
+
+  /* HIDE mobile bottom padding artifacts */
+  .fb-status{bottom:16px;right:16px}
+  .enq-notif{max-width:100%}
+  .toast{bottom:24px}
+}
+
+
+/* HEADER */
+.hdr{background:var(--bg1);padding:16px 20px 10px;flex-shrink:0;border-bottom:1px solid var(--border)}
+.hdr-top{display:flex;justify-content:space-between;align-items:flex-start}
+.brand-name{font-family:var(--body);font-size:18px;font-weight:600;color:var(--text1);line-height:1.1}
+.brand-sub{font-family:var(--mono);font-size:8px;color:var(--sage);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.hdr-badge{background:var(--bg3);color:var(--mint);font-family:var(--mono);font-size:9px;padding:4px 10px;border-radius:20px;letter-spacing:.05em;border:1px solid var(--border2);white-space:nowrap}
+.scr-title{font-family:var(--body);font-size:20px;font-weight:600;color:var(--text1);margin-top:8px;line-height:1.1}
+.scr-sub{font-family:var(--mono);font-size:8px;color:var(--sage);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+
+/* STATS */
+.stats{display:flex;border-top:1px solid var(--border);margin-top:8px}
+.stat{flex:1;padding:10px 4px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-v{font-family:var(--body);font-size:26px;font-weight:700;color:var(--text1);line-height:1}
+.stat-l{font-family:var(--mono);font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-top:3px}
+
+/* BODY */
+.scr-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 14px calc(var(--nav-h) + var(--safe) + 14px)}
+.scr-body::-webkit-scrollbar{display:none}
+
+/* NAV */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--bg1);display:flex;border-top:1px solid var(--border);height:calc(var(--nav-h) + var(--safe));padding-bottom:var(--safe);z-index:100}
+.nbtn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;padding:6px 2px;-webkit-appearance:none}
+.nbtn:active{opacity:.6}
+.nicon{font-size:18px;line-height:1}
+.nlbl{font-family:var(--mono);font-size:7px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);transition:color .15s}
+.nbtn.active .nlbl{color:var(--sage)}
+
+/* SCREENS */
+.scr{display:none;flex-direction:column;height:100%}
+.scr.active{display:flex}
+
+/* CARDS */
+.card{background:var(--bg2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:9px;overflow:hidden;transition:border-color .12s}
+.card:active{border-color:var(--border2)}
+.card-hd{padding:11px 13px 8px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.card-name{font-family:var(--body);font-size:14px;font-weight:600;color:var(--text1);line-height:1.2}
+.card-addr{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:2px;letter-spacing:.02em}
+.card-body{padding:9px 13px}
+.card-ft{padding:7px 13px;background:rgba(0,0,0,.2);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:6px}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;font-family:var(--mono);font-size:7px;font-weight:500;padding:2px 7px;border-radius:20px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.tg-let{background:var(--green-bg);color:var(--sage);border:1px solid var(--green-bd)}
+.tg-sale{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-bd)}
+.tg-cbd{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(74,144,196,.3)}
+.tg-fore{background:var(--purple-bg);color:var(--purple);border:1px solid rgba(155,127,212,.3)}
+.tg-north{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-bd)}
+.tg-grade{background:var(--bg3);color:var(--mist);border:1px solid var(--border2)}
+.tg-avail{background:var(--green-bg);color:var(--sage);border:1px solid var(--green-bd)}
+.tg-market{background:var(--purple-bg);color:var(--purple);border:1px solid rgba(155,127,212,.3)}
+.tg-you{background:var(--green-bg);color:var(--sage);border:1px solid var(--green-bd)}
+
+/* PRICE */
+.price-big{font-family:var(--body);font-size:16px;font-weight:700;color:var(--sage)}
+.price-sub{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:1px}
+
+/* SECTION HDR */
+.sec-hd{display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px}
+.sec-lbl{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3)}
+.sec-ct{font-family:var(--mono);font-size:8px;color:var(--sage);background:var(--green-bg);padding:2px 8px;border-radius:10px;border:1px solid var(--green-bd)}
+
+/* SEARCH */
+.srch-wrap{position:relative;margin-bottom:10px}
+.srch{width:100%;font-family:var(--body);font-size:13px;padding:10px 13px 10px 36px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);color:var(--text1);outline:none;-webkit-appearance:none}
+.srch:focus{border-color:var(--moss)}
+.srch::placeholder{color:var(--text3)}
+.srch-ic{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none;color:var(--text3)}
+
+/* FILTER PILLS */
+.fprow{display:flex;gap:5px;overflow-x:auto;padding-bottom:3px;margin-bottom:10px;scrollbar-width:none}
+.fprow::-webkit-scrollbar{display:none}
+.fp{font-family:var(--mono);font-size:7px;padding:4px 11px;border:1px solid var(--border);border-radius:20px;background:var(--bg2);color:var(--text3);cursor:pointer;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em;transition:all .12s;-webkit-appearance:none;flex-shrink:0}
+.fp.active{background:var(--bg4);border-color:var(--border2);color:var(--mint)}
+
+/* FORMS */
+.form-box{background:var(--bg2);border-radius:var(--r);border:1px solid var(--border);padding:14px;margin-bottom:10px}
+.form-title{font-family:var(--body);font-size:16px;font-weight:600;color:var(--text1);margin-bottom:12px}
+.field{margin-bottom:10px}
+.field label{display:block;font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;font-family:var(--body);font-size:13px;padding:9px 11px;border:1px solid var(--border);border-radius:7px;color:var(--text1);background:var(--bg3);outline:none;-webkit-appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--moss)}
+.field input::placeholder,.field textarea::placeholder{color:var(--text3)}
+.field select option{background:var(--bg2);color:var(--text1)}
+.field textarea{height:66px;resize:none}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+
+/* BUTTONS */
+.btn-p{width:100%;background:var(--moss);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:13px;border:none;border-radius:var(--r);cursor:pointer;-webkit-appearance:none;transition:background .15s}
+.btn-p:active{background:var(--bg4)}
+.btn-g{background:none;border:1px solid var(--border);font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.05em;padding:9px;border-radius:7px;cursor:pointer;color:var(--text2);-webkit-appearance:none;transition:border-color .12s}
+.btn-g:active{border-color:var(--border2)}
+.btn-sm{font-family:var(--mono);font-size:8px;padding:5px 12px;border:1px solid var(--border2);border-radius:20px;background:var(--bg3);color:var(--text2);cursor:pointer;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em;-webkit-appearance:none}
+.btn-sm:active{background:var(--bg4)}
+
+/* MATCH CARDS */
+.mcrd{background:var(--bg2);border-radius:var(--r);border:2px solid var(--border);margin-bottom:9px;overflow:hidden}
+.mcrd.green{border-color:rgba(90,173,122,.4)}
+.mcrd.yellow{border-color:rgba(201,149,58,.4)}
+.mcrd.mkt{border-color:rgba(155,127,212,.4)}
+.mbadge{padding:5px 13px;font-family:var(--mono);font-size:7px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:5px}
+.mbadge.green{background:rgba(90,173,122,.15);color:var(--mint)}
+.mbadge.yellow{background:rgba(201,149,58,.15);color:var(--gold)}
+.mbadge.mkt{background:rgba(155,127,212,.15);color:var(--purple)}
+.mbody{padding:10px 13px 12px}
+.m-name{font-family:var(--body);font-size:14px;font-weight:600;color:var(--text1)}
+.m-addr{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:1px}
+.m-why{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:7px;padding-top:7px;border-top:1px solid var(--border);line-height:1.5}
+
+/* MATCH BANNER */
+.mbanner{background:var(--bg3);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:11px;border:1px solid var(--border2)}
+.mbanner-icon{font-size:26px}
+.mbanner h3{font-family:var(--body);font-size:15px;color:var(--text1);font-weight:600}
+.mbanner p{font-family:var(--mono);font-size:8px;color:var(--sage);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+
+/* DRAWER */
+.dov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;backdrop-filter:blur(4px)}
+.dov.open{display:block}
+.drw{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:480px;max-height:88dvh;background:var(--bg1);border-radius:14px 14px 0 0;z-index:201;transition:transform .3s cubic-bezier(.32,.72,0,1);overflow:hidden;display:flex;flex-direction:column;border-top:1px solid var(--border2)}
+.drw.open{transform:translateX(-50%) translateY(0)}
+.drw-handle{width:34px;height:4px;background:var(--bg4);border-radius:2px;margin:10px auto 0;flex-shrink:0}
+.drw-hd{padding:13px 18px 11px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative}
+.drw-title{font-family:var(--body);font-size:18px;font-weight:600;color:var(--text1)}
+.drw-sub{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:2px}
+.drw-close{position:absolute;top:13px;right:14px;width:28px;height:28px;background:var(--bg3);border:none;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2)}
+.drw-body{overflow-y:auto;padding:14px 18px 28px;flex:1}
+.drw-body::-webkit-scrollbar{display:none}
+.det-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
+.det-row:last-child{border-bottom:none}
+.det-k{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3)}
+.det-v{font-family:var(--body);font-size:13px;font-weight:500;color:var(--text1);text-align:right;max-width:62%}
+.act-bar{padding:11px 14px;border-top:1px solid var(--border);background:var(--bg2);flex-shrink:0}
+.act-row{display:flex;gap:7px}
+
+/* NOTES */
+.note-item{background:var(--bg3);border-left:3px solid var(--moss);padding:7px 11px;border-radius:0 7px 7px 0;margin-bottom:7px}
+.note-date{font-family:var(--mono);font-size:7px;color:var(--text3);margin-bottom:2px}
+.note-txt{font-size:11px;color:var(--text2);line-height:1.5}
+
+/* CONTACT CARDS */
+.ccard{background:var(--bg2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:9px;overflow:hidden;display:block}
+.ccard-summary{display:flex;align-items:stretch}
+.ccard-av{width:52px;background:var(--bg3);display:flex;align-items:center;justify-content:center;flex-shrink:0;border-right:1px solid var(--border)}
+.av-circle{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:500}
+.av-client{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(74,144,196,.3)}
+.av-landlord{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-bd)}
+.ccard-info{padding:10px 12px;flex:1;min-width:0}
+.cc-name{font-size:13px;font-weight:500;color:var(--text1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cc-role{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:1px;text-transform:uppercase;letter-spacing:.05em}
+.cc-meta{font-family:var(--mono);font-size:9px;color:var(--text2);margin-top:5px}
+.ccard-acts{display:flex;flex-direction:column;justify-content:center;gap:5px;padding:8px 10px;border-left:1px solid var(--border);flex-shrink:0}
+.ic-btn{width:30px;height:30px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;-webkit-appearance:none}
+.ic-btn:active{background:var(--bg4)}
+
+/* COMMISSION CALC */
+.calc-box{background:var(--bg2);border-radius:var(--r);border:1px solid var(--border);padding:14px;margin-bottom:10px}
+.calc-title{font-family:var(--body);font-size:17px;font-weight:600;color:var(--text1);margin-bottom:12px}
+.calc-result{background:var(--bg3);border-radius:var(--r);padding:14px;text-align:center;margin-top:12px;border:1px solid var(--border2)}
+.calc-res-lbl{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px}
+.calc-res-val{font-family:var(--body);font-size:28px;font-weight:700;color:var(--sage);line-height:1}
+.calc-res-sub{font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:3px}
+.calc-breakdown{margin-top:10px}
+.calc-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px}
+.calc-row:last-child{border-bottom:none}
+.calc-row-lbl{color:var(--text2)}
+.calc-row-val{font-family:var(--mono);font-weight:500;color:var(--text1)}
+.toggle-row{display:flex;gap:5px;margin-bottom:10px}
+.tog{flex:1;padding:8px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text3);font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;text-align:center;-webkit-appearance:none;transition:all .15s}
+.tog.active{background:var(--moss);border-color:var(--moss);color:#fff}
+
+/* PIPELINE */
+.pipe-card{background:var(--bg2);border-radius:var(--r);border:1px solid var(--border);margin-bottom:9px;overflow:hidden}
+.pipe-stage{font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;font-weight:500;white-space:nowrap;flex-shrink:0}
+.ps-viewing{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(74,144,196,.3)}
+.ps-proposal{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-bd)}
+.ps-hoa{background:var(--green-bg);color:var(--sage);border:1px solid var(--green-bd)}
+.ps-closed{background:var(--bg3);color:var(--text3);border:1px solid var(--border)}
+
+/* LINK */
+.lnk{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:8px;color:var(--sage);text-decoration:none;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--moss);padding-bottom:1px}
+
+/* EMPTY */
+.empty{text-align:center;padding:44px 20px}
+.empty-icon{font-size:36px;margin-bottom:10px}
+.empty-title{font-family:var(--body);font-size:19px;color:var(--text1);margin-bottom:5px}
+.empty-sub{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3)}
+
+/* TOAST */
+.toast{position:fixed;bottom:calc(var(--nav-h) + 14px + var(--safe));left:50%;transform:translateX(-50%) translateY(16px);background:var(--bg4);color:var(--text1);font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.06em;padding:9px 18px;border-radius:20px;border:1px solid var(--border2);opacity:0;transition:all .22s;z-index:300;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ADD FORM TOGGLE */
+.add-form{display:none}
+.add-form.open{display:block}
+.divider{height:1px;background:var(--border);margin:11px 0}
+
+/* ENQUIRY NOTIFICATION BANNER */
+.enq-notif{position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-100%);width:100%;max-width:480px;background:var(--moss);z-index:500;transition:transform .35s cubic-bezier(.32,.72,0,1);border-bottom:2px solid var(--sage)}
+.enq-notif.show{transform:translateX(-50%) translateY(0)}
+.enq-notif-inner{padding:12px 16px;display:flex;align-items:center;gap:10px}
+.enq-notif-icon{font-size:22px;flex-shrink:0}
+.enq-notif-text h4{font-size:13px;font-weight:600;color:#fff}
+.enq-notif-text p{font-size:11px;color:var(--mist);margin-top:2px}
+.enq-notif-acts{margin-left:auto;display:flex;gap:6px;flex-shrink:0}
+.enq-notif-btn{font-family:var(--mono);font-size:8px;padding:5px 10px;border-radius:5px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.enq-notif-btn.primary{background:#fff;color:var(--moss)}
+
+/* FIREBASE STATUS INDICATOR */
+.fb-status{position:fixed;bottom:calc(var(--nav-h) + var(--safe) + 8px);right:12px;width:8px;height:8px;border-radius:50%;background:var(--text3);z-index:99;transition:background .3s}
+.fb-status.connected{background:var(--sage)}
+.fb-status.error{background:var(--red)}
+
+
+
+
+/* ═══════════════════════════════════════════════
+   DESKTOP LAYOUT — Fixed sidebar, offset content
+   ═══════════════════════════════════════════════ */
+@media (min-width: 900px) {
+
+  html, body {
+    height: 100vh;
+    overflow: hidden;
+    background: #060d09;
+  }
+
+  /* App wrapper — full screen, no max-width */
+  #app {
+    max-width: 100% !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: block !important;
+    position: relative;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* ── FIXED SIDEBAR ────────────────────────── */
+  .bnav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 210px !important;
+    height: 100vh !important;
+    background: #0f1a13 !important;
+    border-right: 1px solid rgba(255,255,255,0.07) !important;
+    border-top: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    padding-bottom: 0 !important;
+    transform: none !important;
+    z-index: 50 !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+
+
+  /* Each nav button — horizontal row with icon + label */
+  .nbtn {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 11px !important;
+    padding: 12px 20px !important;
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 0 !important;
+    border-left: 3px solid transparent !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    background: transparent !important;
+    cursor: pointer;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  .nbtn:hover { background: rgba(90,173,122,0.06) !important; }
+  .nbtn.active {
+    background: rgba(90,173,122,0.12) !important;
+    border-left: 3px solid #5aad7a !important;
+  }
+  .nicon {
+    font-size: 16px !important;
+    line-height: 1 !important;
+    flex-shrink: 0;
+  }
+  .nlbl {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    color: #9aaa9f !important;
+    display: block !important;
+    white-space: nowrap;
+  }
+  .nbtn.active .nlbl { color: #5aad7a !important; font-weight: 500 !important; }
+
+  /* ── HEADER — offset by sidebar width ────── */
+  .hdr {
+    position: fixed !important;
+    top: 0 !important;
+    left: 210px !important;
+    right: 0 !important;
+    height: 58px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 0 24px !important;
+    gap: 14px !important;
+    background: #0f1a13 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+    border-left: 1px solid rgba(255,255,255,0.07) !important;
+    z-index: 40 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+  .hdr-top {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    flex: 1 !important;
+    min-width: 0;
+  }
+  .brand-name { font-size: 14px !important; margin: 0 !important; white-space: nowrap; }
+  .brand-sub { display: none !important; }
+  .scr-title { font-size: 15px !important; margin: 0 !important; font-weight: 500 !important; white-space: nowrap; }
+  .scr-sub { font-size: 8px !important; margin: 0 !important; white-space: nowrap; }
+  #hdrBadge { display: none !important; }
+
+  /* Stats strip in header - centred */
+  #statsStrip {
+    display: flex !important;
+    flex-direction: row !important;
+    margin: 0 auto !important;
+    border: none !important;
+    flex-shrink: 0;
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  #statsStrip .stat {
+    padding: 2px 16px !important;
+    border-right: 1px solid rgba(255,255,255,0.07) !important;
+    border-bottom: none !important;
+  }
+  #statsStrip .stat:last-child { border-right: none !important; }
+  .stat-v { font-size: 15px !important; }
+  .stat-l { font-size: 7px !important; }
+
+  /* ── SCREENS — offset by sidebar + header ── */
+  .scr {
+    position: fixed !important;
+    top: 58px !important;
+    left: 210px !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    display: none !important;
+    overflow: hidden !important;
+  }
+  .scr.active {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .scr-body {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    padding: 24px 28px !important;
+    height: 100% !important;
+  }
+  .scr-body::-webkit-scrollbar { width: 5px; }
+  .scr-body::-webkit-scrollbar-track { background: transparent; }
+  .scr-body::-webkit-scrollbar-thumb { background: #243529; border-radius: 3px; }
+
+  /* ── CARD GRIDS ───────────────────────────── */
+  #listCon, #mktCon {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 12px !important;
+    align-items: start;
+  }
+  #listCon .card, #mktCon .card { margin-bottom: 0 !important; }
+
+  #clCon, #llCon {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 10px !important;
+    align-items: start;
+  }
+  #clCon .ccard, #llCon .ccard { margin-bottom: 0 !important; }
+  #clCon .ccard:has(.ccard-detail:not([style*="none"])),
+  #llCon .ccard:has(.ccard-detail:not([style*="none"])) { grid-column: 1 / -1 !important; }
+
+  #pipeCon {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    gap: 12px !important;
+    align-items: start;
+  }
+  #pipeCon .pipe-card { margin-bottom: 0 !important; }
+
+  #mGreen, #mYellow, #mMkt {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+    gap: 10px !important;
+  }
+  #mGreen .mcrd, #mYellow .mcrd, #mMkt .mcrd { margin-bottom: 0 !important; }
+
+  #scr-commission .scr-body { max-width: 640px !important; }
+  .fprow { flex-wrap: wrap; }
+  .srch-wrap { max-width: 340px; }
+
+  /* ── MISC ─────────────────────────────────── */
+  .toast {
+    bottom: 20px !important;
+    left: calc(210px + 24px) !important;
+    transform: none !important;
+    max-width: calc(100vw - 240px) !important;
+  }
+  .toast.show { transform: translateY(0) !important; }
+
+  /* Drawer = centred modal */
+  .drw-handle { display: none !important; }
+      .drw {
+    position: fixed !important;
+    top: 50% !important;
+    left: calc(210px + (100vw - 210px) / 2) !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: 500px !important;
+    max-width: calc(100vw - 250px) !important;
+    max-height: 80vh !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(255,255,255,0.13) !important;
+    display: none !important;
+    transition: none !important;
+  }
+  .drw.open {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Firebase dot */
+  .fb-status { bottom: 16px !important; right: 16px !important; z-index: 200; }
+
+  /* Notification banner */
+  .enq-notif {
+    left: 210px !important;
+    width: calc(100% - 210px) !important;
+    transform: translateY(-100%) !important;
+    max-width: none !important;
+  }
+  .enq-notif.show { transform: translateY(0) !important; }
+  /* Sidebar brand div (injected by JS) */
+  .sb-brand {
+    padding: 22px 20px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+  .sb-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #f0ede8;
+    margin-bottom: 3px;
+  }
+  .sb-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    color: #5aad7a;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+  }
+
+}
+
+
+/* ── PROFILE MODAL ──────────────────────────────────────────────── */
+.profile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.profile-overlay.open{display:flex}
+.profile-modal{background:var(--bg1);width:640px;max-width:96vw;max-height:90vh;border-radius:14px;border:1px solid var(--border2);overflow:hidden;display:flex;flex-direction:column}
+.profile-hdr{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:16px;flex-shrink:0}
+.profile-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:600;flex-shrink:0}
+.profile-av-c{background:rgba(74,144,196,.2);color:var(--blue);border:2px solid rgba(74,144,196,.3)}
+.profile-av-l{background:rgba(201,149,58,.2);color:var(--gold);border:2px solid rgba(201,149,58,.3)}
+.profile-name{font-size:18px;font-weight:600;color:var(--text1)}
+.profile-role{font-family:var(--mono);font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.profile-phone{font-family:var(--mono);font-size:12px;color:var(--sage);margin-top:5px}
+.profile-close{margin-left:auto;width:30px;height:30px;background:var(--bg3);border:none;border-radius:50%;font-size:16px;cursor:pointer;color:var(--text2);flex-shrink:0}
+.profile-body{overflow-y:auto;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0}
+.profile-body::-webkit-scrollbar{width:4px}
+.profile-body::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px}
+.profile-col{padding:18px 22px;border-right:1px solid var(--border)}
+.profile-col:last-child{border-right:none}
+.profile-sec-title{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.09em;color:var(--text3);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.profile-sec-ct{background:var(--bg3);color:var(--sage);font-size:8px;padding:1px 7px;border-radius:8px;border:1px solid var(--border2)}
+.prop-intro-item{background:var(--bg2);border-radius:8px;padding:9px 11px;margin-bottom:7px;border:1px solid var(--border)}
+.prop-intro-name{font-size:12px;font-weight:500;color:var(--text1)}
+.prop-intro-detail{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px}
+.prop-intro-status{font-family:var(--mono);font-size:8px;margin-top:5px;padding:2px 7px;border-radius:8px;display:inline-block}
+.status-introduced{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(74,144,196,.2)}
+.status-enquired{background:var(--green-bg);color:var(--sage);border:1px solid var(--green-bd)}
+.status-offer{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-bd)}
+.hs-note{background:var(--bg2);border-left:3px solid var(--gold);padding:8px 11px;border-radius:0 7px 7px 0;margin-bottom:7px}
+.hs-note-date{font-family:var(--mono);font-size:8px;color:var(--text3);margin-bottom:2px}
+.hs-note-src{font-family:var(--mono);font-size:7px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.hs-note-txt{font-size:11px;color:var(--text2);line-height:1.5}
+.profile-contact-row{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.profile-cta{flex:1;padding:9px;border-radius:7px;font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.06em;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;text-align:center}
+.profile-cta.primary{background:var(--moss);border-color:var(--moss);color:#fff}
+.profile-add-note{display:flex;gap:7px;margin-top:10px}
+.profile-add-note input{flex:1;font-family:var(--body);font-size:12px;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text1);outline:none}
+.profile-add-note input:focus{border-color:var(--moss)}
+.profile-add-note button{background:var(--moss);color:#fff;border:none;border-radius:7px;padding:8px 13px;font-family:var(--mono);font-size:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+@media(max-width:600px){
+  .profile-body{grid-template-columns:1fr}
+  .profile-col{border-right:none;border-bottom:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HEADER -->
+<div class="hdr" id="appHdr">
+  <div class="hdr-top">
+    <div>
+      <div class="brand-name">Sharon Marais</div>
+      <div class="brand-sub">Vermaak Properties · CBD · Foreshore · Northgate</div>
+    </div>
+    <span class="hdr-badge" id="hdrBadge">— listings</span>
+  </div>
+  <div class="scr-title" id="scrTitle">My Listings</div>
+  <div class="scr-sub" id="scrSub">Active portfolio</div>
+  <div class="stats" id="statsStrip">
+    <div class="stat"><div class="stat-v" id="stTotal">—</div><div class="stat-l">Total</div></div>
+    <div class="stat"><div class="stat-v" id="stLet">—</div><div class="stat-l">To Let</div></div>
+    <div class="stat"><div class="stat-v" id="stSale">—</div><div class="stat-l">For Sale</div></div>
+    <div class="stat"><div class="stat-v" id="stMkt">—</div><div class="stat-l">Market</div></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV / SIDEBAR -->
+<nav class="bnav">
+  <button class="nbtn active" data-s="listings"><span class="nicon">🏢</span><span class="nlbl">Listings</span></button>
+  <button class="nbtn" data-s="enquiry"><span class="nicon">🔍</span><span class="nlbl">Enquiry</span></button>
+  <button class="nbtn" data-s="market"><span class="nicon">📊</span><span class="nlbl">Market</span></button>
+  <button class="nbtn" data-s="commission"><span class="nicon">💰</span><span class="nlbl">Calc</span></button>
+  <button class="nbtn" data-s="clients"><span class="nicon">👤</span><span class="nlbl">Clients</span></button>
+  <button class="nbtn" data-s="landlords"><span class="nicon">🏦</span><span class="nlbl">Landlords</span></button>
+  <button class="nbtn" data-s="pipeline"><span class="nicon">📋</span><span class="nlbl">Pipeline</span></button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ SCREEN 1: LISTINGS -->
+<div class="scr active" id="scr-listings">
+  <div class="scr-body">
+    <div class="srch-wrap"><span class="srch-ic">🔍</span><input class="srch" id="lSrch" placeholder="Search building, address, node…" type="search"></div>
+
+    <!-- P24 STATS BAR -->
+    <div id="p24StatsBar" style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:140px">
+        <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px">My P24 To Let</div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span id="p24LetCount" style="font-family:var(--body);font-size:22px;font-weight:700;color:var(--sage)">0</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--text3)">/ 30 max</span>
+        </div>
+        <div style="height:4px;background:var(--bg4);border-radius:2px;margin-top:6px">
+          <div id="p24LetBar" style="height:4px;background:var(--sage);border-radius:2px;transition:width .3s;width:0%"></div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:140px">
+        <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px">My P24 For Sale</div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span id="p24SaleCount" style="font-family:var(--body);font-size:22px;font-weight:700;color:var(--gold)">0</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--text3)">unlimited</span>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:140px">
+        <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px">Vermaak Website</div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span id="websiteCount" style="font-family:var(--body);font-size:22px;font-weight:700;color:var(--text1)">85</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--text3)">total listings</span>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:140px">
+        <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:4px">P24 Slots Available</div>
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span id="p24SlotsLeft" style="font-family:var(--body);font-size:22px;font-weight:700;color:var(--purple)">0</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--text3)">to let slots free</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px">
+      <button onclick="showRotationPlan()" style="font-family:var(--mono);font-size:9px;padding:7px 16px;background:var(--moss);color:#fff;border:none;border-radius:var(--r);cursor:pointer;text-transform:uppercase;letter-spacing:.07em">📊 View Rotation Plan</button>
+    </div>    <div class="fprow" id="lFilt">
+      <button class="fp active" data-f="all">All</button>
+      <button class="fp" data-f="CBD">CBD</button>
+      <button class="fp" data-f="Foreshore">Foreshore</button>
+      <button class="fp" data-f="Northgate">Northgate</button>
+      <button class="fp" data-f="let">To Let</button>
+      <button class="fp" data-f="sale">For Sale</button>
+    </div>
+    <button class="btn-p" id="toggleAdd" style="margin-bottom:10px;background:var(--bg3);border:1px solid var(--border2);color:var(--mint)">+ Add Listing</button>
+    <div class="add-form" id="addForm">
+      <div class="form-box">
+        <div class="form-title">New Listing</div>
+        <div class="field"><label>Building Name</label><input id="nB" placeholder="e.g. The Towers"></div>
+        <div class="field"><label>Address</label><input id="nA" placeholder="e.g. 2 Hertzog Blvd, Foreshore"></div>
+        <div class="frow">
+          <div class="field"><label>Node</label><select id="nN"><option>CBD</option><option>Foreshore</option><option>Northgate</option></select></div>
+          <div class="field"><label>Type</label><select id="nT"><option value="let">To Let</option><option value="sale">For Sale</option></select></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label>GLA (m²)</label><input id="nG" type="number" placeholder="418"></div>
+          <div class="field"><label>Grade</label><select id="nGr"><option>P</option><option>A</option><option>B</option><option>C</option></select></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label>Price / Rental (R)</label><input id="nP" type="number" placeholder="58520"></div>
+          <div class="field"><label>R/m²</label><input id="nR" type="number" placeholder="140"></div>
+        </div>
+        <div class="field"><label>Availability</label><input id="nAv" placeholder="Immediately / Aug 2026"></div>
+        <div class="field"><label>Parking</label><input id="nPk" placeholder="4 basement bays @ R1,700"></div>
+        <div class="field"><label>Description</label><textarea id="nD" placeholder="Key features, landlord motivation…"></textarea></div>
+        <div class="field"><label>Property24 Link</label><input id="nL" type="url" placeholder="https://www.property24.com/…"></div>
+        <button class="btn-p" id="saveNew">Save Listing</button>
+      </div>
+    </div>
+
+    <div class="sec-hd"><span class="sec-lbl">Active Listings</span><span class="sec-ct" id="lCt">0</span></div>
+    <div id="listCon"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SCREEN 2: ENQUIRY -->
+<div class="scr" id="scr-enquiry">
+  <div class="scr-body">
+    <div id="enqForm">
+      <div class="form-box">
+        <div class="form-title">New Enquiry</div>
+        <div class="field"><label>Client / Company</label><input id="eClient" placeholder="e.g. Acme Legal (Pty) Ltd"></div>
+        <div class="frow">
+          <div class="field"><label>Min Size (m²)</label><input id="eMin" type="number" placeholder="200"></div>
+          <div class="field"><label>Max Size (m²)</label><input id="eMax" type="number" placeholder="500"></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label>Max Budget (R)</label><input id="eBudget" type="number" placeholder="80000"></div>
+          <div class="field"><label>Type</label><select id="eType"><option value="any">Any</option><option value="let">To Let</option><option value="sale">For Sale</option></select></div>
+        </div>
+        <div class="field"><label>Preferred Node</label><select id="eNode"><option value="any">Any</option><option value="CBD">CBD</option><option value="Foreshore">Foreshore</option><option value="Northgate">Northgate</option></select></div>
+        <div class="field"><label>Notes</label><textarea id="eNotes" placeholder="Parking needs, occupation date, special requirements…"></textarea></div>
+        <button class="btn-p" id="runMatch">🔍 Find Matches</button>
+      </div>
+    </div>
+    <div id="matchRes" style="display:none">
+      <div class="mbanner">
+        <div class="mbanner-icon">🎯</div>
+        <div><h3 id="mClient">Matches</h3><p id="mSummary">Results ready</p></div>
+      </div>
+      <div class="sec-hd"><span class="sec-lbl" style="color:var(--sage)">✅ Your listings — strong fit</span><span class="sec-ct" id="ctGreen">0</span></div>
+      <div id="mGreen"></div>
+      <div class="sec-hd"><span class="sec-lbl" style="color:var(--gold)">⚠️ Your listings — possible fit</span><span class="sec-ct" id="ctYellow">0</span></div>
+      <div id="mYellow"></div>
+      <div class="sec-hd"><span class="sec-lbl" style="color:var(--purple)">🏢 Market listings — not yours</span><span class="sec-ct" id="ctMkt">0</span></div>
+      <div id="mMkt"></div>
+      <button class="btn-p" id="newEnq" style="background:var(--bg3);border:1px solid var(--border2);color:var(--mint);margin-top:6px">← New Enquiry</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SCREEN 3: MARKET -->
+<div class="scr" id="scr-market">
+  <div class="scr-body">
+    <div class="srch-wrap"><span class="srch-ic">🔍</span><input class="srch" id="mSrch" placeholder="Search market listings…" type="search"></div>
+    <div class="fprow" id="mFilt">
+      <button class="fp active" data-mf="all">All</button>
+      <button class="fp" data-mf="CBD">CBD</button>
+      <button class="fp" data-mf="Foreshore">Foreshore</button>
+      <button class="fp" data-mf="Northgate">Northgate</button>
+      <button class="fp" data-mf="let">To Let</button>
+      <button class="fp" data-mf="sale">For Sale</button>
+    </div>
+    <div class="sec-hd"><span class="sec-lbl">Property24 listings</span><span class="sec-ct" id="mktCt">0</span></div>
+    <div id="mktCon"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SCREEN 4: PIPELINE -->
+<div class="scr" id="scr-pipeline">
+  <div class="scr-body">
+    <div class="sec-hd"><span class="sec-lbl">Active deals</span><span class="sec-ct" id="pipeCt">0</span></div>
+    <div id="pipeCon"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SCREEN 5: COMMISSION -->
+<div class="scr" id="scr-commission">
+  <div class="scr-body">
+    <div class="calc-box">
+      <div class="calc-title">Commission Calculator</div>
+      <div class="toggle-row" id="calcType">
+        <button class="tog active" data-ct="lease">Lease</button>
+        <button class="tog" data-ct="sale">Sale</button>
+      </div>
+      <div id="leaseFields">
+        <div class="frow">
+          <div class="field"><label>Monthly Rental (R)</label><input id="cRental" type="number" placeholder="58520" oninput="calcComm()"></div>
+          <div class="field"><label>Lease Term (years)</label><input id="cTerm" type="number" placeholder="5" min="1" step="1" oninput="calcComm()"></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label>Escalation (%/yr)</label><input id="cEsc" type="number" placeholder="8" value="8" oninput="calcComm()"></div>
+          <div class="field"><label>Your Split (%)</label><input id="cSplit" type="number" placeholder="100" value="100" oninput="calcComm()"></div>
+        </div>
+        <div class="field"><label>Rent-Free (months)</label><input id="cRF" type="number" placeholder="0" value="0" oninput="calcComm()"></div>
+      </div>
+      <div id="saleFields" style="display:none">
+        <div class="field"><label>Purchase Price (R)</label><input id="cSalePrice" type="number" placeholder="5700000" oninput="calcComm()"></div>
+        <div class="frow">
+          <div class="field"><label>Commission Rate (%)</label><input id="cSaleRate" type="number" placeholder="3.5" value="3.5" oninput="calcComm()"></div>
+          <div class="field"><label>Your Split (%)</label><input id="cSaleSplit" type="number" placeholder="100" value="100" oninput="calcComm()"></div>
+        </div>
+      </div>
+      <div class="calc-result" id="calcResult">
+        <div class="calc-res-lbl">Your Commission</div>
+        <div class="calc-res-val" id="calcVal">R 0</div>
+        <div class="calc-res-sub" id="calcSub">Enter values above</div>
+        <div class="calc-breakdown" id="calcBreak"></div>
+      </div>
+    </div>
+
+    <div class="form-box" style="margin-top:0">
+      <div class="form-title" style="font-size:15px;margin-bottom:10px">VAT Calculator</div>
+      <div class="frow">
+        <div class="field"><label>Amount excl. VAT (R)</label><input id="vatEx" type="number" placeholder="58520" oninput="calcVAT()"></div>
+        <div class="field"><label>VAT Rate (%)</label><input id="vatRate" type="number" value="15" oninput="calcVAT()"></div>
+      </div>
+      <div class="calc-result" id="vatResult" style="margin-top:0">
+        <div class="calc-res-lbl">Total incl. VAT</div>
+        <div class="calc-res-val" id="vatVal">R 0</div>
+        <div class="calc-res-sub" id="vatSub">VAT: R 0</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SCREEN 6: CLIENTS -->
+<div class="scr" id="scr-clients">
+  <div class="scr-body">
+    <div class="srch-wrap"><span class="srch-ic">🔍</span><input class="srch" id="clSrch" placeholder="Search clients…" type="search"></div>
+    <button class="btn-p" id="toggleAddClient" onclick="var f=document.getElementById('addClientForm');var o=f.classList.toggle('open');this.textContent=o?'✕ Cancel':'+ Add Client';" style="margin-bottom:10px;background:var(--bg3);border:1px solid var(--border2);color:var(--mint)">+ Add Client</button>
+    <div class="add-form" id="addClientForm">
+      <div class="form-box">
+        <div class="form-title">New Client</div>
+        <div class="frow">
+          <div class="field"><label>First Name</label><input id="cfN" placeholder="Jane"></div>
+          <div class="field"><label>Last Name</label><input id="clN" placeholder="Smith"></div>
+        </div>
+        <div class="field"><label>Company</label><input id="ccN" placeholder="Acme Legal (Pty) Ltd"></div>
+        <div class="frow">
+          <div class="field"><label>Client Type</label>
+            <select id="ctypeN">
+              <option value="Tenant">Tenant</option>
+              <option value="Buyer">Buyer</option>
+              <option value="Tenant & Buyer">Tenant & Buyer</option>
+              <option value="Investor">Investor</option>
+            </select>
+          </div>
+          <div class="field"><label>Phone</label><input id="cpN" type="tel" placeholder="+27 82 000 0000"></div>
+        </div>
+        <div class="field"><label>Email</label><input id="ceN" type="email" placeholder="jane@acme.co.za"></div>
+        <div class="field"><label>Requirement</label><input id="crN" placeholder="200–400m², CBD, To Let, R60k budget"></div>
+        <div class="field"><label>Notes</label><textarea id="cnN" placeholder="Occupation date, parking needs, decision maker…"></textarea></div>
+        <button class="btn-p" id="saveClient" onclick="
+  var g=function(id){return document.getElementById(id)?document.getElementById(id).value.trim():'';};
+  var ct=document.getElementById('ctypeN');
+  var newCl={id:'c'+Date.now(),first:g('cfN'),last:g('clN'),company:g('ccN'),clientType:ct?ct.value:'Tenant',phone:g('cpN'),email:g('ceN'),req:g('crN'),notes:g('cnN'),notes2:[]};
+  if(typeof clients!='undefined'){clients.unshift(newCl);}
+  if(typeof save=='function')save();
+  if(typeof renderClients=='function')renderClients();
+  document.getElementById('addClientForm').classList.remove('open');
+  document.getElementById('toggleAddClient').textContent='+ Add Client';
+  ['cfN','clN','ccN','cpN','ceN','crN','cnN'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  if(typeof showToast=='function')showToast('Client saved ✓');
+">Save Client</button>
+      </div>
+    </div>
+    <div class="sec-hd"><span class="sec-lbl">Client contacts</span><span class="sec-ct" id="clCt">0</span></div>
+    <div id="clCon"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SCREEN 7: LANDLORDS -->
+<div class="scr" id="scr-landlords">
+  <div class="scr-body">
+    <div class="srch-wrap"><span class="srch-ic">🔍</span><input class="srch" id="llSrch" placeholder="Search landlords…" type="search"></div>
+    <button class="btn-p" id="toggleAddLL" onclick="var f=document.getElementById('addLLForm');var o=f.classList.toggle('open');this.textContent=o?'✕ Cancel':'+ Add Landlord';" style="margin-bottom:10px;background:var(--bg3);border:1px solid var(--border2);color:var(--mint)">+ Add Landlord</button>
+    <div class="add-form" id="addLLForm">
+      <div class="form-box">
+        <div class="form-title">New Landlord</div>
+        <div class="frow">
+          <div class="field"><label>First Name</label><input id="llfN" placeholder="Peter"></div>
+          <div class="field"><label>Last Name</label><input id="lllN" placeholder="Botes"></div>
+        </div>
+        <div class="field"><label>Company / Fund</label><input id="llcN" placeholder="Growthpoint Properties"></div>
+        <div class="frow">
+          <div class="field"><label>Phone</label><input id="llpN" type="tel" placeholder="+27 21 000 0000"></div>
+          <div class="field"><label>Email</label><input id="lleN" type="email" placeholder="pbotes@growthpoint.co.za"></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label>Node</label><select id="llnN"><option>CBD</option><option>Foreshore</option><option>Northgate</option><option>Multiple</option></select></div>
+          <div class="field"><label>Relationship</label><select id="llrN"><option>Active</option><option>Warm</option><option>Cold</option><option>New</option></select></div>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <label style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3)">Property Portfolio</label>
+            <button type="button" onclick="addLLPropertyRow()" style="font-family:var(--mono);font-size:8px;padding:4px 12px;background:var(--bg3);border:1px solid var(--border2);color:var(--mint);border-radius:20px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em">+ Add Property</button>
+          </div>
+          <div id="llPropertyList"></div>
+        </div>
+        <div class="field"><label>Notes</label><textarea id="llnotes" placeholder="Vacancy position, preferred tenant types, commission attitude…"></textarea></div>
+        <button class="btn-p" onclick="saveLandlord()">Save Landlord</button>
+      </div>
+    </div>
+    <div class="sec-hd"><span class="sec-lbl">Landlord contacts</span><span class="sec-ct" id="llCt">0</span></div>
+    <div id="llCon"></div>
+  </div>
+</div>
+
+
+  <!-- ENQUIRY NOTIFICATION BANNER -->
+  <div class="enq-notif" id="enqNotif">
+    <div class="enq-notif-inner">
+      <div class="enq-notif-icon">📥</div>
+      <div class="enq-notif-text">
+        <h4 id="enqNotifTitle">New enquiry received</h4>
+        <p id="enqNotifSub">Tap to view</p>
+      </div>
+      <div class="enq-notif-acts">
+        <button class="enq-notif-btn" onclick="dismissEnqNotif()">Dismiss</button>
+        <button class="enq-notif-btn primary" onclick="goToClients()">View</button>
+      </div>
+    </div>
+  </div>
+  <div class="fb-status" id="fbStatus" title="Firebase sync status"></div>
+
+</div>
+
+
+
+  <!-- CLIENT PROFILE MODAL -->
+  <div class="profile-overlay" id="clientProfileOverlay" onclick="if(event.target===this)closeClientProfile()">
+    <div class="profile-modal">
+      <div class="profile-hdr">
+        <div class="profile-av profile-av-c" id="cpAv">—</div>
+        <div style="flex:1;min-width:0">
+          <div class="profile-name" id="cpName">—</div>
+          <div class="profile-role" id="cpRole">—</div>
+          <div class="profile-phone" id="cpPhone">—</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px" id="cpEmail">—</div>
+        </div>
+        <button class="profile-close" onclick="closeClientProfile()">✕</button>
+      </div>
+      <div class="profile-body">
+        <div class="profile-col">
+          <div class="profile-sec-title">Requirement <span class="profile-sec-ct" id="cpReq">—</span></div>
+          <div id="cpReqDetail" style="font-size:11px;color:var(--text2);margin-bottom:14px;line-height:1.6"></div>
+          <div class="profile-sec-title">Properties Introduced <span class="profile-sec-ct" id="cpPropCt">0</span></div>
+          <div id="cpProps"></div>
+          <div class="profile-contact-row">
+            <button class="profile-cta primary" id="cpCallBtn">📞 Call</button>
+            <button class="profile-cta" id="cpWABtn">💬 WhatsApp</button>
+            <button class="profile-cta" id="cpEmailBtn">✉️ Email</button>
+          </div>
+        </div>
+        <div class="profile-col">
+          <div class="profile-sec-title">Activity & Notes <span class="profile-sec-ct" id="cpNoteCt">0</span></div>
+          <div id="cpNotes"></div>
+          <div class="profile-add-note">
+            <input id="cpNoteInput" placeholder="Add note, call log, HubSpot update…">
+            <button onclick="addClientProfileNote()">Log</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANDLORD PROFILE MODAL -->
+  <div class="profile-overlay" id="llProfileOverlay" onclick="if(event.target===this)closeLLProfile()">
+    <div class="profile-modal">
+      <div class="profile-hdr">
+        <div class="profile-av profile-av-l" id="llpAv">—</div>
+        <div style="flex:1;min-width:0">
+          <div class="profile-name" id="llpName">—</div>
+          <div class="profile-role" id="llpRole">—</div>
+          <div class="profile-phone" id="llpPhone">—</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px" id="llpEmail">—</div>
+        </div>
+        <button class="profile-close" onclick="closeLLProfile()">✕</button>
+      </div>
+      <div class="profile-body">
+        <div class="profile-col">
+          <div class="profile-sec-title">Portfolio</div>
+          <div id="llpPortfolio"></div>
+          <div class="profile-sec-title" style="margin-top:14px">Properties Introduced <span class="profile-sec-ct" id="llpPropCt">0</span></div>
+          <div id="llpProps"></div>
+          <div class="profile-contact-row">
+            <button class="profile-cta primary" id="llpCallBtn">📞 Call</button>
+            <button class="profile-cta" id="llpWABtn">💬 WhatsApp</button>
+            <button class="profile-cta" id="llpEmailBtn">✉️ Email</button>
+          </div>
+        </div>
+        <div class="profile-col">
+          <div class="profile-sec-title">Activity & Notes <span class="profile-sec-ct" id="llpNoteCt">0</span></div>
+          <div id="llpNotes"></div>
+          <div class="profile-add-note">
+            <input id="llpNoteInput" placeholder="Add note, call log, deal update…">
+            <button onclick="addLLProfileNote()">Log</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- DRAWER -->
+<div class="dov" id="dOv"></div>
+<div class="drw" id="drw">
+  <div class="drw-handle"></div>
+  <button class="drw-close" id="dClose">✕</button>
+  <div class="drw-hd"><div class="drw-title" id="dTitle">—</div><div class="drw-sub" id="dSub">—</div></div>
+  <div class="drw-body" id="dBody"></div>
+  <div class="act-bar">
+    <div class="act-row">
+      <button class="btn-g" id="dCall" style="flex:1">📞 Call</button>
+      <button class="btn-g" id="dWA" style="flex:1">💬 WhatsApp</button>
+      <button class="btn-g" id="dNote" style="flex:1">📝 Note</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════ DATA
+const SEED_L = [
+  // ── FOR SALE ──────────────────────────────────────────────────────────
+  {id:'l001',p24Active:true,p24AddedDate:'2026-07-01',building:'33 Hout Street',address:'33 Hout Street, Cape Town CBD',node:'CBD',type:'sale',gla:1923,grade:'B',price:43500000,rate:null,avail:'Enquire',parking:'Street / nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/hotel/380141/',desc:'Heritage building built 1890. Hotel/commercial. Developer/investor opportunity.',source:'Vermaak',notes:[]},
+  {id:'l002',p24Active:true,p24AddedDate:'2026-07-01',building:'The Rubik (For Sale)',address:'19 Loop Street, Cape Town CBD',node:'CBD',type:'sale',gla:704,grade:'A',price:26704500,rate:null,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/382043/',desc:'Iconic Loop Street. Magnificent views of Table Mountain.',source:'Vermaak',notes:[]},
+  {id:'l003',p24Active:true,p24AddedDate:'2026-07-01',building:'Tramway House',address:'56 Waterkant Street, Cape Town CBD',node:'CBD',type:'sale',gla:240,grade:'B',price:17000000,rate:null,avail:'Enquire',parking:'Street',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/building/381305/',desc:'Beautiful heritage building. Rich history. Virtual tour available.',source:'Vermaak',notes:[]},
+  {id:'l004',p24Active:true,p24AddedDate:'2026-07-01',building:'Greenmarket Place (Restaurant)',address:'38 Shortmarket Street, Cape Town CBD',node:'CBD',type:'sale',gla:161,grade:'B',price:7000000,rate:null,avail:'Enquire',parking:'Street',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/cape-town/cape-town-city-centre/restaurant/517579/',desc:'Popular Shortmarket Street. Greenmarket Square. Restaurant space.',source:'Vermaak',notes:[]},
+  {id:'l005',p24Active:true,p24AddedDate:'2026-07-01',building:'155 Loop Street',address:'155 Loop Street, Cape Town CBD',node:'CBD',type:'sale',gla:300,grade:'A',price:6500000,rate:null,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/400422/',desc:'Modern commercial space. Ample natural light. Heart of CBD.',source:'Vermaak',notes:[]},
+  {id:'l006',p24Active:true,p24AddedDate:'2026-07-01',building:'Touchstone House (Unit 505)',address:'11 Bree Street, Foreshore',node:'Foreshore',type:'sale',gla:169,grade:'P',price:5700000,rate:null,avail:'Enquire',parking:'Building',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/517839/',desc:'AAA Grade. Financial hub of Foreshore. Premium position.',source:'Vermaak',notes:[]},
+  {id:'l007',p24Active:true,p24AddedDate:'2026-07-01',building:'Northgate Island (Unit A6)',address:'20 Adam Tas Square, Brooklyn',node:'Northgate',type:'sale',gla:155,grade:'A',price:3000000,rate:null,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/milnerton/brooklyn/retail/379278/',desc:'SOLE MANDATE. Mixed-use development. Brooklyn. Off N1.',source:'Vermaak',notes:[]},
+  {id:'l008',p24Active:true,p24AddedDate:'2026-07-01',building:'Northgate Island (Unit 11)',address:'20 Adam Tas Square, Brooklyn',node:'Northgate',type:'sale',gla:138,grade:'A',price:2500000,rate:null,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/milnerton/brooklyn/retail/382326/',desc:'Off N1 National Highway. A Grade precinct.',source:'Vermaak',notes:[]},
+  // ── TO LET ────────────────────────────────────────────────────────────
+  {id:'l009',p24Active:true,p24AddedDate:'2026-07-01',building:'30 St Georges Mall (Retail)',address:'30 St Georges Mall, Cape Town CBD',node:'CBD',type:'let',gla:200,grade:'B',price:112000,rate:560,avail:'Enquire',parking:'Nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/retail/515346/',desc:'Popular St Georges Mall strip. Close to public transport.',source:'Vermaak',notes:[]},
+  {id:'l010',building:'Pepper Club (Restaurant Space)',address:'Corner Pepper & Loop Street, CBD',node:'CBD',type:'let',gla:312,grade:'P',price:124800,rate:400,avail:'Enquire',parking:'Building',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/cape-town-city-centre/restaurant/675333/',desc:'5-star luxury Hotel. Restaurant space on corner Pepper & Loop.',source:'Vermaak',notes:[]},
+  {id:'l011',p24Active:true,p24AddedDate:'2026-07-01',building:'The Felix (Retail 154m²)',address:'58 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:154,grade:'A',price:46200,rate:300,avail:'Immediately',parking:'882 bays',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/cape-town-city-centre/retail/382307/',desc:'Multi-use 10,000m² office + 5,000m² retail. Atrium, braai, renovated facades.',source:'Vermaak',notes:[]},
+  {id:'l012',building:'Protea Assurance Building',address:'142 Longmarket Street, Cape Town CBD',node:'CBD',type:'let',gla:530,grade:'B',price:159000,rate:300,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/cape-town-city-centre/retail/381372/',desc:'St Georges Mall. Opposite Footgear, close to Mr Price, Foodlovers.',source:'Vermaak',notes:[]},
+  {id:'l013',building:'The Rubik (Office To Let)',address:'17 Loop Street, Cape Town CBD',node:'CBD',type:'let',gla:704,grade:'A',price:203456,rate:289,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/650133/',desc:'Iconic. Views of Table Mountain. Mother City landmark.',source:'Vermaak',notes:[]},
+  {id:'l014',building:'Cuthberts',address:'50 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:330,grade:'B',price:90000,rate:273,avail:'Enquire',parking:'Street/nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/513734/',desc:'Popular Adderley Street. Ground floor retail + offices above.',source:'Vermaak',notes:[]},
+  {id:'l015',building:'The Halyard (1,680m²)',address:'4 Christiaan Barnard Street, Foreshore',node:'Foreshore',type:'let',gla:1680,grade:'P',price:445200,rate:265,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/738535/',desc:'NEW. Vibrant Foreshore precinct. Outstanding opportunity. Premium grade.',source:'Vermaak',notes:[]},
+  {id:'l016',building:'2 Long Street (677m²)',address:'2 Long Street, Cape Town CBD',node:'CBD',type:'let',gla:677,grade:'A',price:169225,rate:250,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/727701/',desc:'A-Grade. Ideally positioned heart of CBD. Video tour available.',source:'Vermaak',notes:[]},
+  {id:'l017',building:'2 Long Street (542m²)',address:'2 Long Street, Cape Town CBD',node:'CBD',type:'let',gla:542,grade:'A',price:135500,rate:250,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/727664/',desc:'A-Grade. Cape Town CBD. Video tour available.',source:'Vermaak',notes:[]},
+  {id:'l018',p24Active:true,p24AddedDate:'2026-07-01',building:'Roggebaai Place (2,051m²)',address:'4 Jetty Street, Foreshore',node:'Foreshore',type:'let',gla:2051,grade:'A',price:471730,rate:230,avail:'Enquire',parking:'Ample',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/627495/',desc:'AAA Grade. 24/7 security. Bustling Foreshore.',source:'Vermaak',notes:[]},
+  {id:'l019',building:'Roggebaai Place (2,004m²)',address:'4 Jetty Street, Foreshore',node:'Foreshore',type:'let',gla:2004,grade:'A',price:460920,rate:230,avail:'Enquire',parking:'Ample',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/627304/',desc:'AAA Grade. Top-tier security. Foreshore amenities.',source:'Vermaak',notes:[]},
+  {id:'l020',building:'The Towers (197m²)',address:'2 Hertzog Blvd, Foreshore',node:'Foreshore',type:'let',gla:197,grade:'P',price:42355,rate:215,avail:'Enquire',parking:'Basement + visitor',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/711485/',desc:'P-Grade. Food Lovers Eatery, Seattle Coffee. Fibre. Showers.',source:'Vermaak',notes:[]},
+  {id:'l021',p24Active:true,p24AddedDate:'2026-07-01',building:'The Towers (950m²)',address:'2 Hertzog Blvd, Foreshore',node:'Foreshore',type:'let',gla:950,grade:'P',price:203300,rate:214,avail:'Enquire',parking:'Basement + visitor',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/foreshore/office/657428/',desc:'P-Grade. Panoramic views. MyCiti bus across street.',source:'Vermaak',notes:[]},
+  {id:'l022',p24Active:true,p24AddedDate:'2026-07-01',building:'The Box (1,912m²)',address:'9 Lower Burg Street, Cape Town CBD',node:'CBD',type:'let',gla:1912,grade:'P',price:401520,rate:210,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/548441/',desc:'Premium grade. Step into the realm of excellence. Video available.',source:'Vermaak',notes:[]},
+  {id:'l023',p24Active:true,p24AddedDate:'2026-07-01',building:'The Box (956m²)',address:'9 Lower Burg Street, Cape Town CBD',node:'CBD',type:'let',gla:956,grade:'P',price:200760,rate:210,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379654/',desc:'Premium grade. Half-floor. Video available.',source:'Vermaak',notes:[]},
+  {id:'l024',p24Active:true,p24AddedDate:'2026-07-01',building:'The Towers (450m²)',address:'2 Hertzog Blvd, Foreshore',node:'Foreshore',type:'let',gla:450,grade:'P',price:91800,rate:204,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/building/465872/',desc:'Iconic building. Generator, fibre, 24hr security. Foreshore.',source:'Vermaak',notes:[]},
+  {id:'l025',building:'22 Hans Strijdom Ave (338m²)',address:'22 Hans Strijdom Avenue, Cape Town CBD',node:'CBD',type:'let',gla:338,grade:'A',price:68010,rate:201,avail:'Enquire',parking:'MyCiti bus terminal nearby',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/cape-town-city-centre/retail/706891/',desc:'Heart of CBD. Close to MyCiTi Bus Terminal.',source:'Vermaak',notes:[]},
+  {id:'l026',building:'22 Hans Strijdom Ave (416m²)',address:'22 Hans Strijdom Avenue, Cape Town CBD',node:'CBD',type:'let',gla:416,grade:'A',price:83730,rate:201,avail:'Enquire',parking:'MyCiti bus terminal nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/retail/706799/',desc:'Heart of CBD. MyCiTi Bus Terminal adjacent.',source:'Vermaak',notes:[]},
+  {id:'l027',p24Active:true,p24AddedDate:'2026-07-01',building:'The Towers (263m²)',address:'2 Hertzog Blvd, Foreshore',node:'Foreshore',type:'let',gla:263,grade:'P',price:53668,rate:204,avail:'Immediately',parking:'Basement + visitor',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/657008/',desc:'14th floor. P-Grade. Showers, generator, on-site eateries.',source:'Vermaak',notes:[]},
+  {id:'l028',building:'Convention Towers (339m²)',address:'Heerengracht Street, Cape Town CBD',node:'CBD',type:'let',gla:339,grade:'P',price:69898,rate:206,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/656976/',desc:'Corner of Heerengracht. Premium grade. Iconic CBD address.',source:'Vermaak',notes:[]},
+  {id:'l029',building:'29 Loop Street (232m²)',address:'29 Loop Street, Cape Town CBD',node:'CBD',type:'let',gla:232,grade:'A',price:45240,rate:195,avail:'Immediately',parking:'Street/nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/740293/',desc:'NEW. Loop Street corridor. Connects to retail and city centre.',source:'Vermaak',notes:[]},
+  {id:'l030',building:'The Box (956m² Alt)',address:'9 Lower Burg Street, Cape Town CBD',node:'CBD',type:'let',gla:956,grade:'P',price:186420,rate:195,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/548455/',desc:'Premium grade. Alternative floor option. Video available.',source:'Vermaak',notes:[]},
+  {id:'l031',building:'Frazzitta House (215m²)',address:'172 Long Street, Cape Town CBD',node:'CBD',type:'let',gla:215,grade:'A',price:41925,rate:195,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381388/',desc:'A-Grade 7-storey. Corner Long & Pepper Street.',source:'Vermaak',notes:[]},
+  {id:'l032',building:'30 Waterkant Street (316m²)',address:'30 Waterkant Street, Cape Town CBD',node:'CBD',type:'let',gla:316,grade:'A',price:60040,rate:190,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/660060/',desc:'8-storey A-Grade. Popular Bree Street. Well-positioned.',source:'Vermaak',notes:[]},
+  {id:'l033',p24Active:true,p24AddedDate:'2026-07-01',building:'14 Long Street (1,415m²)',address:'14 Long Street, Cape Town CBD',node:'CBD',type:'let',gla:1415,grade:'A',price:180236,rate:127,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/704403/',desc:'Newly refurbished AAA-grade. Heart of CBD.',source:'Vermaak',notes:[]},
+  {id:'l034',p24Active:true,p24AddedDate:'2026-07-01',building:'Wale Street Chambers (234m²)',address:'Cape Town CBD',node:'CBD',type:'let',gla:234,grade:'B',price:43290,rate:185,avail:'Enquire',parking:'Street',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/703197/',desc:'City Bowl. Near High Court.',source:'Vermaak',notes:[]},
+  {id:'l035',p24Active:true,p24AddedDate:'2026-07-01',building:'Graphic Centre (347m²)',address:'Loop Street, Cape Town CBD',node:'CBD',type:'let',gla:347,grade:'A',price:64195,rate:185,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/685805/',desc:'Loop Street, heart of CBD. A-Grade. Good natural light.',source:'Vermaak',notes:[]},
+  {id:'l036',p24Active:true,p24AddedDate:'2026-07-01',building:'2 Long Street (243m²)',address:'2 Long Street, Cape Town CBD',node:'CBD',type:'let',gla:243,grade:'A',price:44955,rate:185,avail:'Enquire',parking:'1,600 bays nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/382356/',desc:'A-Grade. Video available. Ideally positioned CBD.',source:'Vermaak',notes:[]},
+  {id:'l037',p24Active:true,p24AddedDate:'2026-07-01',building:'14 Long Street (974m²)',address:'14 Long Street, Cape Town CBD',node:'CBD',type:'let',gla:974,grade:'A',price:180236,rate:185,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381024/',desc:'Newly refurbished AAA Grade. Surrounded by amenities. Video.',source:'Vermaak',notes:[]},
+  {id:'l038',building:'Newspaper House (Retail 1,703m²)',address:'St Georges Mall, Cape Town CBD',node:'CBD',type:'let',gla:1703,grade:'B',price:306540,rate:180,avail:'Enquire',parking:'Nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/retail/675289/',desc:'Heart of Cape Town. St Georges Mall Strip. High footfall.',source:'Vermaak',notes:[]},
+  {id:'l039',p24Active:true,p24AddedDate:'2026-07-01',building:'The Felix (Office 663m²)',address:'58 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:663,grade:'A',price:111384,rate:168,avail:'Enquire',parking:'882 bays in building',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/380773/',desc:'Multi-use. 10,000m² office + 5,000m² retail. Atrium, braai.',source:'Vermaak',notes:[]},
+  {id:'l040',building:'19 Louis Gradner (594m²)',address:'19 Louis Gradner Street, Foreshore',node:'Foreshore',type:'let',gla:594,grade:'A',price:98010,rate:165,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/733588/',desc:'Well-appointed. Foreshore precinct. Heart of Cape Town.',source:'Vermaak',notes:[]},
+  {id:'l041',p24Active:true,p24AddedDate:'2026-07-01',building:'CDH Building (2,210m²)',address:'11 Buitengracht Street, Cape Town CBD',node:'CBD',type:'let',gla:2210,grade:'A',price:364594,rate:165,avail:'Enquire',parking:'1,600 bays',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379502/',desc:'AAA Grade. Buitengracht Street. Easy N1/N2 access. Virtual tour.',source:'Vermaak',notes:[]},
+  {id:'l042',building:'Velocity House (883m²)',address:'Keerom Street, Cape Town CBD',node:'CBD',type:'let',gla:883,grade:'A',price:141280,rate:160,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/703656/',desc:'Beautiful heritage building. Keerom Street.',source:'Vermaak',notes:[]},
+  {id:'l043',p24Active:true,p24AddedDate:'2026-07-01',building:'Thomas Pattullo (762m²)',address:'19 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:762,grade:'A',price:121920,rate:160,avail:'Enquire',parking:'1,200 bays',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/foreshore/office/381156/',desc:'Prime A-Grade Foreshore. Jan Smuts Avenue. 1,200 parking.',source:'Vermaak',notes:[]},
+  {id:'l044',p24Active:true,p24AddedDate:'2026-07-01',building:'Thomas Pattullo (946m²)',address:'19 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:946,grade:'A',price:151360,rate:160,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/foreshore/office/379735/',desc:'Prime A-Grade Foreshore. Easy freeway access.',source:'Vermaak',notes:[]},
+  {id:'l045',p24Active:true,p24AddedDate:'2026-07-01',building:'19 Louis Gradner (316m²)',address:'19 Louis Gradner Street, Foreshore',node:'Foreshore',type:'let',gla:316,grade:'A',price:51360,rate:163,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/foreshore/office/637032/',desc:'Foreshore. Close to transport. A-Grade office.',source:'Vermaak',notes:[]},
+  {id:'l046',building:'Velocity House (903m²)',address:'Keerom Street, Cape Town CBD',node:'CBD',type:'let',gla:903,grade:'A',price:135450,rate:150,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/702627/',desc:'Heritage building Keerom Street. A-Grade.',source:'Vermaak',notes:[]},
+  {id:'l047',building:'19 Louis Gradner (169m²)',address:'19 Louis Gradner Street, Foreshore',node:'Foreshore',type:'let',gla:169,grade:'A',price:25350,rate:150,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/foreshore/office/637015/',desc:'Foreshore. Close to transport. Quick access to main routes.',source:'Vermaak',notes:[]},
+  {id:'l048',p24Active:true,p24AddedDate:'2026-07-01',building:'33 Martin Hammerschlag (904m²)',address:'33 Martin Hammerschlag Way, Foreshore',node:'Foreshore',type:'let',gla:904,grade:'A',price:135600,rate:150,avail:'Enquire',parking:'1,500 / 950 basement',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/foreshore/office/380110/',desc:'5-min from MyCiti. A-Grade. Foreshore.',source:'Vermaak',notes:[]},
+  {id:'l049',p24Active:true,p24AddedDate:'2026-07-01',building:'Valuta House (152m²)',address:'Shortmarket Street, Cape Town CBD',node:'CBD',type:'let',gla:152,grade:'B',price:31500,rate:207,avail:'Enquire',parking:'Street/nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/700343/',desc:'Shortmarket Street. Heart of Cape Town.',source:'Vermaak',notes:[]},
+  {id:'l050',p24Active:true,p24AddedDate:'2026-07-01',building:'The Pinnacle (418m²)',address:'33 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:418,grade:'A',price:58520,rate:140,avail:'Immediately',parking:'Basement available',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/494830/',desc:'Distinguished building. 7th floor. Modern. Close to transport.',source:'Vermaak',notes:[]},
+  {id:'l051',p24Active:true,p24AddedDate:'2026-07-01',building:'Highway Park Showroom (300m²)',address:'1 Platinum Drive, Brooklyn, Milnerton',node:'Northgate',type:'let',gla:300,grade:'A',price:40000,rate:133,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/milnerton/brooklyn/showroom/732974/',desc:'Highly visible. Retail showroom. Brooklyn, Milnerton.',source:'Vermaak',notes:[]},
+  {id:'l052',p24Active:true,p24AddedDate:'2026-07-01',building:'Parkalot Building (2,019m²)',address:'Foreshore, Cape Town',node:'Foreshore',type:'let',gla:2019,grade:'B',price:242280,rate:120,avail:'Enquire',parking:'Building parkade',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/storage-unit/552066/',desc:'Foreshore node. Large-format storage/commercial.',source:'Vermaak',notes:[]},
+  {id:'l053',p24Active:true,p24AddedDate:'2026-07-01',building:'47 on Strand (695m²)',address:'47 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:695,grade:'B',price:83400,rate:120,avail:'Enquire',parking:'Street/nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/538772/',desc:'Heart of Cape Town. Ground floor retail + offices above.',source:'Vermaak',notes:[]},
+  {id:'l054',p24Active:true,p24AddedDate:'2026-07-01',building:'Buitengracht Centre (869m²)',address:'125 Buitengracht Street, Cape Town CBD',node:'CBD',type:'let',gla:869,grade:'B',price:104204,rate:120,avail:'Enquire',parking:'1,200 bays',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381485/',desc:'Buitengracht Street. Quick N1 access. Virtual tour.',source:'Vermaak',notes:[]},
+  {id:'l055',p24Active:true,p24AddedDate:'2026-07-01',building:'Salga House (343m²)',address:'44 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:343,grade:'B',price:37730,rate:110,avail:'Enquire',parking:'Nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/380136/',desc:'Near Golden Acre Mall and train station.',source:'Vermaak',notes:[]},
+  {id:'l056',p24Active:true,p24AddedDate:'2026-07-01',building:'Lighthouse Building (495m²)',address:'63 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:495,grade:'B',price:51480,rate:104,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381120/',desc:'Central CBD. Strand Street. Convenient access.',source:'Vermaak',notes:[]},
+  {id:'l057',p24Active:true,p24AddedDate:'2026-07-01',building:'Matador Centre (1,115m²)',address:'62 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:1115,grade:'B',price:112447,rate:101,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/380560/',desc:'Mixed-use. Strand Street. Heart of Cape Town.',source:'Vermaak',notes:[]},
+  {id:'l058',p24Active:true,p24AddedDate:'2026-07-01',building:'33 Waterkant Street (1,116m²)',address:'33 Waterkant Street, Cape Town CBD',node:'CBD',type:'let',gla:1116,grade:'A',price:111600,rate:100,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/682013/',desc:'Fan Walk. Waterkant Street. Character-filled.',source:'Vermaak',notes:[]},
+  {id:'l059',building:'33 Waterkant Street (372m²)',address:'33 Waterkant Street, Cape Town CBD',node:'CBD',type:'let',gla:372,grade:'A',price:37200,rate:100,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/681990/',desc:'Fan Walk. Character-filled Waterkant Street.',source:'Vermaak',notes:[]},
+  {id:'l060',building:'Golden Acre Mall (Retail 1,423m²)',address:'9 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:1423,grade:'B',price:142263,rate:100,avail:'Enquire',parking:'Multi-storey',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/cape-town-city-centre/retail/475707/',desc:'Vibrant Adderley Street mall. High footfall retail.',source:'Vermaak',notes:[]},
+  {id:'l061',building:'Matador Centre (297m²)',address:'62 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:297,grade:'B',price:29474,rate:99,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379933/',desc:'Mixed-use Strand Street. Heart of Cape Town.',source:'Vermaak',notes:[]},
+  {id:'l062',building:'Matador Centre (1,220m²)',address:'62 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:1220,grade:'B',price:121029,rate:99,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379844/',desc:'Mixed-use. Full floor. Strand Street.',source:'Vermaak',notes:[]},
+  {id:'l063',building:'Matador Centre (1,200m²)',address:'62 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:1200,grade:'B',price:119016,rate:99,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379547/',desc:'Mixed-use Strand Street. Full floor option.',source:'Vermaak',notes:[]},
+  {id:'l064',building:'Matador Centre (1,179m²)',address:'62 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:1179,grade:'B',price:116933,rate:99,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379517/',desc:'Mixed-use Strand Street. Floor option.',source:'Vermaak',notes:[]},
+  {id:'l065',building:'Constitution House (233m²)',address:'124 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:233,grade:'B',price:22876,rate:98,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381858/',desc:'Adderley Street. Surrounded by retail.',source:'Vermaak',notes:[]},
+  {id:'l066',building:'Constitution House (222m²)',address:'124 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:222,grade:'B',price:21355,rate:96,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379534/',desc:'Adderley Street. Retail surrounds.',source:'Vermaak',notes:[]},
+  {id:'l067',building:'Constitution House (570m²)',address:'124 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:570,grade:'B',price:54829,rate:96,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381773/',desc:'Adderley Street. Surrounded by retail.',source:'Vermaak',notes:[]},
+  {id:'l068',building:'Constitution House (738m²)',address:'124 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:738,grade:'B',price:70346,rate:95,avail:'Enquire',parking:'1,200 bays',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381113/',desc:'Adderley Street. 1,200 nearby parking bays.',source:'Vermaak',notes:[]},
+  {id:'l069',building:'Constitution House (340m²)',address:'124 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:340,grade:'B',price:32705,rate:96,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/380869/',desc:'Adderley Street. Surrounded by retail.',source:'Vermaak',notes:[]},
+  {id:'l070',building:'Constitution House (398m²)',address:'124 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:398,grade:'B',price:38284,rate:96,avail:'Enquire',parking:'Nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/380265/',desc:'Adderley Street. Heart of Cape Town.',source:'Vermaak',notes:[]},
+  {id:'l071',building:'Winchester House (196m²)',address:'74 Long Street, Cape Town CBD',node:'CBD',type:'let',gla:196,grade:'B',price:null,rate:null,avail:'Immediately',parking:'Street/nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/740333/',desc:'NEW. Victorian-style. 72-74 Long Street. Price on application.',source:'Vermaak',notes:[]},
+  {id:'l072',building:'35 Long Street (389m²)',address:'35 Long Street, Cape Town CBD',node:'CBD',type:'let',gla:389,grade:'B',price:35010,rate:90,avail:'Enquire',parking:'Street/nearby',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/400274/',desc:'Busy Long Street. Surrounded by eateries and retail.',source:'Vermaak',notes:[]},
+  {id:'l073',building:'Oceana House (2,030m²)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:2030,grade:'A',price:365346,rate:180,avail:'July 2026',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/517639/oceana-house-oceana-house-25-jan-smuts-avenue/',desc:'Available from July 2026. Foreshore. Contact Sharon Marais.',source:'Vermaak',notes:[]},
+  {id:'l074',building:'Oceana House (1,957m²)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:1957,grade:'A',price:352260,rate:180,avail:'June 2026',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/517639/oceana-house-25-jan-smuts-avenue/',desc:'Available from June 2026. Foreshore. Contact Sharon Marais.',source:'Vermaak',notes:[]},
+  {id:'l075',building:'11 Adderley Street (1,896m²)',address:'11 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:1896,grade:'A',price:331800,rate:175,avail:'Immediately',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/741417/1-11-adderley-11-adderley-11-adderley-street/',desc:'NEW. Iconic CBD commercial landmark. Highly sought-after A-Grade.',source:'Vermaak',notes:[]},
+  {id:'l076',building:'One Thibault (286m²)',address:'One Thibault, Cape Town CBD',node:'CBD',type:'let',gla:286,grade:'A',price:48620,rate:170,avail:'Enquire',parking:'Building',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/721611/',desc:'Premier reimagined mixed-use skyscraper. Luxury aparthotel + flexible commercial.',source:'Vermaak',notes:[]},
+  {id:'l077',building:'Northgate Island (3,000m² Office)',address:'Northgate Park, Brooklyn, Milnerton',node:'Northgate',type:'let',gla:3000,grade:'A',price:510000,rate:170,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/milnerton/brooklyn/office/643232/',desc:'A-Grade. Northgate Park. Sought-after off N1. Large format office.',source:'Vermaak',notes:[]},
+  {id:'l078',building:'Newspaper House (7,200m²)',address:'122 St Georges Mall, Cape Town CBD',node:'CBD',type:'let',gla:7200,grade:'A',price:1224000,rate:170,avail:'Enquire',parking:'Nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381459/newspaper-house-newspaper-house-122-st-georges-mall/',desc:'Newspaper House. Heart of Cape Town. St Georges Mall. Full building.',source:'Vermaak',notes:[]},
+  {id:'l079',building:'Matador Centre (226m² Retail)',address:'62 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:226,grade:'B',price:38235,rate:169,avail:'Enquire',parking:'R1,450/bay',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/cape-town-city-centre/retail/379539/shop-44-matador-centre-matador-centre-62-strand/',desc:'Ground floor retail. Matador Centre, 62 Strand Street. B-Grade.',source:'Vermaak',notes:[]},
+  {id:'l080',building:'The Felix (274m² Office)',address:'58 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:274,grade:'A',price:46032,rate:168,avail:'Enquire',parking:'882 bays',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/382608/12-the-felix-the-felix-58-strand-street/',desc:'The Felix. Multi-use. 10,000m² office + 5,000m² retail. 882 parking bays.',source:'Vermaak',notes:[]},
+  {id:'l081',building:'Norton Rose House (622m²)',address:'8 Riebeek Street, Cape Town CBD',node:'CBD',type:'let',gla:622,grade:'A',price:102630,rate:165,avail:'Immediately',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/742083/4-norton-rose-house-norton-rose-house-8-riebeek-street/',desc:'NEW. Established CBD precinct. Riebeek Street. A-Grade.',source:'Vermaak',notes:[]},
+  {id:'l082',building:'Bergstan Building (657m²)',address:'52 Loop Street, Cape Town CBD',node:'CBD',type:'let',gla:657,grade:'B',price:118260,rate:180,avail:'Enquire',parking:'None in building',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379524/',desc:'Bergstan Building, 52 Loop Street. CBD. No parking. B-Grade.',source:'Vermaak',notes:[]},
+  {id:'l083',building:'Westminster House (276m²)',address:'Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:276,grade:'B',price:48300,rate:175,avail:'Enquire',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/473044/',desc:'Heritage building. High ceilings, breathtaking views. Adderley Street.',source:'Vermaak',notes:[]},
+  {id:'l084',building:'Roggebaai Place (218m² Retail)',address:'4 Jetty Street, Foreshore',node:'Foreshore',type:'let',gla:218,grade:'P',price:43600,rate:200,avail:'Immediately',parking:'R1,800/bay',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/foreshore/retail/379507/1-roggebaai-place-4-jetty-street/',desc:'AAA Grade. Roggebaai Place retail pocket. Vodacom, Nedbank, Telkom neighbours. CTICC nearby.',source:'Vermaak',notes:[]},
+  {id:'l085',building:'73 Hertzog Blvd (1,843m² Showroom)',address:'73 Hertzog Boulevard, Foreshore',node:'Foreshore',type:'let',gla:1843,grade:'A',price:294880,rate:160,avail:'Immediately',parking:'Enquire',link:'https://m.vermaakproperties.co.za/results/commercial/to-let/cape-town/foreshore/office/380550/',desc:'A-Grade. Ground floor showroom + workshop. Perfectly suited car dealership. Foreshore.',source:'Vermaak',notes:[]},
+];
+
+const SEED_MKT = [
+  {id:'m1',building:'Roggebaai Place',address:'4 Jetty Street, Foreshore',node:'Foreshore',type:'let',gla:2051,price:471730,url:''},
+  {id:'m2',building:'31 Heerengracht Street',address:'Foreshore',node:'Foreshore',type:'let',gla:1012,price:212520,url:''},
+  {id:'m3',building:'73 Hertzog Blvd',address:'Foreshore',node:'Foreshore',type:'let',gla:1843,price:294880,url:''},
+  {id:'m4',building:'Convention Tower (561m²)',address:'40 Heerengracht, Foreshore',node:'Foreshore',type:'let',gla:561,price:112200,url:''},
+  {id:'m5',building:'The Towers (450m²)',address:'2 Hertzog Blvd, Foreshore',node:'Foreshore',type:'let',gla:450,price:90000,url:''},
+  {id:'m6',building:'The Towers (401m²)',address:'2 Hertzog Blvd, Foreshore',node:'Foreshore',type:'let',gla:401,price:80200,url:''},
+  {id:'m7',building:'19 Louis Gradner (142m²)',address:'Foreshore',node:'Foreshore',type:'let',gla:142,price:20590,url:''},
+  {id:'m8',building:'Amber Place (2,019m²)',address:'20 Christiaan Barnard, Foreshore',node:'Foreshore',type:'let',gla:2019,price:242280,url:''},
+  {id:'m9',building:'Touchstone House',address:'Foreshore',node:'Foreshore',type:'sale',gla:null,price:4000000,url:''},
+  {id:'m10',building:'1 Table Bay Blvd (200m²)',address:'Foreshore',node:'Foreshore',type:'sale',gla:200,price:2200000,url:''},
+  {id:'m11',building:'The Pinnacle (P24)',address:'33 Strand Street, CBD',node:'CBD',type:'let',gla:418,price:58520,url:'https://www.property24.com/to-rent/cape-town-city-centre/cape-town/western-cape/9138/116091158'},
+  {id:'m12',building:'84 Shortmarket St (480m²)',address:'CBD',node:'CBD',type:'sale',gla:480,price:22000000,url:''},
+  {id:'m13',building:'30 St Georges Mall',address:'CBD',node:'CBD',type:'sale',gla:240,price:33900000,url:''},
+  {id:'m14',building:'Wale Street Chambers (326m²)',address:'36 Church Street, CBD',node:'CBD',type:'sale',gla:326,price:4320000,url:''},
+  {id:'m15',building:'155 Loop Street (P24)',address:'CBD',node:'CBD',type:'sale',gla:300,price:6500000,url:''},
+  {id:'m16',building:'Northgate Island Unit 11',address:'20 Adam Tas Square, Milnerton',node:'Northgate',type:'sale',gla:138,price:2500000,url:''},
+  {id:'m17',building:'Northgate Island Unit A6',address:'20 Adam Tas Square, Milnerton',node:'Northgate',type:'sale',gla:155,price:3000000,url:''},
+];
+
+const SEED_PIPE = [
+  {id:'p1',client:'Legal firm – CBD',listingId:'l3',stage:'Viewing booked',date:'2026-07-10',notes:'250–300m², need 5 parking bays minimum.'},
+  {id:'p2',client:'Financial services co.',listingId:'l8',stage:'Proposal sent',date:'2026-07-08',notes:'Budget R180k pm. Decision by end July.'},
+  {id:'p3',client:'Tech startup – Foreshore',listingId:'l7',stage:'HOA drafting',date:'2026-07-05',notes:'5yr lease, 3mo rent-free requested. Landlord at 2mo.'},
+];
+
+const SEED_CLIENTS = [
+  {id:'c1',first:'Sarah',last:'Botha',company:'Botha & Partners Inc.',clientType:'Tenant',phone:'+27 82 555 0101',email:'sarah@bothapartners.co.za',req:'300–500m², CBD, To Let, R80k pm',notes:'Decision maker. Lease expiry Oct 2026.',notes2:[{date:'2026-07-10',text:'Viewed The Box — liked the grade, queried parking ratio.'}]},
+  {id:'c2',first:'James',last:'van der Merwe',company:'TechForward (Pty) Ltd',clientType:'Tenant',phone:'+27 72 555 0202',email:'jvdm@techforward.co.za',req:'150–250m², Foreshore, To Let, R55k pm',notes:'Startup, 2–3yr lease preferred. Dog-friendly a bonus.',notes2:[]},
+];
+
+const SEED_LL = [
+  {id:'ll1',first:'Andre',last:'Steyn',company:'Growthpoint Properties',phone:'+27 21 555 0301',email:'asteyn@growthpoint.co.za',buildings:'The Towers, Roggebaai Place',node:'Foreshore',rel:'Active',notes:'Motivated on long vacancies. Prefers 3yr+ leases. Commission-friendly.',notes2:[{date:'2026-07-09',text:'Confirmed 3mo rent-free available on Towers 263m².'}]},
+  {id:'ll2',first:'Pieter',last:'Kruger',company:'Spear REIT',phone:'+27 21 555 0402',email:'pkruger@spear.co.za',buildings:'Convention Tower, Foreshore precinct',node:'Foreshore',rel:'Warm',notes:'Focused on P-Grade tenants. Needs strong covenant.',notes2:[]},
+  {id:'ll3',first:'Diane',last:'Lombard',company:'Private Landlord',phone:'+27 83 555 0503',email:'dlombard@gmail.com',buildings:'Northgate Island units',node:'Northgate',rel:'Active',notes:'Sole mandate granted. Motivated seller. Wants to close by Sep 2026.',notes2:[]},
+];
+
+let listings = JSON.parse(localStorage.getItem('sm_l') || 'null') || SEED_L;
+let market   = JSON.parse(localStorage.getItem('sm_m') || 'null') || SEED_MKT;
+let pipeline = JSON.parse(localStorage.getItem('sm_p') || 'null') || SEED_PIPE;
+
+// ── DATA MIGRATION: ensure all For Sale listings have p24Active + merge new seed listings ──
+(function migratData(){
+  // 1. Mark all For Sale listings as p24Active
+  listings.forEach(l=>{
+    if(l.type==='sale' && !l.p24Active){
+      l.p24Active=true;
+      l.p24AddedDate=l.p24AddedDate||'2026-07-01';
+    }
+  });
+  // 2. Add any new seed listings not yet in localStorage
+  SEED_L.forEach(seed=>{
+    if(!listings.find(l=>l.id===seed.id)){
+      listings.push(seed);
+    }
+  });
+  // 3. Update prices/details from seed if listing exists but seed has newer data
+  listings.forEach(l=>{
+    const seed=SEED_L.find(s=>s.id===l.id);
+    if(seed){
+      // Keep user's p24Active/p24AddedDate but update core data from seed
+      if(!l.p24AddedDate && seed.p24Active) l.p24Active=seed.p24Active;
+    }
+  });
+})();
+let clients  = JSON.parse(localStorage.getItem('sm_c') || 'null') || SEED_CLIENTS;
+let landlords= JSON.parse(localStorage.getItem('sm_ll')|| 'null') || SEED_LL;
+
+let lFilt='all', lSrch='', mFilt='all', mSrch='', clSrch='', llSrch='';
+let openId=null, openType='listing', calcMode='lease';
+
+function save(){
+  localStorage.setItem('sm_l', JSON.stringify(listings));
+  localStorage.setItem('sm_m', JSON.stringify(market));
+  localStorage.setItem('sm_p', JSON.stringify(pipeline));
+  localStorage.setItem('sm_c', JSON.stringify(clients));
+  localStorage.setItem('sm_ll',JSON.stringify(landlords));
+}
+
+// ══════════ FORMAT
+function fP(p,t){if(!p)return'—';if(t==='sale')return'R'+(p/1e6).toFixed(2).replace(/\.?0+$/,'')+'m';return'R'+p.toLocaleString('en-ZA')+'/mo';}
+function fG(g){return g?g.toLocaleString('en-ZA')+' m²':'—';}
+function nodeTag(n){const m={CBD:'tg-cbd',Foreshore:'tg-fore',Northgate:'tg-north'};return`<span class="tag ${m[n]||''}">${n}</span>`;}
+function typeTag(t){return t==='let'?'<span class="tag tg-let">To Let</span>':'<span class="tag tg-sale">For Sale</span>';}
+function initials(f,l){return((f||'?')[0]+(l||'?')[0]).toUpperCase();}
+function fmtR(n){if(!n&&n!==0)return'—';return'R '+Math.round(n).toLocaleString('en-ZA');}
+
+// ══════════ STATS
+function updateStats(){
+  document.getElementById('stTotal').textContent=listings.length;
+  document.getElementById('stLet').textContent=listings.filter(l=>l.type==='let').length;
+  document.getElementById('stSale').textContent=listings.filter(l=>l.type==='sale').length;
+  document.getElementById('stMkt').textContent=market.length;
+  document.getElementById('hdrBadge').textContent=listings.length+' listings';
+  // P24 stats
+  const p24Let=listings.filter(l=>l.type==='let'&&l.p24Active).length;
+  const p24Sale=listings.filter(l=>l.type==='sale'&&l.p24Active).length;
+  const slotsLeft=Math.max(0,30-p24Let);
+  const pct=Math.min(100,Math.round((p24Let/30)*100));
+  if(document.getElementById('p24LetCount')){
+    document.getElementById('p24LetCount').textContent=p24Let;
+    document.getElementById('p24SaleCount').textContent=p24Sale;
+    document.getElementById('p24SlotsLeft').textContent=slotsLeft;
+    document.getElementById('p24LetBar').style.width=pct+'%';
+    document.getElementById('p24LetBar').style.background=pct>=90?'var(--red)':pct>=70?'var(--gold)':'var(--sage)';
+  }
+}
+
+// ══════════ SCREEN META
+const META={
+  listings:{title:'My Listings',sub:'Active portfolio',stats:true},
+  enquiry:{title:'Enquiry Matcher',sub:'Find the perfect fit',stats:false},
+  market:{title:'Market Tracker',sub:'Property24 · Live listings',stats:true},
+  commission:{title:'Commission Calculator',sub:'Lease · Sale · Renewal',stats:false},
+  clients:{title:'Client Contacts',sub:'Tenant prospects',stats:false},
+  landlords:{title:'Landlord Contacts',sub:'Property owners',stats:false},
+  pipeline:{title:'Deal Pipeline',sub:'Deals in progress',stats:false},
+};
+
+function switchScr(s){
+  document.querySelectorAll('.scr').forEach(x=>x.classList.remove('active'));
+  document.getElementById('scr-'+s).classList.add('active');
+  document.querySelectorAll('.nbtn').forEach(b=>b.classList.toggle('active',b.dataset.s===s));
+  const m=META[s];
+  document.getElementById('scrTitle').textContent=m.title;
+  document.getElementById('scrSub').textContent=m.sub;
+  document.getElementById('statsStrip').style.display=m.stats?'flex':'none';
+}
+document.querySelectorAll('.nbtn').forEach(b=>b.addEventListener('click',()=>switchScr(b.dataset.s)));
+
+// ══════════ LISTINGS
+function getFL(){
+  let l=[...listings];
+  if(lFilt==='let')l=l.filter(x=>x.type==='let');
+  else if(lFilt==='sale')l=l.filter(x=>x.type==='sale');
+  else if(lFilt!=='all')l=l.filter(x=>x.node===lFilt);
+  if(lSrch){const q=lSrch.toLowerCase();l=l.filter(x=>(x.building+x.address+x.desc).toLowerCase().includes(q));}
+  return l;
+}
+function renderListings(){
+  const fl=getFL();
+  document.getElementById('lCt').textContent=fl.length;
+  const c=document.getElementById('listCon');
+  if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">🏢</div><div class="empty-title">No listings</div><div class="empty-sub">Adjust filter</div></div>';return;}
+  c.innerHTML=fl.map(l=>`
+    <div class="card" onclick="openDrawer('${l.id}','listing')">
+      <div class="card-hd">
+        <div><div class="card-name">${l.building}</div><div class="card-addr">${l.address}</div></div>
+        <div style="text-align:right;flex-shrink:0">
+          <div class="price-big">${fP(l.price,l.type)}</div>
+          ${l.rate?`<div class="price-sub">R${l.rate}/m²</div>`:''}
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+          ${nodeTag(l.node)} ${typeTag(l.type)}
+          <span class="tag tg-grade">${l.grade}-Grade</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--text3)">${fG(l.gla)}</span>
+        </div>
+        ${l.desc?`<div style="font-size:11px;color:var(--text2);margin-top:7px;line-height:1.5">${l.desc}</div>`:''}
+      </div>
+      <div class="card-ft">
+        <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">📅 ${l.avail}</span>
+        <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">🅿️ ${l.parking||'—'}</span>
+        <div style="display:flex;align-items:center;gap:6px;margin-left:auto">
+          <button onclick="event.stopPropagation();toggleP24('${l.id}')" style="font-family:var(--mono);font-size:7px;padding:2px 8px;border-radius:8px;border:1px solid ${l.p24Active?'var(--sage)':'var(--border2)'};background:${l.p24Active?'var(--green-bg)':'var(--bg3)'};color:${l.p24Active?'var(--sage)':'var(--text3)'};cursor:pointer;text-transform:uppercase;letter-spacing:.05em">${l.p24Active?'✓ On P24':'+ P24'}</button>
+          ${l.link?`<a class="lnk" href="${l.link}" target="_blank" onclick="event.stopPropagation()">View ↗</a>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+document.getElementById('lFilt').addEventListener('click',e=>{const p=e.target.closest('.fp');if(!p)return;document.querySelectorAll('#lFilt .fp').forEach(x=>x.classList.remove('active'));p.classList.add('active');lFilt=p.dataset.f;renderListings();});
+document.getElementById('lSrch').addEventListener('input',e=>{lSrch=e.target.value.trim();renderListings();});
+document.getElementById('toggleAdd').addEventListener('click',()=>{const f=document.getElementById('addForm');const o=f.classList.toggle('open');document.getElementById('toggleAdd').textContent=o?'✕ Cancel':'+ Add Listing';});
+document.getElementById('saveNew').addEventListener('click',()=>{
+  const g=id=>document.getElementById(id).value.trim();
+  listings.unshift({id:'l'+Date.now(),building:g('nB')||'New Listing',address:g('nA'),node:document.getElementById('nN').value,type:document.getElementById('nT').value,gla:parseFloat(g('nG'))||null,grade:document.getElementById('nGr').value,price:parseFloat(g('nP'))||null,rate:parseFloat(g('nR'))||null,avail:g('nAv')||'Enquire',parking:g('nPk'),link:g('nL'),desc:g('nD'),status:'available',notes:[]});
+  save();renderListings();updateStats();
+  document.getElementById('addForm').classList.remove('open');
+  document.getElementById('toggleAdd').textContent='+ Add Listing';
+  showToast('Listing saved ✓');
+});
+
+// ══════════ DRAWER
+function renderNotes(item){
+  const n=item.notes||item.notes2||[];
+  if(!n.length)return'<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No activity yet.</div>';
+  return n.slice().reverse().map(x=>`<div class="note-item"><div class="note-date">${x.date}</div><div class="note-txt">${x.text}</div></div>`).join('');
+}
+
+function openDrawer(id,type){
+  openId=id; openType=type;
+  let item, title, sub, rows=[], noteKey='notes';
+  if(type==='listing'){
+    item=listings.find(x=>x.id===id);
+    if(!item)return;
+    title=item.building; sub=item.address;
+    rows=[
+      ['Node',nodeTag(item.node)],['Type',typeTag(item.type)],
+      ['GLA',fG(item.gla)],['Grade',item.grade+'-Grade'],
+      ['Price',`<span style="font-family:var(--body);font-size:17px;font-weight:700;color:var(--sage)">${fP(item.price,item.type)}</span>`],
+      item.rate?['Rate','R'+item.rate+'/m²/mo']:null,
+      ['Available',item.avail],['Parking',item.parking||'—'],
+      item.desc?['Description',`<span style="text-align:left;font-size:12px;color:var(--text2)">${item.desc}</span>`]:null,
+      item.link?['Property24',`<a class="lnk" href="${item.link}" target="_blank">View ↗</a>`]:null,
+    ].filter(Boolean);
+  } else if(type==='client'){
+    item=clients.find(x=>x.id===id); if(!item)return;
+    title=item.first+' '+item.last; sub=item.company;
+    noteKey='notes2';
+    rows=[['Client Type',item.clientType?('<span class="tag tg-let">'+item.clientType+'</span>'):'—'],['Company',item.company||'—'],['Mobile','<a class="lnk" href="tel:'+(item.phone||'')+'">📱 '+(item.phone||'—')+'</a>'],['WhatsApp',item.phone?'<a class="lnk" href="https://wa.me/'+(item.phone||'').replace(/[^0-9]/g,'')+'" target="_blank">💬 WhatsApp</a>':'—'],['Email','<a class="lnk" href="mailto:'+(item.email||'')+'">'+( item.email||'—')+'</a>'],['Requirement',item.req||'—'],['Notes','<span style="font-size:12px;color:var(--text2);text-align:left">'+(item.notes||'—')+'</span>']];
+  } else {
+    item=landlords.find(x=>x.id===id); if(!item)return;
+    title=item.first+' '+item.last; sub=item.company;
+    noteKey='notes2';
+    rows=[['Company',item.company||'—'],['Mobile','<a class="lnk" href="tel:'+(item.phone||'')+'">📱 '+(item.phone||'—')+'</a>'],['WhatsApp',item.phone?'<a class="lnk" href="https://wa.me/'+(item.phone||'').replace(/[^0-9]/g,'')+'" target="_blank">💬 WhatsApp</a>':'—'],['Email','<a class="lnk" href="mailto:'+(item.email||'')+'">'+( item.email||'—')+'</a>'],['Buildings','<span style="font-size:11px;color:var(--text2)">'+(item.buildings||'—').substring(0,200)+'</span>'],['Node',nodeTag(item.node)],['Relationship',item.rel],['Notes','<span style="font-size:12px;color:var(--text2);text-align:left">'+(item.notes||'—')+'</span>']];
+  }
+  document.getElementById('dTitle').textContent=title;
+  document.getElementById('dSub').textContent=sub;
+  document.getElementById('dBody').innerHTML=`
+    ${rows.map(([k,v])=>`<div class="det-row"><span class="det-k">${k}</span><span class="det-v">${v}</span></div>`).join('')}
+    <div class="divider"></div>
+    <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:8px">Activity log</div>
+    <div id="drwNotes">${renderNotes(item)}</div>
+    <div style="display:flex;gap:7px;margin-top:9px">
+      <input id="noteIn" style="flex:1;font-family:var(--body);font-size:12px;padding:8px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);outline:none;color:var(--text1)" placeholder="Add note, call log, update…">
+      <button onclick="addNote()" style="background:var(--moss);color:#fff;border:none;border-radius:7px;padding:8px 13px;font-family:var(--mono);font-size:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em">Log</button>
+    </div>`;
+  const _drw=document.getElementById('drw');
+  const _dov=document.getElementById('dOv');
+  _drw.style.display='';
+  _dov.style.display='';
+  _dov.classList.add('open');
+  _drw.classList.add('open');
+}
+
+function addNote(){
+  const t=document.getElementById('noteIn').value.trim();
+  if(!t||!openId)return;
+  const today=new Date().toISOString().slice(0,10);
+  const entry={date:today,text:t};
+  if(openType==='listing'){const i=listings.find(x=>x.id===openId);if(!i)return;if(!i.notes)i.notes=[];i.notes.push(entry);}
+  else if(openType==='client'){const i=clients.find(x=>x.id===openId);if(!i)return;if(!i.notes2)i.notes2=[];i.notes2.push(entry);}
+  else{const i=landlords.find(x=>x.id===openId);if(!i)return;if(!i.notes2)i.notes2=[];i.notes2.push(entry);}
+  document.getElementById('noteIn').value='';
+  const item=openType==='listing'?listings.find(x=>x.id===openId):openType==='client'?clients.find(x=>x.id===openId):landlords.find(x=>x.id===openId);
+  document.getElementById('drwNotes').innerHTML=renderNotes(item);
+  save(); showToast('Note logged ✓');
+}
+
+function closeDrawer(){
+  document.getElementById('dOv').classList.remove('open');
+  document.getElementById('drw').classList.remove('open');
+  openId=null;
+}
+document.getElementById('dOv').addEventListener('click',closeDrawer);
+document.getElementById('dClose').addEventListener('click',closeDrawer);
+document.getElementById('dCall').addEventListener('click',()=>showToast('Dialling…'));
+document.getElementById('dWA').addEventListener('click',()=>showToast('Opening WhatsApp…'));
+document.getElementById('dNote').addEventListener('click',()=>document.getElementById('noteIn')&&document.getElementById('noteIn').focus());
+
+// ══════════ ENQUIRY MATCHER
+function matchScore(l,params){
+  const{mn,mx,bud,type,node}=params;
+  if(type!=='any'){if(type==='let'&&l.type!=='let')return null;if(type==='sale'&&l.type!=='sale')return null;}
+  if(node!=='any'&&l.node!==node)return null;
+  const sz=(!mn||!l.gla||l.gla>=mn)&&(!mx||!l.gla||l.gla<=mx);
+  const pr=!bud||!l.price||l.price<=bud;
+  if(sz&&pr)return'green';
+  if(sz)return'yellow';
+  return null;
+}
+
+document.getElementById('runMatch').addEventListener('click',()=>{
+  const client=document.getElementById('eClient').value.trim()||'Client';
+  const params={mn:parseFloat(document.getElementById('eMin').value)||null,mx:parseFloat(document.getElementById('eMax').value)||null,bud:parseFloat(document.getElementById('eBudget').value)||null,type:document.getElementById('eType').value,node:document.getElementById('eNode').value};
+  const greens=listings.filter(l=>matchScore(l,params)==='green');
+  const yellows=listings.filter(l=>matchScore(l,params)==='yellow');
+  const mkt=market.filter(l=>{const s=matchScore(l,params);return s==='green'||s==='yellow';});
+  document.getElementById('enqForm').style.display='none';
+  document.getElementById('matchRes').style.display='block';
+  document.getElementById('mClient').textContent=client;
+  document.getElementById('mSummary').textContent=`${greens.length+yellows.length} your listings · ${mkt.length} market`;
+  document.getElementById('ctGreen').textContent=greens.length;
+  document.getElementById('ctYellow').textContent=yellows.length;
+  document.getElementById('ctMkt').textContent=mkt.length;
+  const mCard=(l,tier)=>`<div class="mcrd ${tier}"><div class="mbadge ${tier}">${tier==='green'?'✅ Price & size align':tier==='yellow'?'⚠️ Size match — check budget':'🏢 Market only — not yours'}</div><div class="mbody"><div class="m-name">${l.building}</div><div class="m-addr">${l.address}</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span style="font-family:var(--body);font-size:17px;font-weight:700;color:var(--sage)">${fP(l.price,l.type)}</span><span style="font-family:var(--mono);font-size:9px;color:var(--text3)">${fG(l.gla)}</span></div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:7px">${nodeTag(l.node)} ${typeTag(l.type)}</div>${l.desc?`<div class="m-why">${l.desc}</div>`:''}</div></div>`;
+  document.getElementById('mGreen').innerHTML=greens.length?greens.map(l=>mCard(l,'green')).join(''):'<div class="empty" style="padding:16px"><div class="empty-sub">No strong matches</div></div>';
+  document.getElementById('mYellow').innerHTML=yellows.length?yellows.map(l=>mCard(l,'yellow')).join(''):'<div class="empty" style="padding:16px"><div class="empty-sub">No possible matches</div></div>';
+  document.getElementById('mMkt').innerHTML=mkt.length?mkt.map(l=>mCard(l,'mkt')).join(''):'<div class="empty" style="padding:16px"><div class="empty-sub">No market matches</div></div>';
+});
+document.getElementById('newEnq').addEventListener('click',()=>{document.getElementById('enqForm').style.display='block';document.getElementById('matchRes').style.display='none';});
+
+// ══════════ MARKET
+function getFM(){
+  let l=[...market];
+  if(mFilt==='let')l=l.filter(x=>x.type==='let');
+  else if(mFilt==='sale')l=l.filter(x=>x.type==='sale');
+  else if(mFilt!=='all')l=l.filter(x=>x.node===mFilt);
+  if(mSrch){const q=mSrch.toLowerCase();l=l.filter(x=>(x.building+x.address).toLowerCase().includes(q));}
+  return l;
+}
+function renderMarket(){
+  const fl=getFM();
+  document.getElementById('mktCt').textContent=fl.length;
+  const myBldgs=new Set(listings.map(l=>l.building.toLowerCase()));
+  const c=document.getElementById('mktCon');
+  if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">📊</div><div class="empty-title">No listings</div></div>';return;}
+  c.innerHTML=fl.map(m=>{
+    const mine=myBldgs.has(m.building.toLowerCase());
+    return`<div class="card"><div class="card-hd"><div><div class="card-name">${m.building}</div><div class="card-addr">${m.address}</div></div><div style="text-align:right;flex-shrink:0"><div style="font-family:var(--body);font-size:16px;font-weight:700;color:${mine?'var(--sage)':'var(--purple)'}">${fP(m.price,m.type)}</div></div></div><div class="card-body"><div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">${nodeTag(m.node)} ${typeTag(m.type)} ${m.gla?`<span style="font-family:var(--mono);font-size:9px;color:var(--text3)">${fG(m.gla)}</span>`:''} ${mine?'<span class="tag tg-you">✅ Your listing</span>':'<span class="tag tg-market">Market only</span>'}</div></div>${m.url?`<div class="card-ft"><a class="lnk" href="${m.url}" target="_blank">View on P24 ↗</a></div>`:''}</div>`;
+  }).join('');
+}
+document.getElementById('mFilt').addEventListener('click',e=>{const p=e.target.closest('.fp');if(!p)return;document.querySelectorAll('#mFilt .fp').forEach(x=>x.classList.remove('active'));p.classList.add('active');mFilt=p.dataset.mf;renderMarket();});
+document.getElementById('mSrch').addEventListener('input',e=>{mSrch=e.target.value.trim();renderMarket();});
+
+// ══════════ COMMISSION CALC
+document.getElementById('calcType').addEventListener('click',e=>{
+  const b=e.target.closest('.tog');if(!b)return;
+  document.querySelectorAll('.tog').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  calcMode=b.dataset.ct;
+  document.getElementById('leaseFields').style.display=calcMode==='lease'?'block':'none';
+  document.getElementById('saleFields').style.display=calcMode==='sale'?'block':'none';
+  calcComm();
+});
+
+function calcComm(){
+  let val=0, sub='', breakdown=[];
+  if(calcMode==='lease'){
+    const rent=parseFloat(document.getElementById('cRental').value)||0;
+    const years=parseFloat(document.getElementById('cTerm').value)||0;
+    const esc=(parseFloat(document.getElementById('cEsc').value)||8)/100;
+    const rf=parseFloat(document.getElementById('cRF').value)||0;
+    const split=(parseFloat(document.getElementById('cSplit').value)||100)/100;
+
+    if(rent>0 && years>0){
+      // Build annual gross rental for each year with escalation
+      const annualRentals=[];
+      for(let y=0;y<years;y++){
+        annualRentals.push(rent*12*Math.pow(1+esc,y));
+      }
+
+      // Total contractual value (full lease, no rent-free deduction — that's a landlord concession)
+      const contractualValue=annualRentals.reduce((a,b)=>a+b,0);
+
+      // Commission tiers:
+      // 1yr = 1 month gross rental
+      // >1yr: 5% on first 2 yrs, 2.5% on next 3 yrs, 1.5% on next 3 yrs, 1% on balance
+      let grossComm=0;
+      const tierBreak=[];
+
+      if(years===1){
+        grossComm=rent; // 1 month gross rental
+        tierBreak.push(['1 year rule (1 month gross)','R'+Math.round(rent).toLocaleString('en-ZA'),'—']);
+      } else {
+        // Tier 1: years 1-2 @ 5%
+        const t1yrs=Math.min(years,2);
+        const t1val=annualRentals.slice(0,t1yrs).reduce((a,b)=>a+b,0);
+        const t1comm=t1val*0.05;
+        grossComm+=t1comm;
+        tierBreak.push([`Years 1–${t1yrs} @ 5%`,'R'+Math.round(t1val).toLocaleString('en-ZA'),'R'+Math.round(t1comm).toLocaleString('en-ZA')]);
+
+        // Tier 2: years 3-5 @ 2.5%
+        if(years>2){
+          const t2start=2; const t2end=Math.min(years,5);
+          const t2yrs=t2end-t2start;
+          const t2val=annualRentals.slice(t2start,t2end).reduce((a,b)=>a+b,0);
+          const t2comm=t2val*0.025;
+          grossComm+=t2comm;
+          tierBreak.push([`Years 3–${t2end} @ 2.5%`,'R'+Math.round(t2val).toLocaleString('en-ZA'),'R'+Math.round(t2comm).toLocaleString('en-ZA')]);
+        }
+
+        // Tier 3: years 6-8 @ 1.5%
+        if(years>5){
+          const t3start=5; const t3end=Math.min(years,8);
+          const t3val=annualRentals.slice(t3start,t3end).reduce((a,b)=>a+b,0);
+          const t3comm=t3val*0.015;
+          grossComm+=t3comm;
+          tierBreak.push([`Years 6–${t3end} @ 1.5%`,'R'+Math.round(t3val).toLocaleString('en-ZA'),'R'+Math.round(t3comm).toLocaleString('en-ZA')]);
+        }
+
+        // Tier 4: years 9+ @ 1%
+        if(years>8){
+          const t4val=annualRentals.slice(8).reduce((a,b)=>a+b,0);
+          const t4comm=t4val*0.01;
+          grossComm+=t4comm;
+          tierBreak.push([`Years 9–${years} @ 1%`,'R'+Math.round(t4val).toLocaleString('en-ZA'),'R'+Math.round(t4comm).toLocaleString('en-ZA')]);
+        }
+      }
+
+      val=grossComm*split;
+      sub=`${years} year${years!==1?'s':''} lease · R${Math.round(rent).toLocaleString('en-ZA')}/mo`;
+
+      breakdown.push(['','Gross rental value','Commission']);
+      tierBreak.forEach(r=>breakdown.push(r));
+      breakdown.push(['──','──','──']);
+      breakdown.push(['Gross commission','','R'+Math.round(grossComm).toLocaleString('en-ZA')]);
+      if(split<1) breakdown.push(['Your split ('+Math.round(split*100)+'%)','','R'+Math.round(val).toLocaleString('en-ZA')]);
+      breakdown.push(['VAT (15%)','','R'+Math.round(val*0.15).toLocaleString('en-ZA')]);
+      breakdown.push(['Commission incl. VAT','','R'+Math.round(val*1.15).toLocaleString('en-ZA')]);
+      breakdown.push(['CONTRACTUAL VALUE','R'+Math.round(contractualValue).toLocaleString('en-ZA'),'']);
+    }
+  } else if(calcMode==='sale'){
+    const price=parseFloat(document.getElementById('cSalePrice').value)||0;
+    const rate=(parseFloat(document.getElementById('cSaleRate').value)||3.5)/100;
+    const split=(parseFloat(document.getElementById('cSaleSplit').value)||100)/100;
+    const gross=price*rate; val=gross*split;
+    sub='Purchase price R'+(price/1e6).toFixed(2)+'m';
+    breakdown=[['Purchase price','R'+Math.round(price).toLocaleString('en-ZA'),''],['Gross commission ('+Math.round(rate*100*10)/10+'%)','','R'+Math.round(gross).toLocaleString('en-ZA')],['Your split ('+Math.round(split*100)+'%)','','R'+Math.round(val).toLocaleString('en-ZA')],['VAT (15%)','','R'+Math.round(val*0.15).toLocaleString('en-ZA')],['Commission incl. VAT','','R'+Math.round(val*1.15).toLocaleString('en-ZA')]];
+  }
+
+  document.getElementById('calcVal').textContent=val?'R '+Math.round(val).toLocaleString('en-ZA'):'R 0';
+  document.getElementById('calcSub').textContent=sub||'Enter values above';
+
+  if(breakdown.length){
+    // 3-col table: label | gross rental | commission
+    document.getElementById('calcBreak').innerHTML=breakdown.map((r,i)=>{
+      const isSep=r[0]==='──';
+      const isContr=r[0]==='CONTRACTUAL VALUE';
+      const isHdr=r[0]==='';
+      if(isSep) return '<div style="border-top:1px solid rgba(255,255,255,0.08);margin:4px 0"></div>';
+      const style=isContr
+        ?'display:flex;justify-content:space-between;padding:6px 0;font-family:var(--mono);font-size:9px;color:var(--mint);border-top:1px solid var(--border2);margin-top:4px'
+        :'display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:9px';
+      const lStyle=isHdr?'color:var(--text3);text-transform:uppercase;letter-spacing:.06em':'color:var(--text2)';
+      const vStyle=isContr?'font-weight:500':'font-family:var(--mono);color:var(--text1)';
+      return `<div style="${style}"><span style="${lStyle}">${r[0]}</span><span style="color:var(--text3);font-family:var(--mono);font-size:8px">${r[1]}</span><span style="${vStyle}">${r[2]}</span></div>`;
+    }).join('');
+  } else {
+    document.getElementById('calcBreak').innerHTML='';
+  }
+}
+
+function calcVAT(){
+  const ex=parseFloat(document.getElementById('vatEx').value)||0;
+  const r=(parseFloat(document.getElementById('vatRate').value)||15)/100;
+  const vat=ex*r;
+  document.getElementById('vatVal').textContent='R '+Math.round(ex+vat).toLocaleString('en-ZA');
+  document.getElementById('vatSub').textContent='VAT: R '+Math.round(vat).toLocaleString('en-ZA');
+}
+
+// ══════════ CLIENTS
+function getFC(){
+  let l=[...clients];
+  if(clSrch){const q=clSrch.toLowerCase();l=l.filter(x=>(x.first+x.last+x.company+x.req).toLowerCase().includes(q));}
+  return l;
+}
+function renderClients(){
+  const fl=getFC();
+  document.getElementById('clCt').textContent=fl.length;
+  const c=document.getElementById('clCon');
+  if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">👤</div><div class="empty-title">No clients</div><div class="empty-sub">Add your first client</div></div>';return;}
+  c.innerHTML=fl.map(cl=>`
+    <div class="ccard" id="cc-${cl.id}">
+      <div class="ccard-summary" onclick="toggleClientCard('${cl.id}')" style="cursor:pointer;display:flex;align-items:stretch">
+        <div class="ccard-av"><div class="av-circle av-client">${initials(cl.first,cl.last)}</div></div>
+        <div class="ccard-info" style="flex:1">
+          <div class="cc-name">${cl.first} ${cl.last}</div>
+          <div class="cc-role">${cl.company||'—'}</div>
+          <div class="cc-meta">${cl.req||'—'}</div>
+          ${cl.phone?`<div style="font-family:var(--mono);font-size:9px;color:var(--sage);margin-top:3px">📱 ${cl.phone}</div>`:''}
+          ${cl.clientType?`<span style="font-family:var(--mono);font-size:7px;padding:1px 6px;border-radius:8px;background:var(--blue-bg);color:var(--blue);border:1px solid rgba(74,144,196,.2);text-transform:uppercase;letter-spacing:.05em;display:inline-block;margin-top:3px">${cl.clientType}</span>`:''}
+        </div>
+        <div class="ccard-acts">
+          <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${cl.phone}'" title="Call">📞</button>
+          <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${cl.email}'" title="Email">✉️</button>
+        </div>
+      </div>
+      <div class="ccard-detail" id="cd-${cl.id}" style="display:none;border-top:1px solid var(--border);padding:12px 13px;background:var(--bg1)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <div>
+            <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px">Contact</div>
+            ${cl.phone?`<div style="margin-bottom:5px"><a class="lnk" href="tel:${cl.phone}">📱 ${cl.phone}</a></div>`:''}
+            ${cl.phone?`<div style="margin-bottom:5px"><a class="lnk" href="https://wa.me/${(cl.phone||'').replace(/[^0-9]/g,'')}" target="_blank">💬 WhatsApp</a></div>`:''}
+            ${cl.email?`<div><a class="lnk" href="mailto:${cl.email}">✉️ ${cl.email}</a></div>`:''}
+          </div>
+          <div>
+            <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px">Requirement</div>
+            <div style="font-size:11px;color:var(--text2);line-height:1.5">${cl.req||'—'}</div>
+            ${cl.notes?`<div style="font-size:11px;color:var(--text3);margin-top:4px">${cl.notes}</div>`:''}
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px">Properties Introduced</div>
+          ${(()=>{const intro=pipeline.filter(p=>p.client&&p.client.toLowerCase().includes((cl.first||'').toLowerCase()));return intro.length?intro.map(p=>{const l=listings.find(x=>x.id===p.listingId);return`<div style="background:var(--bg3);border-radius:7px;padding:7px 10px;margin-bottom:5px;font-size:11px"><div style="font-weight:500;color:var(--text1)">${l?l.building:'Unknown'}</div><div style="color:var(--text3);font-size:10px">${l?l.address:''}</div><div style="margin-top:3px"><span style="font-family:var(--mono);font-size:7px;background:var(--green-bg);color:var(--sage);padding:1px 6px;border-radius:8px;border:1px solid var(--green-bd)">${p.stage}</span></div></div>`;}).join(''):'<div style="font-size:11px;color:var(--text3)">No properties introduced yet</div>';})()}
+        </div>
+        <div style="margin-top:10px">
+          <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px">Activity Log</div>
+          <div id="cnotes-${cl.id}">${renderContactNotes(cl)}</div>
+          <div style="display:flex;gap:7px;margin-top:7px">
+            <input id="cnote-${cl.id}" style="flex:1;font-family:var(--body);font-size:12px;padding:7px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text1);outline:none" placeholder="Add note, call log…">
+            <button onclick="addContactNote('${cl.id}','client')" style="background:var(--moss);color:#fff;border:none;border-radius:7px;padding:7px 13px;font-family:var(--mono);font-size:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em">Log</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleClientCard(id){
+  const d=document.getElementById('cd-'+id);
+  if(!d)return;
+  const open=d.style.display==='none';
+  d.style.display=open?'block':'none';
+}
+
+
+function renderLandlords(){
+  const fl=getFL2();
+  document.getElementById('llCt').textContent=fl.length;
+  const c=document.getElementById('llCon');
+  if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">🏦</div><div class="empty-title">No landlords</div><div class="empty-sub">Add your first landlord</div></div>';return;}
+  const relCol={Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
+  c.innerHTML=fl.map(ll=>`
+    <div class="ccard" id="llc-${ll.id}">
+      <div class="ccard-summary" onclick="toggleLLCard('${ll.id}')" style="cursor:pointer;display:flex;align-items:stretch">
+        <div class="ccard-av"><div class="av-circle av-landlord">${initials(ll.first,ll.last)}</div></div>
+        <div class="ccard-info" style="flex:1">
+          <div class="cc-name">${ll.first} ${ll.last}</div>
+          <div class="cc-role">${ll.company}</div>
+          <div class="cc-meta" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px">${ll.buildings?(ll.buildings.split(',')[0].trim().substring(0,40)+(ll.buildings.split(',').length>1?' + '+(ll.buildings.split(',').length-1)+' more':'')):'—'}</div>
+          ${ll.phone?`<div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-top:3px">📱 ${ll.phone}</div>`:''}
+          <div style="margin-top:3px"><span style="font-family:var(--mono);font-size:7px;color:${relCol[ll.rel]||'var(--text3)'};text-transform:uppercase;letter-spacing:.05em">● ${ll.rel}</span></div>
+        </div>
+        <div class="ccard-acts">
+          <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${ll.phone}'" title="Call">📞</button>
+          <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${ll.email}'" title="Email">✉️</button>
+        </div>
+      </div>
+      <div class="ccard-detail" id="lld-${ll.id}" style="display:none;border-top:1px solid var(--border);padding:12px 13px;background:var(--bg1)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <div>
+            <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px">Contact</div>
+            ${ll.phone?`<div style="margin-bottom:5px"><a class="lnk" href="tel:${ll.phone}">📱 ${ll.phone}</a></div>`:''}
+            ${ll.phone?`<div style="margin-bottom:5px"><a class="lnk" href="https://wa.me/${(ll.phone||'').replace(/[^0-9]/g,'')}" target="_blank">💬 WhatsApp</a></div>`:''}
+            ${ll.email?`<div><a class="lnk" href="mailto:${ll.email}">✉️ ${ll.email}</a></div>`:''}
+          </div>
+          <div>
+            <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px">Portfolio Details</div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:3px"><span style="color:var(--text3)">Node:</span> ${ll.node||'—'}</div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:3px"><span style="color:var(--text3)">Relationship:</span> <span style="color:${relCol[ll.rel]||'var(--text2)'}">${ll.rel}</span></div>
+            ${ll.notes?`<div style="font-size:11px;color:var(--text3);margin-top:4px">${ll.notes}</div>`:''}
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px">Portfolio / Properties</div>
+          ${(()=>{
+            // Show structured properties if available, otherwise fall back to buildings string
+            const props = ll.properties && ll.properties.length ? ll.properties : null;
+            const llB=(ll.buildings||'').split(',').map(b=>b.trim().toLowerCase()).filter(Boolean);
+            const llL=listings.filter(l=>llB.some(b=>l.building.toLowerCase().includes(b)||l.address.toLowerCase().includes(b)));
+            let html='';
+            if(props && props.length){
+              html+=`<div style="max-height:240px;overflow-y:auto;border:1px solid var(--border);border-radius:7px;margin-bottom:8px">
+                <div style="padding:6px 10px;background:var(--bg4);font-family:var(--mono);font-size:7px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);border-bottom:1px solid var(--border);position:sticky;top:0">Portfolio (${props.length} properties)</div>
+                ${props.map((p,i)=>`<div style="padding:9px 11px;border-bottom:${i<props.length-1?'1px solid var(--border)':'none'}">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                    <div style="font-size:12px;font-weight:500;color:var(--text1)">${p.name}</div>
+                    <span style="font-family:var(--mono);font-size:7px;padding:2px 7px;border-radius:8px;background:${p.status==='Vacant'?'var(--green-bg)':p.status==='Tenanted'?'var(--blue-bg)':'var(--gold-bg)'};color:${p.status==='Vacant'?'var(--sage)':p.status==='Tenanted'?'var(--blue)':'var(--gold)'};border:1px solid ${p.status==='Vacant'?'var(--green-bd)':p.status==='Tenanted'?'rgba(74,144,196,.2)':'var(--gold-bd)'};">${p.status}</span>
+                  </div>
+                  <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:3px">${p.type}${p.erf?' · '+p.erf:''}${p.node?' · '+p.node:''}</div>
+                  <div style="display:flex;gap:10px;margin-top:4px;flex-wrap:wrap">
+                    ${p.gla?`<span style="font-family:var(--mono);font-size:9px;color:var(--text2)">📐 ${p.gla.toLocaleString('en-ZA')}m²</span>`:''}
+                    ${p.price?`<span style="font-family:var(--mono);font-size:9px;color:var(--gold)">💰 R${p.price.toLocaleString('en-ZA')}</span>`:''}
+                    ${p.rental?`<span style="font-family:var(--mono);font-size:9px;color:var(--sage)">🏷 R${p.rental.toLocaleString('en-ZA')}/mo</span>`:''}
+                    ${p.regDate?`<span style="font-family:var(--mono);font-size:9px;color:var(--text3)">📅 Reg: ${p.regDate}</span>`:''}
+                  </div>
+                </div>`).join('')}
+              </div>`;
+            } else if(llL.length){
+              html+=llL.map(l=>{const p=pipeline.find(x=>x.listingId===l.id);return`<div style="background:var(--bg3);border-radius:7px;padding:7px 10px;margin-bottom:5px;font-size:11px"><div style="font-weight:500;color:var(--text1)">${l.building}</div><div style="color:var(--text3);font-size:10px">${l.address}</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:3px"><span style="font-family:var(--mono);font-size:9px;color:var(--sage)">${fP(l.price,l.type)} · ${fG(l.gla)}</span>${p?`<span style="font-family:var(--mono);font-size:7px;background:var(--green-bg);color:var(--sage);padding:1px 6px;border-radius:8px;border:1px solid var(--green-bd)">${p.stage}</span>`:'<span style="font-family:var(--mono);font-size:7px;color:var(--text3)">Available</span>'}</div></div>`;}).join('');
+            } else {
+              html='<div style="font-size:11px;color:var(--text3)">No properties listed yet</div>';
+            }
+            return html;
+          })()}
+        </div>
+        <div style="margin-top:10px">
+          <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:6px">Activity Log</div>
+          <div id="llnotes-${ll.id}">${renderContactNotes(ll)}</div>
+          <div style="display:flex;gap:7px;margin-top:7px">
+            <input id="llnote-${ll.id}" style="flex:1;font-family:var(--body);font-size:12px;padding:7px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text1);outline:none" placeholder="Add note, call log…">
+            <button onclick="addContactNote('${ll.id}','landlord')" style="background:var(--moss);color:#fff;border:none;border-radius:7px;padding:7px 13px;font-family:var(--mono);font-size:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em">Log</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleLLCard(id){
+  const d=document.getElementById('lld-'+id);
+  if(!d)return;
+  const open=d.style.display==='none';
+  d.style.display=open?'block':'none';
+}
+
+function renderContactNotes(item){
+  const notes=item.notes2||[];
+  if(!notes.length)return'<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No activity yet.</div>';
+  return notes.slice().reverse().map(n=>`<div class="note-item"><div class="note-date">${n.date}</div><div class="note-txt">${n.text}</div></div>`).join('');
+}
+
+function addContactNote(id,type){
+  const inputId=type==='client'?'cnote-'+id:'llnote-'+id;
+  const notesId=type==='client'?'cnotes-'+id:'llnotes-'+id;
+  const text=document.getElementById(inputId).value.trim();
+  if(!text)return;
+  const item=type==='client'?clients.find(x=>x.id===id):landlords.find(x=>x.id===id);
+  if(!item)return;
+  if(!item.notes2)item.notes2=[];
+  item.notes2.push({date:new Date().toISOString().slice(0,10),text});
+  document.getElementById(inputId).value='';
+  document.getElementById(notesId).innerHTML=renderContactNotes(item);
+  save();showToast('Note logged ✓');
+}
+
+
+function renderPipeline(){
+  document.getElementById('pipeCt').textContent=pipeline.length;
+  const c=document.getElementById('pipeCon');
+  if(!pipeline.length){c.innerHTML='<div class="empty"><div class="empty-icon">📋</div><div class="empty-title">No active deals</div></div>';return;}
+  const sc={Viewing:'ps-viewing','Viewing booked':'ps-viewing',Proposal:'ps-proposal','Proposal sent':'ps-proposal','HOA drafting':'ps-hoa',Closed:'ps-closed'};
+  c.innerHTML=pipeline.map(p=>{
+    const l=listings.find(x=>x.id===p.listingId);
+    const cls=sc[p.stage]||'ps-viewing';
+    return`<div class="pipe-card"><div class="card-hd"><div><div class="card-name">${p.client}</div><div class="card-addr">${l?l.building+' · '+l.address:'Unlinked'}</div></div><span class="pipe-stage ${cls}">${p.stage}</span></div><div class="card-body"><div style="font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:5px">${p.notes}</div><div style="display:flex;justify-content:space-between;align-items:center">${l&&l.price?`<span style="font-family:var(--body);font-size:15px;font-weight:700;color:var(--sage)">${fP(l.price,l.type)}</span>`:'<span></span>'}<span style="font-family:var(--mono);font-size:8px;color:var(--text3)">${p.date}</span></div>${l?`<div style="display:flex;gap:4px;margin-top:6px">${nodeTag(l.node)} ${typeTag(l.type)} ${fG(l.gla)!=='—'?`<span style="font-family:var(--mono);font-size:9px;color:var(--text3)">${fG(l.gla)}</span>`:''}</div>`:''}</div></div>`;
+  }).join('');
+}
+
+// ══════════ TOAST
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+
+// ══════════ SWIPE CLOSE DRAWER
+let sY=0;
+document.getElementById('drw').addEventListener('touchstart',e=>{sY=e.touches[0].clientY;},{passive:true});
+document.getElementById('drw').addEventListener('touchmove',e=>{if(e.touches[0].clientY-sY>70)closeDrawer();},{passive:true});
+
+// ══════════ INIT
+// Ensure drawer is hidden on load
+document.getElementById('drw').classList.remove('open');
+document.getElementById('dOv').classList.remove('open');
+updateStats();renderListings();renderMarket();renderClients();renderLandlords();renderPipeline();
+
+
+// ── ENQUIRY NOTIFICATION ──────────────────────────────────────────────────────
+function showEnquiryNotification(client, matched){
+  const name = [client.first, client.last].filter(Boolean).join(' ') || 'New enquiry';
+  const sub  = matched && matched.length
+    ? `Possible match: ${matched[0].building}`
+    : client.req || 'Check Clients tab';
+  document.getElementById('enqNotifTitle').textContent = '📥 ' + name;
+  document.getElementById('enqNotifSub').textContent   = sub;
+  const banner = document.getElementById('enqNotif');
+  banner.classList.add('show');
+  // Auto-dismiss after 8 seconds
+  setTimeout(() => banner.classList.remove('show'), 8000);
+  // Also show toast
+  showToast('New enquiry from ' + name + ' — added to Clients');
+}
+function dismissEnqNotif(){ document.getElementById('enqNotif').classList.remove('show'); }
+function goToClients(){
+  dismissEnqNotif();
+  switchScr('clients');
+}
+
+// ── FIREBASE STATUS ───────────────────────────────────────────────────────────
+function setFBStatus(state){
+  const el = document.getElementById('fbStatus');
+  if(!el) return;
+  el.className = 'fb-status ' + state;
+  el.title = state === 'connected' ? 'Firebase: live sync active'
+           : state === 'error'     ? 'Firebase: connection error — check config'
+           : 'Firebase: not configured';
+}
+// Check if Firebase is configured
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const key = localStorage.getItem('fcm_token');
+    // Will be set to connected by Firebase module once it loads successfully
+    if(document.querySelector('script[type="module"]')){
+      setFBStatus('connected');
+    }
+  }, 3000);
+});
+
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getMessaging, getToken, onMessage }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js";
+
+  // ── FIREBASE CONFIG (filled in after setup) ──────────────────────────
+  // Sharon: replace these values with your Firebase project config
+  const firebaseConfig = {
+    apiKey:            "AIzaSyCgAusQ4KygDyHOfgwPtluLXRtatjRmuQ0",
+    authDomain:        "sharon-property-hub.firebaseapp.com",
+    projectId:         "sharon-property-hub",
+    storageBucket:     "sharon-property-hub.firebasestorage.app",
+    messagingSenderId: "1017385477196",
+    appId:             "1:1017385477196:web:fa090abcad0558df2d80e9"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const db   = getFirestore(app);
+
+  // ── REAL-TIME LISTENER: new enquiries → Clients tab ──────────────────
+  const q = query(collection(db, 'enquiries'), orderBy('createdAt', 'desc'));
+  onSnapshot(q, snapshot => {
+    snapshot.docChanges().forEach(change => {
+      if(change.type === 'added'){
+        const data = change.doc.data();
+        const id   = change.doc.id;
+
+        // Only process if not already in local clients list
+        const exists = clients.some(c => c.email === data.email || c.phone === data.phone);
+        if(!exists && data.createdAt){ // skip seed data without timestamp
+          const newClient = {
+            id:     'fb_' + id,
+            first:  data.firstName || data.name?.split(' ')[0] || 'Unknown',
+            last:   data.lastName  || data.name?.split(' ').slice(1).join(' ') || '',
+            company: data.company  || '',
+            phone:  data.phone     || '',
+            email:  data.email     || '',
+            req:    data.requirement || buildReq(data),
+            notes:  data.source    || 'Auto-imported enquiry',
+            notes2: [{date: new Date().toISOString().slice(0,10), text: '📥 Auto-imported from ' + (data.source||'enquiry feed')}],
+            source: data.source    || 'inbound',
+            listingRef: data.listingRef || null,
+          };
+          clients.unshift(newClient);
+          save();
+          renderClients();
+          updateStats();
+
+          // Auto-match to a listing
+          const matched = autoMatch(newClient);
+
+          // Show in-app notification
+          showEnquiryNotification(newClient, matched);
+
+          // Request push notification permission if not already granted
+          requestPushPermission();
+        }
+      }
+    });
+  });
+
+  function buildReq(data){
+    const parts = [];
+    if(data.minSize||data.maxSize) parts.push((data.minSize||'?')+'–'+(data.maxSize||'?')+'m²');
+    if(data.budget) parts.push('R'+Number(data.budget).toLocaleString('en-ZA')+' pm');
+    if(data.node) parts.push(data.node);
+    if(data.type) parts.push(data.type);
+    return parts.join(', ') || 'Enquiry — see notes';
+  }
+
+  function autoMatch(client){
+    // Simple keyword match against listings
+    const req = (client.req||'').toLowerCase();
+    const matched = listings.filter(l => {
+      if(req.includes('cbd') && l.node!=='CBD') return false;
+      if(req.includes('foreshore') && l.node!=='Foreshore') return false;
+      if(req.includes('northgate') && l.node!=='Northgate') return false;
+      if(req.includes('to let') && l.type!=='let') return false;
+      if(req.includes('for sale') && l.type!=='sale') return false;
+      return true;
+    }).slice(0,3);
+    return matched;
+  }
+
+  // ── EXPOSE addEnquiry globally so Claude daily scan can call it ───────
+  window.addEnquiryToFirebase = async (enquiry) => {
+    try {
+      await addDoc(collection(db, 'enquiries'), {
+        ...enquiry,
+        createdAt: serverTimestamp()
+      });
+      console.log('Enquiry added to Firebase');
+    } catch(e) {
+      console.error('Firebase write error:', e);
+    }
+  };
+
+  // ── PUSH NOTIFICATIONS ────────────────────────────────────────────────
+  async function requestPushPermission(){
+    try {
+      const messaging = getMessaging(app);
+      const permission = await Notification.requestPermission();
+      if(permission === 'granted'){
+        const token = await getToken(messaging, {
+          vapidKey: 'BFexT_K1hT7tKF491u6qSJQaFIlG5DC3_Oqfs9Ov0ZEIaKStFRjYXlEoW6-fOAkBNLBQEyx1kMxjbK62tn6QxMU'
+        });
+        console.log('Push token:', token);
+        localStorage.setItem('fcm_token', token);
+      }
+    } catch(e){ console.log('Push not available:', e); }
+  }
+
+  // Handle foreground push messages
+  try {
+    const messaging = getMessaging(app);
+    onMessage(messaging, payload => {
+      showToast('📥 New enquiry: ' + (payload.notification?.title || 'Check Clients tab'));
+    });
+  } catch(e){}
+
+
+// ── DESKTOP SIDEBAR BRAND ─────────────────────────────────────────
+function injectSidebarBrand(){
+  if(window.innerWidth < 900) return;
+  const nav = document.querySelector('.bnav');
+  if(!nav || nav.querySelector('.sb-brand')) return;
+  const brand = document.createElement('div');
+  brand.className = 'sb-brand';
+  brand.innerHTML = '<div class="sb-name">Sharon Marais</div><div class="sb-sub">Vermaak Properties</div>';
+  nav.insertBefore(brand, nav.firstChild);
+}
+window.addEventListener('load', injectSidebarBrand);
+window.addEventListener('resize', injectSidebarBrand);
+
+
+// ── DESKTOP: ensure drawer never shows on load ──────────────────
+if(window.innerWidth >= 900){
+  const drw = document.getElementById('drw');
+  const dov = document.getElementById('dOv');
+  if(drw) { drw.classList.remove('open'); drw.style.display='none'; }
+  if(dov) { dov.classList.remove('open'); dov.style.display='none'; }
+  // Re-enable display when openDrawer is called
+  const origOpen = window.openDrawer;
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// CLIENT PROFILE
+// ══════════════════════════════════════════════════════════════════
+var activeClientId=null;var activeLLId=null;
+function openClientProfile(id){
+  const cl = clients.find(x=>x.id===id);
+  if(!cl) return;
+  activeClientId = id;
+
+  // Header
+  document.getElementById('cpAv').textContent = initials(cl.first,cl.last);
+  document.getElementById('cpName').textContent = [cl.first,cl.last].filter(Boolean).join(' ');
+  document.getElementById('cpRole').textContent = cl.company||'—';
+  document.getElementById('cpPhone').textContent = cl.phone ? '📱 '+cl.phone : '—';
+  document.getElementById('cpEmail').textContent = cl.email||'—';
+  document.getElementById('cpReq').textContent = cl.req||'—';
+  document.getElementById('cpReqDetail').textContent = [cl.req, cl.notes].filter(Boolean).join(' · ') || '—';
+
+  // Contact buttons
+  document.getElementById('cpCallBtn').onclick = ()=>cl.phone&&(window.location='tel:'+cl.phone);
+  document.getElementById('cpWABtn').onclick = ()=>cl.phone&&window.open('https://wa.me/'+cl.phone.replace(/\D/g,''));
+  document.getElementById('cpEmailBtn').onclick = ()=>cl.email&&(window.location='mailto:'+cl.email);
+
+  // Properties introduced — match from pipeline + listings introduced field
+  const introduced = pipeline.filter(p=>
+    p.client&&p.client.toLowerCase().includes((cl.first||'').toLowerCase())
+  );
+  // Also check if client has introduced listings stored
+  const clListings = cl.introducedListings||[];
+  document.getElementById('cpPropCt').textContent = Math.max(introduced.length, clListings.length);
+
+  let propsHtml = '';
+  if(introduced.length){
+    introduced.forEach(p=>{
+      const l = listings.find(x=>x.id===p.listingId);
+      propsHtml += `<div class="prop-intro-item">
+        <div class="prop-intro-name">${l?l.building:'Unknown property'}</div>
+        <div class="prop-intro-detail">${l?l.address:''}</div>
+        <div class="prop-intro-detail">${l?fP(l.price,l.type):''} ${l?'· '+fG(l.gla):''}</div>
+        <span class="prop-intro-status ${p.stage==='HOA drafting'?'status-offer':p.stage==='Proposal sent'?'status-enquired':'status-introduced'}">${p.stage}</span>
+      </div>`;
+    });
+  } else if(clListings.length){
+    clListings.forEach(li=>{
+      propsHtml += `<div class="prop-intro-item">
+        <div class="prop-intro-name">${li.name}</div>
+        <div class="prop-intro-detail">${li.address||''}</div>
+        <span class="prop-intro-status status-introduced">${li.status||'Introduced'}</span>
+      </div>`;
+    });
+  } else {
+    propsHtml = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No properties introduced yet</div>';
+  }
+  document.getElementById('cpProps').innerHTML = propsHtml;
+
+  // Notes — local + HubSpot label
+  renderClientProfileNotes(cl);
+
+  document.getElementById('clientProfileOverlay').classList.add('open');
+}
+
+function renderClientProfileNotes(cl){
+  const notes = cl.notes2||[];
+  document.getElementById('cpNoteCt').textContent = notes.length;
+  if(!notes.length){
+    document.getElementById('cpNotes').innerHTML = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No activity logged yet.</div>';
+    return;
+  }
+  document.getElementById('cpNotes').innerHTML = notes.slice().reverse().map(n=>`
+    <div class="hs-note">
+      <div class="hs-note-date">${n.date}</div>
+      ${n.source?`<div class="hs-note-src">📊 ${n.source}</div>`:''}
+      <div class="hs-note-txt">${n.text}</div>
+    </div>`).join('');
+}
+
+function addClientProfileNote(){
+  const text = document.getElementById('cpNoteInput').value.trim();
+  if(!text||!activeClientId) return;
+  const cl = clients.find(x=>x.id===activeClientId);
+  if(!cl) return;
+  if(!cl.notes2) cl.notes2=[];
+  cl.notes2.push({date:new Date().toISOString().slice(0,10),text,source:null});
+  document.getElementById('cpNoteInput').value='';
+  save();
+  renderClientProfileNotes(cl);
+  showToast('Note logged ✓');
+}
+
+function closeClientProfile(){
+  document.getElementById('clientProfileOverlay').classList.remove('open');
+  activeClientId=null;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// LANDLORD PROFILE
+// ══════════════════════════════════════════════════════════════════
+function openLandlordProfile(id){
+  const ll = landlords.find(x=>x.id===id);
+  if(!ll) return;
+  activeLLId = id;
+
+  const relCol={Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
+
+  // Header
+  document.getElementById('llpAv').textContent = initials(ll.first,ll.last);
+  document.getElementById('llpName').textContent = [ll.first,ll.last].filter(Boolean).join(' ');
+  document.getElementById('llpRole').textContent = ll.company||'—';
+  document.getElementById('llpPhone').textContent = ll.phone ? '📱 '+ll.phone : '—';
+  document.getElementById('llpEmail').textContent = ll.email||'—';
+
+  // Contact buttons
+  document.getElementById('llpCallBtn').onclick = ()=>ll.phone&&(window.location='tel:'+ll.phone);
+  document.getElementById('llpWABtn').onclick = ()=>ll.phone&&window.open('https://wa.me/'+ll.phone.replace(/\D/g,''));
+  document.getElementById('llpEmailBtn').onclick = ()=>ll.email&&(window.location='mailto:'+ll.email);
+
+  // Portfolio section
+  document.getElementById('llpPortfolio').innerHTML = `
+    <div style="margin-bottom:10px">
+      <div class="det-row"><span class="det-k">Node</span><span class="det-v">${ll.node||'—'}</span></div>
+      <div class="det-row"><span class="det-k">Buildings</span><span class="det-v" style="text-align:left">${ll.buildings||'—'}</span></div>
+      <div class="det-row"><span class="det-k">Relationship</span><span class="det-v" style="color:${relCol[ll.rel]||'var(--text3)'}">${ll.rel}</span></div>
+      ${ll.notes?`<div class="det-row"><span class="det-k">Notes</span><span class="det-v" style="text-align:left;font-size:11px;color:var(--text2)">${ll.notes}</span></div>`:''}
+    </div>`;
+
+  // Properties the landlord has — match from listings by building name
+  const llBuildings = (ll.buildings||'').split(',').map(b=>b.trim().toLowerCase()).filter(Boolean);
+  const llListings = listings.filter(l=>
+    llBuildings.some(b=>l.building.toLowerCase().includes(b)||l.address.toLowerCase().includes(b))
+  );
+  document.getElementById('llpPropCt').textContent = llListings.length;
+
+  let llPropsHtml = '';
+  if(llListings.length){
+    llListings.forEach(l=>{
+      // Check if in pipeline
+      const inPipe = pipeline.find(p=>p.listingId===l.id);
+      llPropsHtml += `<div class="prop-intro-item">
+        <div class="prop-intro-name">${l.building}</div>
+        <div class="prop-intro-detail">${l.address}</div>
+        <div class="prop-intro-detail">${fP(l.price,l.type)} · ${fG(l.gla)} · ${l.grade}-Grade</div>
+        <span class="prop-intro-status ${inPipe?'status-enquired':'status-introduced'}">${inPipe?inPipe.stage+' — '+inPipe.client:'Available'}</span>
+      </div>`;
+    });
+  } else {
+    llPropsHtml = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No listings matched</div>';
+  }
+  document.getElementById('llpProps').innerHTML = llPropsHtml;
+
+  // Notes
+  renderLLProfileNotes(ll);
+
+  document.getElementById('llProfileOverlay').classList.add('open');
+}
+
+function renderLLProfileNotes(ll){
+  const notes = ll.notes2||[];
+  document.getElementById('llpNoteCt').textContent = notes.length;
+  if(!notes.length){
+    document.getElementById('llpNotes').innerHTML = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No activity logged yet.</div>';
+    return;
+  }
+  document.getElementById('llpNotes').innerHTML = notes.slice().reverse().map(n=>`
+    <div class="hs-note">
+      <div class="hs-note-date">${n.date}</div>
+      ${n.source?`<div class="hs-note-src">📊 ${n.source}</div>`:''}
+      <div class="hs-note-txt">${n.text}</div>
+    </div>`).join('');
+}
+
+function addLLProfileNote(){
+  const text = document.getElementById('llpNoteInput').value.trim();
+  if(!text||!activeLLId) return;
+  const ll = landlords.find(x=>x.id===activeLLId);
+  if(!ll) return;
+  if(!ll.notes2) ll.notes2=[];
+  ll.notes2.push({date:new Date().toISOString().slice(0,10),text,source:null});
+  document.getElementById('llpNoteInput').value='';
+  save();
+  renderLLProfileNotes(ll);
+  showToast('Note logged ✓');
+}
+
+function closeLLProfile(){
+  document.getElementById('llProfileOverlay').classList.remove('open');
+  activeLLId=null;
+}
+
+</script>
+
+<script>
+
+// Run this in Chrome DevTools Console on the live site
+// It patches the missing functions directly into the page
+
+var activeClientId = null;
+var activeLLId = null;
+
+window.openClientProfile = function(id) {
+  var cl = window.clients ? window.clients.find(function(x){return x.id===id;}) : null;
+  if(!cl) { alert('Client not found: ' + id); return; }
+  activeClientId = id;
+  var el = function(i){return document.getElementById(i);};
+  var ini = function(f,l){return ((f||'?')[0]+(l||'?')[0]).toUpperCase();};
+  el('cpAv').textContent = ini(cl.first,cl.last);
+  el('cpName').textContent = [cl.first,cl.last].filter(Boolean).join(' ');
+  el('cpRole').textContent = (cl.company||'—') + (cl.clientType?' · '+cl.clientType:'');
+  el('cpPhone').textContent = cl.phone ? '📱 '+cl.phone : '—';
+  el('cpEmail').textContent = cl.email||'—';
+  el('cpReq').textContent = cl.req||'—';
+  el('cpReqDetail').textContent = [cl.req,cl.notes].filter(Boolean).join(' · ')||'—';
+  el('cpCallBtn').onclick = function(){if(cl.phone)window.location='tel:'+cl.phone;};
+  el('cpWABtn').onclick = function(){if(cl.phone)window.open('https://wa.me/'+cl.phone.replace(/[^0-9]/g,''));};
+  el('cpEmailBtn').onclick = function(){if(cl.email)window.location='mailto:'+cl.email;};
+  var pipe = window.pipeline || [];
+  var introduced = pipe.filter(function(p){return p.client&&p.client.toLowerCase().indexOf((cl.first||'').toLowerCase())>-1;});
+  el('cpPropCt').textContent = introduced.length;
+  var listings = window.listings || [];
+  el('cpProps').innerHTML = introduced.length ? introduced.map(function(p){
+    var l=listings.find(function(x){return x.id===p.listingId;});
+    return '<div class="prop-intro-item"><div class="prop-intro-name">'+(l?l.building:'Unknown')+'</div><div class="prop-intro-detail">'+(l?l.address:'')+'</div><span class="prop-intro-status status-introduced">'+p.stage+'</span></div>';
+  }).join('') : '<div style="font-size:11px;color:var(--text3)">No properties introduced yet</div>';
+  var notes = cl.notes2||[];
+  el('cpNoteCt').textContent = notes.length;
+  el('cpNotes').innerHTML = notes.length ? notes.slice().reverse().map(function(n){
+    return '<div class="hs-note"><div class="hs-note-date">'+n.date+'</div><div class="hs-note-txt">'+n.text+'</div></div>';
+  }).join('') : '<div style="font-size:11px;color:var(--text3)">No activity yet.</div>';
+  el('clientProfileOverlay').classList.add('open');
+};
+
+window.openLandlordProfile = function(id) {
+  var ll = window.landlords ? window.landlords.find(function(x){return x.id===id;}) : null;
+  if(!ll) { alert('Landlord not found: ' + id); return; }
+  activeLLId = id;
+  var el = function(i){return document.getElementById(i);};
+  var ini = function(f,l){return ((f||'?')[0]+(l||'?')[0]).toUpperCase();};
+  var relCol = {Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
+  el('llpAv').textContent = ini(ll.first,ll.last);
+  el('llpName').textContent = [ll.first,ll.last].filter(Boolean).join(' ');
+  el('llpRole').textContent = ll.company||'—';
+  el('llpPhone').textContent = ll.phone ? '📱 '+ll.phone : '—';
+  el('llpEmail').textContent = ll.email||'—';
+  el('llpCallBtn').onclick = function(){if(ll.phone)window.location='tel:'+ll.phone;};
+  el('llpWABtn').onclick = function(){if(ll.phone)window.open('https://wa.me/'+ll.phone.replace(/[^0-9]/g,''));};
+  el('llpEmailBtn').onclick = function(){if(ll.email)window.location='mailto:'+ll.email;};
+  el('llpPortfolio').innerHTML = '<div>'
+    +'<div class="det-row"><span class="det-k">Node</span><span class="det-v">'+(ll.node||'—')+'</span></div>'
+    +'<div class="det-row"><span class="det-k">Buildings</span><span class="det-v">'+(ll.buildings||'—')+'</span></div>'
+    +'<div class="det-row"><span class="det-k">Relationship</span><span class="det-v" style="color:'+(relCol[ll.rel]||'var(--text3)')+'">'+ll.rel+'</span></div>'
+    +(ll.notes?'<div class="det-row"><span class="det-k">Notes</span><span class="det-v">'+ll.notes+'</span></div>':'')
+    +'</div>';
+  var listings = window.listings || [];
+  var llB = (ll.buildings||'').split(',').map(function(b){return b.trim().toLowerCase();}).filter(Boolean);
+  var llL = listings.filter(function(l){return llB.some(function(b){return l.building.toLowerCase().indexOf(b)>-1||l.address.toLowerCase().indexOf(b)>-1;});});
+  el('llpPropCt').textContent = llL.length;
+  var pipe = window.pipeline || [];
+  el('llpProps').innerHTML = llL.length ? llL.map(function(l){
+    var p=pipe.find(function(x){return x.listingId===l.id;});
+    return '<div class="prop-intro-item"><div class="prop-intro-name">'+l.building+'</div><div class="prop-intro-detail">'+l.address+'</div><span class="prop-intro-status status-introduced">'+(p?p.stage+' — '+p.client:'Available')+'</span></div>';
+  }).join('') : '<div style="font-size:11px;color:var(--text3)">No listings matched</div>';
+  var notes = ll.notes2||[];
+  el('llpNoteCt').textContent = notes.length;
+  el('llpNotes').innerHTML = notes.length ? notes.slice().reverse().map(function(n){
+    return '<div class="hs-note"><div class="hs-note-date">'+n.date+'</div><div class="hs-note-txt">'+n.text+'</div></div>';
+  }).join('') : '<div style="font-size:11px;color:var(--text3)">No activity yet.</div>';
+  el('llProfileOverlay').classList.add('open');
+};
+
+window.closeClientProfile = function(){document.getElementById('clientProfileOverlay').classList.remove('open');activeClientId=null;};
+window.closeLLProfile = function(){document.getElementById('llProfileOverlay').classList.remove('open');activeLLId=null;};
+window.addClientProfileNote = function(){
+  var text=document.getElementById('cpNoteInput').value.trim();
+  if(!text||!activeClientId)return;
+  var cl=window.clients.find(function(x){return x.id===activeClientId;});
+  if(!cl)return;if(!cl.notes2)cl.notes2=[];
+  cl.notes2.push({date:new Date().toISOString().slice(0,10),text:text});
+  document.getElementById('cpNoteInput').value='';
+  if(window.save)window.save();
+  var notes=cl.notes2;
+  document.getElementById('cpNotes').innerHTML=notes.slice().reverse().map(function(n){return '<div class="hs-note"><div class="hs-note-date">'+n.date+'</div><div class="hs-note-txt">'+n.text+'</div></div>';}).join('');
+  if(window.showToast)window.showToast('Note logged');
+};
+window.addLLProfileNote = function(){
+  var text=document.getElementById('llpNoteInput').value.trim();
+  if(!text||!activeLLId)return;
+  var ll=window.landlords.find(function(x){return x.id===activeLLId;});
+  if(!ll)return;if(!ll.notes2)ll.notes2=[];
+  ll.notes2.push({date:new Date().toISOString().slice(0,10),text:text});
+  document.getElementById('llpNoteInput').value='';
+  if(window.save)window.save();
+  var notes=ll.notes2;
+  document.getElementById('llpNotes').innerHTML=notes.slice().reverse().map(function(n){return '<div class="hs-note"><div class="hs-note-date">'+n.date+'</div><div class="hs-note-txt">'+n.text+'</div></div>';}).join('');
+  if(window.showToast)window.showToast('Note logged');
+};
+
+console.log('✓ Profile functions patched successfully');
+
+
+// ══ P24 MANAGEMENT ════════════════════════════════════════════════════════════
+function toggleP24(id){
+  const l=listings.find(x=>x.id===id);
+  if(!l)return;
+  const p24Let=listings.filter(x=>x.type==='let'&&x.p24Active).length;
+  if(!l.p24Active && l.type==='let' && p24Let>=30){
+    showToast('P24 limit reached — remove a listing first');
+    return;
+  }
+  l.p24Active=!l.p24Active;
+  if(l.p24Active){
+    l.p24AddedDate=new Date().toISOString().slice(0,10);
+  } else {
+    l.p24RemovedDate=new Date().toISOString().slice(0,10);
+  }
+  save();renderListings();updateStats();
+  showToast(l.p24Active?'Marked as active on P24':'Removed from P24 tracking');
+}
+
+function getRotationPlan(){
+  // Get all To Let listings NOT currently on P24
+  const today=new Date();
+  const todayStr=today.toISOString().slice(0,10);
+  
+  // Listings on P24 - check which can be rotated (must have been on for 14+ days)
+  const onP24=listings.filter(l=>l.type==='let'&&l.p24Active);
+  const rotateable=onP24.filter(l=>{
+    if(!l.p24AddedDate)return true;
+    const added=new Date(l.p24AddedDate);
+    const daysSince=Math.floor((today-added)/(1000*60*60*24));
+    return daysSince>=14;
+  });
+  
+  // Off P24 - candidates to rotate on
+  const offP24=listings.filter(l=>l.type==='let'&&!l.p24Active);
+  
+  // P24 slots available
+  const slotsLeft=Math.max(0,30-onP24.length);
+  
+  return{onP24,rotateable,offP24,slotsLeft,todayStr};
+}
+
+function showRotationPlan(){
+  const {onP24,rotateable,offP24,slotsLeft}=getRotationPlan();
+  const today=new Date();
+  
+  let html='<div style="padding:14px;background:var(--bg1);border-radius:var(--r);margin-bottom:12px">';
+  html+='<div style="font-family:var(--body);font-size:15px;font-weight:600;color:var(--text1);margin-bottom:12px">📊 P24 Rotation Plan</div>';
+  
+  // Status
+  html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+    <div style="background:var(--bg3);border-radius:8px;padding:10px 12px">
+      <div style="font-family:var(--mono);font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px">Currently on P24</div>
+      <div style="font-size:20px;font-weight:700;color:var(--sage)">${onP24.length}<span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">/ 30</span></div>
+    </div>
+    <div style="background:var(--bg3);border-radius:8px;padding:10px 12px">
+      <div style="font-family:var(--mono);font-size:8px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px">Ready to rotate off</div>
+      <div style="font-size:20px;font-weight:700;color:var(--gold)">${rotateable.length}<span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">listings (14d+)</span></div>
+    </div>
+  </div>`;
+  
+  // 2-per-day rotation schedule
+  if(offP24.length>0 && rotateable.length>0){
+    html+='<div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:8px">Recommended 14-day rotation schedule (2/day)</div>';
+    html+='<div style="max-height:220px;overflow-y:auto;border:1px solid var(--border);border-radius:8px">';
+    
+    let rotateQueue=[...offP24];
+    let removeQueue=[...rotateable];
+    
+    for(let day=0;day<14&&rotateQueue.length>0;day++){
+      const d=new Date(today);
+      d.setDate(d.getDate()+day);
+      const dateStr=d.toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'});
+      const toAdd=rotateQueue.splice(0,2);
+      const toRemove=removeQueue.splice(0,toAdd.length);
+      
+      if(toAdd.length===0)break;
+      
+      html+=`<div style="padding:8px 12px;border-bottom:1px solid var(--border);font-size:11px">
+        <div style="font-family:var(--mono);font-size:8px;color:var(--sage);margin-bottom:4px">${dateStr}</div>`;
+      
+      toAdd.forEach((l,i)=>{
+        html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+          <span style="color:var(--text1)">➕ <strong>${l.building}</strong></span>
+          <span style="font-family:var(--mono);font-size:8px;color:var(--sage)">${fP(l.price,l.type)}</span>
+        </div>`;
+        if(toRemove[i]){
+          html+=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+            <span style="color:var(--text3)">➖ ${toRemove[i].building}</span>
+            <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">(rotate off)</span>
+          </div>`;
+        }
+      });
+      html+='</div>';
+    }
+    html+='</div>';
+  } else if(offP24.length===0){
+    html+='<div style="font-size:12px;color:var(--text2);padding:10px;background:var(--bg3);border-radius:8px">All your To Let listings are already on P24. Mark some as removed to start rotating.</div>';
+  } else {
+    html+='<div style="font-size:12px;color:var(--text2);padding:10px;background:var(--bg3);border-radius:8px">None of your current P24 listings are old enough to rotate yet (need 14+ days). Check back soon.</div>';
+  }
+  
+  html+='</div>';
+  
+  // Show in a modal-style overlay
+  let overlay=document.getElementById('rotationOverlay');
+  if(!overlay){
+    overlay=document.createElement('div');
+    overlay.id='rotationOverlay';
+    overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)';
+    overlay.onclick=function(e){if(e.target===overlay)overlay.remove()};
+    document.body.appendChild(overlay);
+  }
+  overlay.innerHTML=`<div style="background:var(--bg1);width:540px;max-width:95vw;max-height:85vh;border-radius:14px;border:1px solid var(--border2);overflow-y:auto;padding:0">
+    <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg1)">
+      <div style="font-size:16px;font-weight:600;color:var(--text1)">P24 Rotation Planner</div>
+      <button onclick="document.getElementById('rotationOverlay').remove()" style="background:var(--bg3);border:none;border-radius:50%;width:28px;height:28px;color:var(--text2);cursor:pointer;font-size:14px">✕</button>
+    </div>
+    <div style="padding:16px 20px">${html}</div>
+  </div>`;
+  overlay.style.display='flex';
+}
+
+
+// ══ LANDLORD PROPERTY PORTFOLIO ════════════════════════════════════════════
+var llPropRowCount = 0;
+
+function addLLPropertyRow(){
+  llPropRowCount++;
+  const id = llPropRowCount;
+  const div = document.createElement('div');
+  div.id = 'llpr-'+id;
+  div.style.cssText = 'background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:8px;position:relative';
+  div.innerHTML = `
+    <button type="button" onclick="document.getElementById('llpr-${id}').remove()" style="position:absolute;top:8px;right:8px;background:var(--bg4);border:none;border-radius:50%;width:20px;height:20px;color:var(--text3);cursor:pointer;font-size:11px;line-height:1">✕</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <div class="field" style="margin:0"><label>Property Name</label><input id="llpr-name-${id}" placeholder="e.g. The Towers Unit 5B"></div>
+      <div class="field" style="margin:0"><label>Property Type</label>
+        <select id="llpr-type-${id}">
+          <option value="Sectional Title">Sectional Title</option>
+          <option value="Freehold">Freehold</option>
+          <option value="Commercial">Commercial</option>
+          <option value="Retail">Retail</option>
+          <option value="Industrial">Industrial</option>
+          <option value="Mixed Use">Mixed Use</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">
+      <div class="field" style="margin:0"><label>GLA / Size (m²)</label><input type="number" id="llpr-gla-${id}" placeholder="120"></div>
+      <div class="field" style="margin:0"><label>Node / Area</label><input id="llpr-node-${id}" placeholder="CBD"></div>
+      <div class="field" style="margin:0"><label>Erf / Unit No.</label><input id="llpr-erf-${id}" placeholder="Unit 5B / Erf 1234"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <div class="field" style="margin:0"><label>Sale Price (R)</label><input type="number" id="llpr-price-${id}" placeholder="4500000"></div>
+      <div class="field" style="margin:0"><label>Registration Date</label><input type="date" id="llpr-regdate-${id}"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div class="field" style="margin:0"><label>Monthly Rental (R)</label><input type="number" id="llpr-rental-${id}" placeholder="45000"></div>
+      <div class="field" style="margin:0"><label>Status</label>
+        <select id="llpr-status-${id}">
+          <option value="Vacant">Vacant</option>
+          <option value="Tenanted">Tenanted</option>
+          <option value="Owner Occupied">Owner Occupied</option>
+          <option value="For Sale">For Sale</option>
+          <option value="For Sale & To Let">For Sale & To Let</option>
+        </select>
+      </div>
+    </div>
+  `;
+  document.getElementById('llPropertyList').appendChild(div);
+}
+
+function getLLProperties(){
+  const props = [];
+  for(let i=1; i<=llPropRowCount; i++){
+    const nameEl = document.getElementById('llpr-name-'+i);
+    if(!nameEl) continue;
+    const name = nameEl.value.trim();
+    if(!name) continue;
+    props.push({
+      name,
+      type: document.getElementById('llpr-type-'+i).value,
+      gla: parseFloat(document.getElementById('llpr-gla-'+i).value)||null,
+      node: document.getElementById('llpr-node-'+i).value.trim(),
+      erf: document.getElementById('llpr-erf-'+i).value.trim(),
+      price: parseFloat(document.getElementById('llpr-price-'+i).value)||null,
+      regDate: document.getElementById('llpr-regdate-'+i).value||null,
+      rental: parseFloat(document.getElementById('llpr-rental-'+i).value)||null,
+      status: document.getElementById('llpr-status-'+i).value,
+    });
+  }
+  return props;
+}
+
+function saveLandlord(){
+  const g = id => document.getElementById(id) ? document.getElementById(id).value.trim() : '';
+  const props = getLLProperties();
+  // Build buildings string from property names for backward compat
+  const buildingsStr = props.map(p=>p.name).join(', ') || g('llbN') || '';
+  const newLL = {
+    id: 'll'+Date.now(),
+    first: g('llfN'), last: g('lllN'),
+    company: g('llcN'),
+    phone: g('llpN'), email: g('lleN'),
+    buildings: buildingsStr,
+    properties: props,
+    node: document.getElementById('llnN') ? document.getElementById('llnN').value : 'CBD',
+    rel: document.getElementById('llrN') ? document.getElementById('llrN').value : 'Active',
+    notes: g('llnotes'),
+    notes2: []
+  };
+  landlords.unshift(newLL);
+  save(); renderLandlords();
+  document.getElementById('addLLForm').classList.remove('open');
+  document.getElementById('toggleAddLL').textContent = '+ Add Landlord';
+  // Reset form
+  ['llfN','lllN','llcN','llpN','lleN','llnotes'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('llPropertyList').innerHTML='';
+  llPropRowCount = 0;
+  showToast('Landlord saved ✓');
+}
+
+</script>
+</body>
+</html>document.getElementById('toggleAddClient').addEventListener('click',()=>{
+  const f=document.getElementById('addClientForm');
+  const o=f.classList.toggle('open');
+  document.getElementById('toggleAddClient').textContent=o?'✕ Cancel':'+ Add Client';
+})
+document.getElementById('saveClient').addEventListener('click',()=>{
+  const g=id=>document.getElementById(id).value.trim();
+  const ct=document.getElementById('ctypeN');
+  clients.unshift({
+    id:'c'+Date.now(),
+    first:g('cfN'),last:g('clN'),
+    company:g('ccN'),
+    clientType:ct?ct.value:'Tenant',
+    phone:g('cpN'),email:g('ceN'),
+    req:g('crN'),notes:g('cnN'),
+    notes2:[]
+  });
+  save();renderClients();
+  document.getElementById('addClientForm').classList.remove('open');
+  document.getElementById('toggleAddClient').textContent='+ Add Client';
+  ['cfN','clN','ccN','cpN','ceN','crN','cnN'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.value='';
+  });
+  showToast('Client saved ✓');
+});
+;
+document.getElementById('toggleAddLL').addEventListener('click',()=>{
+  const f=document.getElementById('addLLForm');
+  const o=f.classList.toggle('open');
+  document.getElementById('toggleAddLL').textContent=o?'✕ Cancel':'+ Add Landlord';
+})
+document.getElementById('saveLL').addEventListener('click',()=>{
+  const g=id=>document.getElementById(id).value.trim();
+  landlords.unshift({
+    id:'ll'+Date.now(),
+    first:g('llfN'),last:g('lllN'),
+    company:g('llcN'),
+    phone:g('llpN'),email:g('lleN'),
+    buildings:g('llbN'),
+    node:document.getElementById('llnN').value,
+    rel:document.getElementById('llrN').value,
+    notes:g('llnotes'),
+    notes2:[]
+  });
+  save();renderLandlords();
+  document.getElementById('addLLForm').classList.remove('open');
+  document.getElementById('toggleAddLL').textContent='+ Add Landlord';
+  ['llfN','lllN','llcN','llpN','lleN','llbN','llnotes'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.value='';
+  });
+  showToast('Landlord saved ✓');
+});
+;
+
