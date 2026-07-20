@@ -2264,7 +2264,31 @@ window.addLLProfileNote = function(){
 };
 
 console.log('✓ Profile functions patched successfully');
-
+// Auto-add missing listings on load
+(function addMissingListings(){
+  var newListings=[
+    {id:'l073',building:'Oceana House (2,030m²)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:2030,grade:'A',price:365346,rate:180,avail:'July 2026',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/517639/',desc:'Available from July 2026. Foreshore.',source:'Vermaak',notes:[]},
+    {id:'l074',building:'Oceana House (1,957m²)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:1957,grade:'A',price:352260,rate:180,avail:'June 2026',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/517639/',desc:'Available from June 2026. Foreshore.',source:'Vermaak',notes:[]},
+    {id:'l075',building:'11 Adderley Street (1,896m²)',address:'11 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:1896,grade:'A',price:331800,rate:175,avail:'Immediately',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/741417/',desc:'NEW. Iconic CBD landmark. A-Grade.',source:'Vermaak',notes:[]},
+    {id:'l076',building:'One Thibault (286m²)',address:'One Thibault, Cape Town CBD',node:'CBD',type:'let',gla:286,grade:'A',price:48620,rate:170,avail:'Enquire',parking:'Building',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/721611/',desc:'Premier mixed-use skyscraper.',source:'Vermaak',notes:[]},
+    {id:'l077',building:'Northgate Island (3,000m² Office)',address:'Northgate Park, Brooklyn',node:'Northgate',type:'let',gla:3000,grade:'A',price:510000,rate:170,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/milnerton/brooklyn/office/643232/',desc:'A-Grade. Northgate Park. Large format office.',source:'Vermaak',notes:[]},
+    {id:'l078',building:'Newspaper House (7,200m²)',address:'122 St Georges Mall, Cape Town CBD',node:'CBD',type:'let',gla:7200,grade:'A',price:1224000,rate:170,avail:'Enquire',parking:'Nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/381459/',desc:'Newspaper House. St Georges Mall. Full building.',source:'Vermaak',notes:[]},
+    {id:'l079',building:'Matador Centre (226m² Retail)',address:'62 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:226,grade:'B',price:38235,rate:169,avail:'Enquire',parking:'R1,450/bay',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/cape-town-city-centre/retail/379539/',desc:'Ground floor retail. Matador Centre.',source:'Vermaak',notes:[]},
+    {id:'l080',building:'The Felix (274m² Office)',address:'58 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:274,grade:'A',price:46032,rate:168,avail:'Enquire',parking:'882 bays',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/382608/',desc:'The Felix. Multi-use. 882 parking bays.',source:'Vermaak',notes:[]},
+    {id:'l081',building:'Norton Rose House (622m²)',address:'8 Riebeek Street, Cape Town CBD',node:'CBD',type:'let',gla:622,grade:'A',price:102630,rate:165,avail:'Immediately',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/742083/',desc:'NEW. Riebeek Street. A-Grade.',source:'Vermaak',notes:[]},
+    {id:'l082',building:'Bergstan Building (657m²)',address:'52 Loop Street, Cape Town CBD',node:'CBD',type:'let',gla:657,grade:'B',price:118260,rate:180,avail:'Enquire',parking:'None in building',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/379524/',desc:'Bergstan Building, Loop Street.',source:'Vermaak',notes:[]},
+    {id:'l083',building:'Westminster House (276m²)',address:'Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:276,grade:'B',price:48300,rate:175,avail:'Enquire',parking:'Enquire',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/office/473044/',desc:'Heritage building. Adderley Street.',source:'Vermaak',notes:[]},
+    {id:'l084',building:'Roggebaai Place (218m² Retail)',address:'4 Jetty Street, Foreshore',node:'Foreshore',type:'let',gla:218,grade:'P',price:43600,rate:200,avail:'Immediately',parking:'R1,800/bay',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/foreshore/retail/379507/',desc:'AAA Grade retail. CTICC nearby.',source:'Vermaak',notes:[]},
+    {id:'l085',building:'73 Hertzog Blvd (1,843m² Showroom)',address:'73 Hertzog Boulevard, Foreshore',node:'Foreshore',type:'let',gla:1843,grade:'A',price:294880,rate:160,avail:'Immediately',parking:'Enquire',link:'https://m.vermaakproperties.co.za/results/commercial/to-let/cape-town/foreshore/office/380550/',desc:'A-Grade showroom. Foreshore.',source:'Vermaak',notes:[]}
+  ];
+  newListings.forEach(function(nl){
+    if(!listings.find(function(l){return l.id===nl.id;})){listings.push(nl);}
+  });
+  listings.forEach(function(l){
+    if(l.type==='sale'){l.p24Active=true;l.p24AddedDate=l.p24AddedDate||'2026-07-01';}
+  });
+  save();renderListings();updateStats();
+})();
 </script>
 </body>
 </html>
