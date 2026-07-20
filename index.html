@@ -1738,6 +1738,8 @@ function renderClients(){
         <div class="ccard-acts">
           <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${cl.phone}'" title="Call">📞</button>
           <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${cl.email}'" title="Email">✉️</button>
+          <button class="ic-btn" onclick="event.stopPropagation();editClient('${cl.id}')" title="Edit" style="font-size:12px">✏️</button>
+          <button class="ic-btn" onclick="event.stopPropagation();deleteClient('${cl.id}')" title="Delete" style="font-size:12px">🗑️</button>
         </div>
       </div>
       <div class="ccard-detail" id="cd-${cl.id}" style="display:none;border-top:1px solid var(--border);padding:12px 13px;background:var(--bg1)">
@@ -1779,7 +1781,7 @@ function toggleClientCard(id){
 
 
 function renderLandlords(){
-  const fl=getFL();
+  const fl=getFL2();
   document.getElementById('llCt').textContent=fl.length;
   const c=document.getElementById('llCon');
   if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">🏦</div><div class="empty-title">No landlords</div><div class="empty-sub">Add your first landlord</div></div>';return;}
@@ -1798,6 +1800,8 @@ function renderLandlords(){
         <div class="ccard-acts">
           <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${ll.phone}'" title="Call">📞</button>
           <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${ll.email}'" title="Email">✉️</button>
+          <button class="ic-btn" onclick="event.stopPropagation();editLandlord('${ll.id}')" title="Edit" style="font-size:12px">✏️</button>
+          <button class="ic-btn" onclick="event.stopPropagation();deleteLandlord('${ll.id}')" title="Delete" style="font-size:12px">🗑️</button>
         </div>
       </div>
       <div class="ccard-detail" id="lld-${ll.id}" style="display:none;border-top:1px solid var(--border);padding:12px 13px;background:var(--bg1)">
@@ -2631,6 +2635,96 @@ function saveLandlord(){
   showToast('Landlord saved ✓');
 }
 
+
+// ══ EDIT / DELETE LANDLORD ════════════════════════════════════════
+function editLandlord(id){
+  const ll=landlords.find(x=>x.id===id);
+  if(!ll)return;
+  // Open the add form and pre-fill it
+  const f=document.getElementById('addLLForm');
+  f.classList.add('open');
+  document.getElementById('toggleAddLL').textContent='✕ Cancel';
+  // Pre-fill fields
+  document.getElementById('llfN').value=ll.first||'';
+  document.getElementById('lllN').value=ll.last||'';
+  document.getElementById('llcN').value=ll.company||'';
+  document.getElementById('llpN').value=ll.phone||'';
+  document.getElementById('lleN').value=ll.email||'';
+  document.getElementById('llbN').value=ll.buildings||'';
+  document.getElementById('llnotes').value=ll.notes||'';
+  if(document.getElementById('llnN')) document.getElementById('llnN').value=ll.node||'CBD';
+  if(document.getElementById('llrN')) document.getElementById('llrN').value=ll.rel||'Active';
+  // Change save button to update
+  const saveBtn=document.getElementById('saveLL');
+  saveBtn.textContent='Update Landlord';
+  saveBtn._editId=id;
+  saveBtn.onclick=function(){
+    const g=function(i){return document.getElementById(i)?document.getElementById(i).value.trim():'';};
+    ll.first=g('llfN'); ll.last=g('lllN');
+    ll.company=g('llcN'); ll.phone=g('llpN');
+    ll.email=g('lleN'); ll.buildings=g('llbN');
+    ll.notes=g('llnotes');
+    if(document.getElementById('llnN')) ll.node=document.getElementById('llnN').value;
+    if(document.getElementById('llrN')) ll.rel=document.getElementById('llrN').value;
+    save(); renderLandlords();
+    f.classList.remove('open');
+    document.getElementById('toggleAddLL').textContent='+ Add Landlord';
+    saveBtn.textContent='Save Landlord';
+    saveBtn.onclick=null;
+    showToast('Landlord updated ✓');
+  };
+  // Scroll to form
+  f.scrollIntoView({behavior:'smooth'});
+}
+
+function deleteLandlord(id){
+  if(!confirm('Delete this landlord?')) return;
+  landlords=landlords.filter(x=>x.id!==id);
+  save(); renderLandlords();
+  showToast('Landlord deleted');
+}
+
+// ══ EDIT / DELETE CLIENT ══════════════════════════════════════════
+function editClient(id){
+  const cl=clients.find(x=>x.id===id);
+  if(!cl)return;
+  const f=document.getElementById('addClientForm');
+  f.classList.add('open');
+  document.getElementById('toggleAddClient').textContent='✕ Cancel';
+  document.getElementById('cfN').value=cl.first||'';
+  document.getElementById('clN').value=cl.last||'';
+  document.getElementById('ccN').value=cl.company||'';
+  document.getElementById('cpN').value=cl.phone||'';
+  document.getElementById('ceN').value=cl.email||'';
+  document.getElementById('crN').value=cl.req||'';
+  document.getElementById('cnN').value=cl.notes||'';
+  if(document.getElementById('ctypeN')) document.getElementById('ctypeN').value=cl.clientType||'Tenant';
+  const saveBtn=document.getElementById('saveClient');
+  saveBtn.textContent='Update Client';
+  saveBtn.onclick=function(){
+    const g=function(i){return document.getElementById(i)?document.getElementById(i).value.trim():'';};
+    cl.first=g('cfN'); cl.last=g('clN');
+    cl.company=g('ccN'); cl.phone=g('cpN');
+    cl.email=g('ceN'); cl.req=g('crN');
+    cl.notes=g('cnN');
+    if(document.getElementById('ctypeN')) cl.clientType=document.getElementById('ctypeN').value;
+    save(); renderClients();
+    f.classList.remove('open');
+    document.getElementById('toggleAddClient').textContent='+ Add Client';
+    saveBtn.textContent='Save Client';
+    saveBtn.onclick=null;
+    showToast('Client updated ✓');
+  };
+  f.scrollIntoView({behavior:'smooth'});
+}
+
+function deleteClient(id){
+  if(!confirm('Delete this client?')) return;
+  clients=clients.filter(x=>x.id!==id);
+  save(); renderClients();
+  showToast('Client deleted');
+}
+
 </script>
 </body>
 </html>document.getElementById('toggleAddClient').addEventListener('click',()=>{
@@ -2666,5 +2760,4 @@ document.getElementById('toggleAddLL').addEventListener('click',()=>{
   document.getElementById('toggleAddLL').textContent=o?'✕ Cancel':'+ Add Landlord';
 });
 ;
-function getFL(){let l=[...landlords];if(llSrch){const q=llSrch.toLowerCase();l=l.filter(x=>(x.first+x.last+x.company+x.buildings).toLowerCase().includes(q));}return l;}
-<script>document.getElementById('saveLL').addEventListener('click',function(){var g=function(i){var e=document.getElementById(i);return e?e.value.trim():'';};landlords.unshift({id:'ll'+Date.now(),first:g('llfN'),last:g('lllN'),company:g('llcN'),phone:g('llpN'),email:g('lleN'),buildings:g('llbN'),node:document.getElementById('llnN').value,rel:document.getElementById('llrN').value,notes:g('llnotes'),notes2:[]});save();renderLandlords();document.getElementById('addLLForm').classList.remove('open');document.getElementById('toggleAddLL').textContent='+ Add Landlord';['llfN','lllN','llcN','llpN','lleN','llbN','llnotes'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});showToast('Landlord saved');});</script>
+
