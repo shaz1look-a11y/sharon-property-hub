@@ -1059,7 +1059,7 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
           <div id="llPropertyList"></div>
         </div>
         <div class="field"><label>Notes</label><textarea id="llnotes" placeholder="Vacancy position, preferred tenant types, commission attitude…"></textarea></div>
-        <button class="btn-p" onclick="saveLandlord()">Save Landlord</button>
+        <button type="button" class="btn-p" onclick="saveLandlord()">Save Landlord</button>
       </div>
     </div>
     <div class="sec-hd"><span class="sec-lbl">Landlord contacts</span><span class="sec-ct" id="llCt">0</span></div>
@@ -2601,12 +2601,14 @@ function getLLProperties(){
 
 function saveLandlord(){
   const g = id => document.getElementById(id) ? document.getElementById(id).value.trim() : '';
+  const first = g('llfN');
+  const last = g('lllN');
+  if(!first && !last){ showToast('Please enter a name'); return; }
   const props = getLLProperties();
-  // Build buildings string from property names for backward compat
-  const buildingsStr = props.map(p=>p.name).join(', ') || g('llbN') || '';
+  const buildingsStr = props.map(p=>p.name).join(', ') || '';
   const newLL = {
     id: 'll'+Date.now(),
-    first: g('llfN'), last: g('lllN'),
+    first, last,
     company: g('llcN'),
     phone: g('llpN'), email: g('lleN'),
     buildings: buildingsStr,
