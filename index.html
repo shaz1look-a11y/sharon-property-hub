@@ -2437,7 +2437,7 @@ function showRotationPlan(){
   ov.innerHTML='<div style="background:var(--bg1);width:520px;max-width:95vw;max-height:85vh;border-radius:14px;border:1px solid var(--border2);overflow-y:auto"><div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg1)"><div style="font-size:15px;font-weight:600;color:var(--text1)">📊 P24 Rotation Planner</div><button onclick="document.getElementById('rotationOverlay').remove()" style="background:var(--bg3);border:none;border-radius:50%;width:28px;height:28px;color:var(--text2);cursor:pointer;font-size:14px">✕</button></div>'+html+'</div>';
   ov.style.display='flex';
 }
-
+function getStatusStyle(s){return {Connected:'color:var(--sage);background:var(--green-bg);border:1px solid var(--green-bd)',Qualified:'color:var(--blue);background:var(--blue-bg);border:1px solid rgba(74,144,196,.25)',Active:'color:var(--gold);background:var(--gold-bg);border:1px solid var(--gold-bd)',Pending:'color:#e07b39;background:rgba(224,123,57,.12);border:1px solid rgba(224,123,57,.3)',Closed:'color:var(--red);background:rgba(196,74,74,.12);border:1px solid rgba(196,74,74,.3)'}[s]||'color:var(--sage);background:var(--green-bg);border:1px solid var(--green-bd)';}
 </script>
 </body>
 </html>
