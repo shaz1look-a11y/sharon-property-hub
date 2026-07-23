@@ -1,4 +1,3 @@
-<!-- Sharon Property Hub v20260723-1113 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -789,42 +788,28 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 <div class="scr active" id="scr-listings">
   <div class="scr-body">
     <div class="srch-wrap"><span class="srch-ic">🔍</span><input class="srch" id="lSrch" placeholder="Search building, address, node…" type="search"></div>
-    <!-- P24 STATS BAR -->
-    <div id="p24StatsBar" style="display:flex;gap:8px;margin:10px 0;flex-wrap:wrap">
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;flex:1;min-width:130px">
-        <div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:3px">My P24 To Let</div>
-        <div style="display:flex;align-items:baseline;gap:5px">
-          <span id="p24LetCount" style="font-size:20px;font-weight:700;color:var(--sage)">0</span>
-          <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">/ 30 max</span>
+    <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;flex:1;min-width:110px">
+        <div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:2px">P24 To Let</div>
+        <div style="display:flex;align-items:baseline;gap:4px">
+          <span id="p24LetCount" style="font-size:18px;font-weight:700;color:var(--sage)">0</span>
+          <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">/30</span>
         </div>
-        <div style="height:3px;background:var(--bg4);border-radius:2px;margin-top:5px">
+        <div style="height:3px;background:var(--bg4);border-radius:2px;margin-top:4px">
           <div id="p24LetBar" style="height:3px;background:var(--sage);border-radius:2px;width:0%;transition:width .3s"></div>
         </div>
       </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;flex:1;min-width:130px">
-        <div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:3px">My P24 For Sale</div>
-        <div style="display:flex;align-items:baseline;gap:5px">
-          <span id="p24SaleCount" style="font-size:20px;font-weight:700;color:var(--gold)">0</span>
-          <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">unlimited</span>
-        </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;flex:1;min-width:110px">
+        <div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:2px">P24 For Sale</div>
+        <div style="font-size:18px;font-weight:700;color:var(--gold)"><span id="p24SaleCount">0</span></div>
       </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;flex:1;min-width:130px">
-        <div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:3px">Vermaak Website</div>
-        <div style="display:flex;align-items:baseline;gap:5px">
-          <span id="websiteCount" style="font-size:20px;font-weight:700;color:var(--text1)">85</span>
-          <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">total listings</span>
-        </div>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px;flex:1;min-width:130px">
-        <div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:3px">P24 Slots Free</div>
-        <div style="display:flex;align-items:baseline;gap:5px">
-          <span id="p24SlotsLeft" style="font-size:20px;font-weight:700;color:var(--purple)">30</span>
-          <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">to let slots</span>
-        </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;flex:1;min-width:110px">
+        <div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:2px">Total Listings</div>
+        <div style="font-size:18px;font-weight:700;color:var(--text1)"><span id="p24TotalCount">0</span></div>
       </div>
     </div>
-    <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
-      <button onclick="showRotationPlan()" style="font-family:var(--mono);font-size:8px;padding:6px 14px;background:var(--moss);color:#fff;border:none;border-radius:var(--r);cursor:pointer;text-transform:uppercase;letter-spacing:.07em">📊 View Rotation Plan</button>
+    <div style="text-align:right;margin-bottom:8px">
+      <button onclick="showRotationPlan()" style="font-family:var(--mono);font-size:8px;padding:6px 14px;background:var(--moss);color:#fff;border:none;border-radius:var(--r);cursor:pointer;text-transform:uppercase;letter-spacing:.07em">P24 Rotation Plan</button>
     </div>
     <div class="fprow" id="lFilt">
       <button class="fp active" data-f="all">All</button>
@@ -978,16 +963,8 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 <!-- ═══════════════════════════════════════════════════ SCREEN 6: CLIENTS -->
 <div class="scr" id="scr-clients">
   <div class="scr-body">
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
-      <button class="fpill active" onclick="clStatusFilter='all';this.parentNode.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('active')});this.classList.add('active');renderClients()">All</button>
-      <button class="fpill" onclick="clStatusFilter='Connected';this.parentNode.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('active')});this.classList.add('active');renderClients()">🟢 Connected</button>
-      <button class="fpill" onclick="clStatusFilter='Qualified';this.parentNode.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('active')});this.classList.add('active');renderClients()">🔵 Qualified</button>
-      <button class="fpill" onclick="clStatusFilter='Active';this.parentNode.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('active')});this.classList.add('active');renderClients()">🟡 Active</button>
-      <button class="fpill" onclick="clStatusFilter='Pending';this.parentNode.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('active')});this.classList.add('active');renderClients()">🟠 Pending</button>
-      <button class="fpill" onclick="clStatusFilter='Closed';this.parentNode.querySelectorAll('.fpill').forEach(function(b){b.classList.remove('active')});this.classList.add('active');renderClients()">🔴 Closed</button>
-    </div>
     <div class="srch-wrap"><span class="srch-ic">🔍</span><input class="srch" id="clSrch" placeholder="Search clients…" type="search"></div>
-    <button class="btn-p" id="toggleAddClient" onclick="var f=document.getElementById('addClientForm');var o=f.classList.toggle('open');this.textContent=o?'✕ Cancel':'+ Add Client';" style="margin-bottom:10px;background:var(--bg3);border:1px solid var(--border2);color:var(--mint)">+ Add Client</button>
+    <button class="btn-p" id="toggleAddClient" style="margin-bottom:10px;background:var(--bg3);border:1px solid var(--border2);color:var(--mint)">+ Add Client</button>
     <div class="add-form" id="addClientForm">
       <div class="form-box">
         <div class="form-title">New Client</div>
@@ -1002,7 +979,7 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
         </div>
         <div class="field"><label>Requirement</label><input id="crN" placeholder="200–400m², CBD, To Let, R60k budget"></div>
         <div class="field"><label>Notes</label><textarea id="cnN" placeholder="Occupation date, parking needs, decision maker…"></textarea></div>
-        <button type="button" class="btn-p" id="saveClient" onclick="saveClient()">Save Client</button>
+        <button class="btn-p" id="saveClient">Save Client</button>
       </div>
     </div>
     <div class="sec-hd"><span class="sec-lbl">Client contacts</span><span class="sec-ct" id="clCt">0</span></div>
@@ -1014,7 +991,7 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 <div class="scr" id="scr-landlords">
   <div class="scr-body">
     <div class="srch-wrap"><span class="srch-ic">🔍</span><input class="srch" id="llSrch" placeholder="Search landlords…" type="search"></div>
-    <button class="btn-p" id="toggleAddLL" onclick="var f=document.getElementById('addLLForm');var o=f.classList.toggle('open');this.textContent=o?'✕ Cancel':'+ Add Landlord';" style="margin-bottom:10px;background:var(--bg3);border:1px solid var(--border2);color:var(--mint)">+ Add Landlord</button>
+    <button class="btn-p" id="toggleAddLL" style="margin-bottom:10px;background:var(--bg3);border:1px solid var(--border2);color:var(--mint)">+ Add Landlord</button>
     <div class="add-form" id="addLLForm">
       <div class="form-box">
         <div class="form-title">New Landlord</div>
@@ -1033,7 +1010,7 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
           <div class="field"><label>Relationship</label><select id="llrN"><option>Active</option><option>Warm</option><option>Cold</option><option>New</option></select></div>
         </div>
         <div class="field"><label>Notes</label><textarea id="llnotes" placeholder="Vacancy position, preferred tenant types, commission attitude…"></textarea></div>
-        <button type="button" class="btn-p" id="saveLL" onclick="saveLandlord()">Save Landlord</button>
+        <button class="btn-p" id="saveLL">Save Landlord</button>
       </div>
     </div>
     <div class="sec-hd"><span class="sec-lbl">Landlord contacts</span><span class="sec-ct" id="llCt">0</span></div>
@@ -1158,14 +1135,14 @@ html,body{height:100%;font-family:var(--body);background:var(--bg0);color:var(--
 // ═══════════════════════════════════════════════════════════════ DATA
 const SEED_L = [
   // ── FOR SALE ──────────────────────────────────────────────────────────
-  {id:'l001',p24Active:true,p24AddedDate:'2026-07-01',building:'33 Hout Street',address:'33 Hout Street, Cape Town CBD',node:'CBD',type:'sale',gla:1923,grade:'B',price:43500000,rate:null,avail:'Enquire',parking:'Street / nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/hotel/380141/',desc:'Heritage building built 1890. Hotel/commercial. Developer/investor opportunity.',source:'Vermaak',notes:[]},
-  {id:'l002',p24Active:true,p24AddedDate:'2026-07-01',building:'The Rubik (For Sale)',address:'19 Loop Street, Cape Town CBD',node:'CBD',type:'sale',gla:704,grade:'A',price:26704500,rate:null,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/382043/',desc:'Iconic Loop Street. Magnificent views of Table Mountain.',source:'Vermaak',notes:[]},
-  {id:'l003',p24Active:true,p24AddedDate:'2026-07-01',building:'Tramway House',address:'56 Waterkant Street, Cape Town CBD',node:'CBD',type:'sale',gla:240,grade:'B',price:17000000,rate:null,avail:'Enquire',parking:'Street',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/building/381305/',desc:'Beautiful heritage building. Rich history. Virtual tour available.',source:'Vermaak',notes:[]},
-  {id:'l004',p24Active:true,p24AddedDate:'2026-07-01',building:'Greenmarket Place (Restaurant)',address:'38 Shortmarket Street, Cape Town CBD',node:'CBD',type:'sale',gla:161,grade:'B',price:7000000,rate:null,avail:'Enquire',parking:'Street',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/cape-town/cape-town-city-centre/restaurant/517579/',desc:'Popular Shortmarket Street. Greenmarket Square. Restaurant space.',source:'Vermaak',notes:[]},
-  {id:'l005',p24Active:true,p24AddedDate:'2026-07-01',building:'155 Loop Street',address:'155 Loop Street, Cape Town CBD',node:'CBD',type:'sale',gla:300,grade:'A',price:6500000,rate:null,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/400422/',desc:'Modern commercial space. Ample natural light. Heart of CBD.',source:'Vermaak',notes:[]},
-  {id:'l006',p24Active:true,p24AddedDate:'2026-07-01',building:'Touchstone House (Unit 505)',address:'11 Bree Street, Foreshore',node:'Foreshore',type:'sale',gla:169,grade:'P',price:5700000,rate:null,avail:'Enquire',parking:'Building',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/517839/',desc:'AAA Grade. Financial hub of Foreshore. Premium position.',source:'Vermaak',notes:[]},
-  {id:'l007',p24Active:true,p24AddedDate:'2026-07-01',building:'Northgate Island (Unit A6)',address:'20 Adam Tas Square, Brooklyn',node:'Northgate',type:'sale',gla:155,grade:'A',price:3000000,rate:null,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/milnerton/brooklyn/retail/379278/',desc:'SOLE MANDATE. Mixed-use development. Brooklyn. Off N1.',source:'Vermaak',notes:[]},
-  {id:'l008',p24Active:true,p24AddedDate:'2026-07-01',building:'Northgate Island (Unit 11)',address:'20 Adam Tas Square, Brooklyn',node:'Northgate',type:'sale',gla:138,grade:'A',price:2500000,rate:null,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/milnerton/brooklyn/retail/382326/',desc:'Off N1 National Highway. A Grade precinct.',source:'Vermaak',notes:[]},
+  {id:'l001',building:'33 Hout Street',address:'33 Hout Street, Cape Town CBD',node:'CBD',type:'sale',gla:1923,grade:'B',price:43500000,rate:null,avail:'Enquire',parking:'Street / nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/hotel/380141/',desc:'Heritage building built 1890. Hotel/commercial. Developer/investor opportunity.',source:'Vermaak',notes:[]},
+  {id:'l002',building:'The Rubik (For Sale)',address:'19 Loop Street, Cape Town CBD',node:'CBD',type:'sale',gla:704,grade:'A',price:26704500,rate:null,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/382043/',desc:'Iconic Loop Street. Magnificent views of Table Mountain.',source:'Vermaak',notes:[]},
+  {id:'l003',building:'Tramway House',address:'56 Waterkant Street, Cape Town CBD',node:'CBD',type:'sale',gla:240,grade:'B',price:17000000,rate:null,avail:'Enquire',parking:'Street',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/building/381305/',desc:'Beautiful heritage building. Rich history. Virtual tour available.',source:'Vermaak',notes:[]},
+  {id:'l004',building:'Greenmarket Place (Restaurant)',address:'38 Shortmarket Street, Cape Town CBD',node:'CBD',type:'sale',gla:161,grade:'B',price:7000000,rate:null,avail:'Enquire',parking:'Street',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/cape-town/cape-town-city-centre/restaurant/517579/',desc:'Popular Shortmarket Street. Greenmarket Square. Restaurant space.',source:'Vermaak',notes:[]},
+  {id:'l005',building:'155 Loop Street',address:'155 Loop Street, Cape Town CBD',node:'CBD',type:'sale',gla:300,grade:'A',price:6500000,rate:null,avail:'Enquire',parking:'Basement',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/400422/',desc:'Modern commercial space. Ample natural light. Heart of CBD.',source:'Vermaak',notes:[]},
+  {id:'l006',building:'Touchstone House (Unit 505)',address:'11 Bree Street, Foreshore',node:'Foreshore',type:'sale',gla:169,grade:'P',price:5700000,rate:null,avail:'Enquire',parking:'Building',link:'https://www.vermaakproperties.co.za/results/commercial/for-sale/cape-town/cape-town-city-centre/office/517839/',desc:'AAA Grade. Financial hub of Foreshore. Premium position.',source:'Vermaak',notes:[]},
+  {id:'l007',building:'Northgate Island (Unit A6)',address:'20 Adam Tas Square, Brooklyn',node:'Northgate',type:'sale',gla:155,grade:'A',price:3000000,rate:null,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/milnerton/brooklyn/retail/379278/',desc:'SOLE MANDATE. Mixed-use development. Brooklyn. Off N1.',source:'Vermaak',notes:[]},
+  {id:'l008',building:'Northgate Island (Unit 11)',address:'20 Adam Tas Square, Brooklyn',node:'Northgate',type:'sale',gla:138,grade:'A',price:2500000,rate:null,avail:'Enquire',parking:'On-site',link:'https://www.vermaakproperties.co.za/results/retail/for-sale/milnerton/brooklyn/retail/382326/',desc:'Off N1 National Highway. A Grade precinct.',source:'Vermaak',notes:[]},
   // ── TO LET ────────────────────────────────────────────────────────────
   {id:'l009',building:'30 St Georges Mall (Retail)',address:'30 St Georges Mall, Cape Town CBD',node:'CBD',type:'let',gla:200,grade:'B',price:112000,rate:560,avail:'Enquire',parking:'Nearby parkade',link:'https://www.vermaakproperties.co.za/results/commercial/to-let/cape-town/cape-town-city-centre/retail/515346/',desc:'Popular St Georges Mall strip. Close to public transport.',source:'Vermaak',notes:[]},
   {id:'l010',building:'Pepper Club (Restaurant Space)',address:'Corner Pepper & Loop Street, CBD',node:'CBD',type:'let',gla:312,grade:'P',price:124800,rate:400,avail:'Enquire',parking:'Building',link:'https://www.vermaakproperties.co.za/results/retail/to-let/cape-town/cape-town-city-centre/restaurant/675333/',desc:'5-star luxury Hotel. Restaurant space on corner Pepper & Loop.',source:'Vermaak',notes:[]},
@@ -1297,20 +1274,19 @@ function fmtR(n){if(!n&&n!==0)return'—';return'R '+Math.round(n).toLocaleStrin
 
 // ══════════ STATS
 function updateStats(){
+  const a=listings.filter(l=>l.status==='available');
   document.getElementById('stTotal').textContent=listings.length;
-  document.getElementById('stLet').textContent=listings.filter(l=>l.type==='let').length;
-  document.getElementById('stSale').textContent=listings.filter(l=>l.type==='sale').length;
+  document.getElementById('stLet').textContent=a.filter(l=>l.type==='let').length;
+  document.getElementById('stSale').textContent=a.filter(l=>l.type==='sale').length;
   document.getElementById('stMkt').textContent=market.length;
   document.getElementById('hdrBadge').textContent=listings.length+' listings';
-  // P24 stats
   var p24Let=listings.filter(function(l){return l.type==='let'&&l.p24Active;}).length;
   var p24Sale=listings.filter(function(l){return l.type==='sale'&&l.p24Active;}).length;
-  var slotsLeft=Math.max(0,30-p24Let);
-  var pct=Math.min(100,Math.round((p24Let/30)*100));
   if(document.getElementById('p24LetCount')){
     document.getElementById('p24LetCount').textContent=p24Let;
     document.getElementById('p24SaleCount').textContent=p24Sale;
-    document.getElementById('p24SlotsLeft').textContent=slotsLeft;
+    document.getElementById('p24TotalCount').textContent=listings.length;
+    var pct=Math.min(100,Math.round((p24Let/30)*100));
     document.getElementById('p24LetBar').style.width=pct+'%';
     document.getElementById('p24LetBar').style.background=pct>=90?'var(--red)':pct>=70?'var(--gold)':'var(--sage)';
   }
@@ -1373,8 +1349,8 @@ function renderListings(){
         <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">📅 ${l.avail}</span>
         <span style="font-family:var(--mono);font-size:8px;color:var(--text3)">🅿️ ${l.parking||'—'}</span>
         <div style="display:flex;align-items:center;gap:6px;margin-left:auto">
-          <button onclick="event.stopPropagation();toggleP24('${l.id}')" style="font-family:var(--mono);font-size:7px;padding:2px 8px;border-radius:8px;border:1px solid ${l.p24Active?'var(--sage)':'var(--border2)'};background:${l.p24Active?'var(--green-bg)':'var(--bg3)'};color:${l.p24Active?'var(--sage)':'var(--text3)'};cursor:pointer;text-transform:uppercase">${l.p24Active?'✓ On P24':'+ P24'}</button>
-          ${l.link?`<a class="lnk" href="${l.link}" target="_blank" onclick="event.stopPropagation()">View ↗</a>`:''}
+          <button onclick="event.stopPropagation();toggleP24('${l.id}')" style="font-family:var(--mono);font-size:7px;padding:2px 8px;border-radius:8px;border:1px solid ${l.p24Active?'var(--sage)':'var(--border2)'};background:${l.p24Active?'var(--green-bg)':'var(--bg3)'};color:${l.p24Active?'var(--sage)':'var(--text3)'};cursor:pointer">${l.p24Active?'On P24':'+ P24'}</button>
+          ${l.link?`<a class="lnk" href="${l.link}" target="_blank" onclick="event.stopPropagation()">P24 ↗</a>`:''}
         </div>
       </div>
     </div>`).join('');
@@ -1650,65 +1626,28 @@ function calcVAT(){
 }
 
 // ══════════ CLIENTS
-var clStatusFilter='all';
 function getFC(){
   let l=[...clients];
-  if(clStatusFilter!=='all') l=l.filter(x=>(x.clientStatus||'Connected')===clStatusFilter);
   if(clSrch){const q=clSrch.toLowerCase();l=l.filter(x=>(x.first+x.last+x.company+x.req).toLowerCase().includes(q));}
   return l;
 }
-function getStatusStyle(s){
-  return {Connected:'color:var(--sage);background:var(--green-bg);border:1px solid var(--green-bd)',Qualified:'color:var(--blue);background:var(--blue-bg);border:1px solid rgba(74,144,196,.25)',Active:'color:var(--gold);background:var(--gold-bg);border:1px solid var(--gold-bd)',Pending:'color:#e07b39;background:rgba(224,123,57,.12);border:1px solid rgba(224,123,57,.3)',Closed:'color:var(--red);background:rgba(196,74,74,.12);border:1px solid rgba(196,74,74,.3)'}[s]||'color:var(--sage);background:var(--green-bg);border:1px solid var(--green-bd)';
-}
 function renderClients(){
-  var statusOrder={Connected:0,Qualified:1,Active:2,Pending:3,Closed:4};
-  const fl=getFC().sort((a,b)=>(statusOrder[a.clientStatus||'Connected']||0)-(statusOrder[b.clientStatus||'Connected']||0));
+  const fl=getFC();
   document.getElementById('clCt').textContent=fl.length;
   const c=document.getElementById('clCon');
   if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">👤</div><div class="empty-title">No clients</div><div class="empty-sub">Add your first client</div></div>';return;}
   c.innerHTML=fl.map(cl=>`
-    <div class="ccard" id="cc-${cl.id}">
-      <div class="ccard-summary" onclick="toggleClientCard('${cl.id}')" style="cursor:pointer;display:flex;align-items:stretch">
-        <div class="ccard-av"><div class="av-circle av-client">${initials(cl.first,cl.last)}</div></div>
-        <div class="ccard-info" style="flex:1">
-          <div class="cc-name">${cl.first} ${cl.last}</div>
-          <div class="cc-role">${cl.company||'—'}</div>
-          <div class="cc-meta">${cl.req||'—'}</div>
-          ${cl.phone?`<div style="font-family:var(--mono);font-size:9px;color:var(--sage);margin-top:2px">📱 ${cl.phone}</div>`:''}
-          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:4px">
-            ${cl.clientType?`<span style="font-family:var(--mono);font-size:7px;padding:1px 6px;border-radius:8px;background:var(--blue-bg);color:var(--blue);border:1px solid rgba(74,144,196,.2);text-transform:uppercase">${cl.clientType}</span>`:''}
-            <span onclick="event.stopPropagation();cycleClientStatus('${cl.id}')" style="font-family:var(--mono);font-size:7px;padding:1px 8px;border-radius:8px;text-transform:uppercase;cursor:pointer;${getStatusStyle(cl.clientStatus||'Connected')}">${cl.clientStatus||'Connected'}</span>
-          </div>
-        </div>
-        <div class="ccard-acts">
-          <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${cl.phone}'" title="Call">📞</button>
-          <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${cl.email}'" title="Email">✉️</button>
-          <button class="ic-btn" onclick="event.stopPropagation();editClient('${cl.id}')" title="Edit">✏️</button>
-          <button class="ic-btn" onclick="event.stopPropagation();deleteClient('${cl.id}')" title="Delete">🗑️</button>
-        </div>
+    <div class="ccard" onclick="openClientProfile('${cl.id}')" style="cursor:pointer">
+      <div class="ccard-av"><div class="av-circle av-client">${initials(cl.first,cl.last)}</div></div>
+      <div class="ccard-info">
+        <div class="cc-name">${cl.first} ${cl.last}</div>
+        <div class="cc-role">${cl.company||'—'}</div>
+        <div class="cc-meta">${cl.req||'—'}</div>
+        ${cl.phone?`<div style="font-family:var(--mono);font-size:9px;color:var(--sage);margin-top:3px">📱 ${cl.phone}</div>`:''}
       </div>
-      <div id="cd-${cl.id}" style="display:none;border-top:1px solid var(--border);padding:12px 13px;background:var(--bg1)">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-          <div>
-            <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--text3);margin-bottom:5px">Contact</div>
-            ${cl.phone?`<div style="margin-bottom:4px"><a class="lnk" href="tel:${cl.phone}">📱 ${cl.phone}</a></div>`:''}
-            ${cl.phone?`<div style="margin-bottom:4px"><a class="lnk" href="https://wa.me/${(cl.phone||'').replace(/[^0-9]/g,'')}" target="_blank">💬 WhatsApp</a></div>`:''}
-            ${cl.email?`<div><a class="lnk" href="mailto:${cl.email}">✉️ ${cl.email}</a></div>`:''}
-          </div>
-          <div>
-            <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--text3);margin-bottom:5px">Requirement</div>
-            <div style="font-size:11px;color:var(--text2);line-height:1.5">${cl.req||'—'}</div>
-            ${cl.notes?`<div style="font-size:11px;color:var(--text3);margin-top:4px">${cl.notes}</div>`:''}
-          </div>
-        </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--text3);margin-bottom:5px">Activity Log</div>
-          <div id="cnotes-${cl.id}">${renderContactNotes(cl)}</div>
-          <div style="display:flex;gap:7px;margin-top:7px">
-            <input id="cnote-${cl.id}" style="flex:1;font-size:12px;padding:7px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text1);outline:none" placeholder="Add note…">
-            <button onclick="addContactNote('${cl.id}','client')" style="background:var(--moss);color:#fff;border:none;border-radius:7px;padding:7px 13px;font-family:var(--mono);font-size:8px;cursor:pointer;text-transform:uppercase">Log</button>
-          </div>
-        </div>
+      <div class="ccard-acts">
+        <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${cl.phone}'" title="Call">📞</button>
+        <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${cl.email}'" title="Email">✉️</button>
       </div>
     </div>`).join('');
 }
@@ -1735,55 +1674,21 @@ function renderLandlords(){
   const c=document.getElementById('llCon');
   if(!fl.length){c.innerHTML='<div class="empty"><div class="empty-icon">🏦</div><div class="empty-title">No landlords</div><div class="empty-sub">Add your first landlord</div></div>';return;}
   const relCol={Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
-  c.innerHTML=fl.map(ll=>{
-    var relCol={Active:'var(--sage)',Warm:'var(--gold)',Cold:'var(--red)',New:'var(--blue)'};
-    return `<div class="ccard" id="llc-${ll.id}">
-      <div class="ccard-summary" onclick="toggleLLCard('${ll.id}')" style="cursor:pointer;display:flex;align-items:stretch">
-        <div class="ccard-av"><div class="av-circle av-landlord">${initials(ll.first,ll.last)}</div></div>
-        <div class="ccard-info" style="flex:1">
-          <div class="cc-name">${ll.first} ${ll.last}</div>
-          <div class="cc-role">${ll.company||'—'}</div>
-          <div class="cc-meta">${ll.buildings?(ll.buildings.split(',')[0].trim().substring(0,40)+(ll.buildings.split(',').length>1?' + '+(ll.buildings.split(',').length-1)+' more':'')):'—'}</div>
-          ${ll.phone?`<div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-top:2px">📱 ${ll.phone}</div>`:''}
-          <div style="margin-top:3px"><span style="font-family:var(--mono);font-size:7px;color:${relCol[ll.rel]||'var(--text3)'};text-transform:uppercase">● ${ll.rel}</span></div>
-        </div>
-        <div class="ccard-acts">
-          <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${ll.phone}'" title="Call">📞</button>
-          <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${ll.email}'" title="Email">✉️</button>
-          <button class="ic-btn" onclick="event.stopPropagation();editLandlord('${ll.id}')" title="Edit">✏️</button>
-          <button class="ic-btn" onclick="event.stopPropagation();deleteLandlord('${ll.id}')" title="Delete">🗑️</button>
-        </div>
+  c.innerHTML=fl.map(ll=>`
+    <div class="ccard" onclick="openLandlordProfile('${ll.id}')" style="cursor:pointer">
+      <div class="ccard-av"><div class="av-circle av-landlord">${initials(ll.first,ll.last)}</div></div>
+      <div class="ccard-info">
+        <div class="cc-name">${ll.first} ${ll.last}</div>
+        <div class="cc-role">${ll.company}</div>
+        <div class="cc-meta">${ll.buildings||'—'}</div>
+        ${ll.phone?`<div style="font-family:var(--mono);font-size:9px;color:var(--gold);margin-top:3px">📱 ${ll.phone}</div>`:''}
+        <div style="margin-top:4px"><span style="font-family:var(--mono);font-size:7px;color:${relCol[ll.rel]||'var(--text3)'};text-transform:uppercase;letter-spacing:.05em">● ${ll.rel}</span></div>
       </div>
-      <div id="lld-${ll.id}" style="display:none;border-top:1px solid var(--border);padding:12px 13px;background:var(--bg1)">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-          <div>
-            <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--text3);margin-bottom:5px">Contact</div>
-            ${ll.phone?`<div style="margin-bottom:4px"><a class="lnk" href="tel:${ll.phone}">📱 ${ll.phone}</a></div>`:''}
-            ${ll.phone?`<div style="margin-bottom:4px"><a class="lnk" href="https://wa.me/${(ll.phone||'').replace(/[^0-9]/g,'')}" target="_blank">💬 WhatsApp</a></div>`:''}
-            ${ll.email?`<div><a class="lnk" href="mailto:${ll.email}">✉️ ${ll.email}</a></div>`:''}
-          </div>
-          <div>
-            <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--text3);margin-bottom:5px">Portfolio</div>
-            <div style="font-size:11px;color:var(--text2);margin-bottom:2px"><span style="color:var(--text3)">Node:</span> ${ll.node||'—'}</div>
-            <div style="font-size:11px;color:var(--text2)"><span style="color:var(--text3)">Status:</span> <span style="color:${relCol[ll.rel]||'var(--text2)'}">${ll.rel}</span></div>
-            ${ll.notes?`<div style="font-size:11px;color:var(--text3);margin-top:4px">${ll.notes}</div>`:''}
-          </div>
-        </div>
-        <div>
-          <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--text3);margin-bottom:5px">Properties</div>
-          ${(()=>{const raw=(ll.buildings||'').split(',').map(b=>b.trim()).filter(Boolean);return raw.length?`<div style="max-height:140px;overflow-y:auto;border:1px solid var(--border);border-radius:7px">${raw.map((b,i)=>`<div style="padding:6px 10px;font-size:11px;color:var(--text2);border-bottom:${i<raw.length-1?'1px solid var(--border)':'none'}">${b}</div>`).join('')}</div>`:'<div style="font-size:11px;color:var(--text3)">No properties listed</div>';})()}
-        </div>
-        <div style="margin-top:10px">
-          <div style="font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--text3);margin-bottom:5px">Activity Log</div>
-          <div id="llnotes-${ll.id}">${renderContactNotes(ll)}</div>
-          <div style="display:flex;gap:7px;margin-top:7px">
-            <input id="llnote-${ll.id}" style="flex:1;font-size:12px;padding:7px 10px;border:1px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text1);outline:none" placeholder="Add note…">
-            <button onclick="addContactNote('${ll.id}','landlord')" style="background:var(--moss);color:#fff;border:none;border-radius:7px;padding:7px 13px;font-family:var(--mono);font-size:8px;cursor:pointer;text-transform:uppercase">Log</button>
-          </div>
-        </div>
+      <div class="ccard-acts">
+        <button class="ic-btn" onclick="event.stopPropagation();window.location='tel:${ll.phone}'" title="Call">📞</button>
+        <button class="ic-btn" onclick="event.stopPropagation();window.location='mailto:${ll.email}'" title="Email">✉️</button>
       </div>
-    </div>`;
-  }).join('');
+    </div>`).join('');
 }
 document.getElementById('llSrch').addEventListener('input',e=>{llSrch=e.target.value.trim();renderLandlords();});
 document.getElementById('toggleAddLL').addEventListener('click',()=>{const f=document.getElementById('addLLForm');const o=f.classList.toggle('open');document.getElementById('toggleAddLL').textContent=o?'✕ Cancel':'+ Add Landlord';});
@@ -1821,27 +1726,6 @@ document.getElementById('drw').addEventListener('touchmove',e=>{if(e.touches[0].
 // Ensure drawer is hidden on load
 document.getElementById('drw').classList.remove('open');
 document.getElementById('dOv').classList.remove('open');
-// ── Auto-add new listings & migrate data ──────────────────────────
-(function(){
-  var nl=[
-    {id:'l073',building:'Oceana House (2,030m2)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:2030,grade:'A',price:365346,rate:180,avail:'July 2026',parking:'Enquire',desc:'Foreshore office.',source:'Vermaak',notes:[]},
-    {id:'l074',building:'Oceana House (1,957m2)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:1957,grade:'A',price:352260,rate:180,avail:'June 2026',parking:'Enquire',desc:'Foreshore office.',source:'Vermaak',notes:[]},
-    {id:'l075',building:'11 Adderley Street (1,896m2)',address:'11 Adderley Street, CBD',node:'CBD',type:'let',gla:1896,grade:'A',price:331800,rate:175,avail:'Immediately',parking:'Enquire',desc:'NEW. Iconic CBD landmark.',source:'Vermaak',notes:[]},
-    {id:'l076',building:'One Thibault (286m2)',address:'One Thibault, CBD',node:'CBD',type:'let',gla:286,grade:'A',price:48620,rate:170,avail:'Enquire',parking:'Building',desc:'Premier skyscraper.',source:'Vermaak',notes:[]},
-    {id:'l077',building:'Northgate Island Office (3,000m2)',address:'Northgate Park, Brooklyn',node:'Northgate',type:'let',gla:3000,grade:'A',price:510000,rate:170,avail:'Enquire',parking:'On-site',desc:'Large format office.',source:'Vermaak',notes:[]},
-    {id:'l078',building:'Newspaper House (7,200m2)',address:'122 St Georges Mall, CBD',node:'CBD',type:'let',gla:7200,grade:'A',price:1224000,rate:170,avail:'Enquire',parking:'Nearby',desc:'Full building.',source:'Vermaak',notes:[]},
-    {id:'l079',building:'Matador Centre Retail (226m2)',address:'62 Strand Street, CBD',node:'CBD',type:'let',gla:226,grade:'B',price:38235,rate:169,avail:'Enquire',parking:'R1,450/bay',desc:'Ground floor retail.',source:'Vermaak',notes:[]},
-    {id:'l080',building:'The Felix Office (274m2)',address:'58 Strand Street, CBD',node:'CBD',type:'let',gla:274,grade:'A',price:46032,rate:168,avail:'Enquire',parking:'882 bays',desc:'Multi-use building.',source:'Vermaak',notes:[]},
-    {id:'l081',building:'Norton Rose House (622m2)',address:'8 Riebeek Street, CBD',node:'CBD',type:'let',gla:622,grade:'A',price:102630,rate:165,avail:'Immediately',parking:'Enquire',desc:'NEW. Riebeek Street.',source:'Vermaak',notes:[]},
-    {id:'l082',building:'Bergstan Building (657m2)',address:'52 Loop Street, CBD',node:'CBD',type:'let',gla:657,grade:'B',price:118260,rate:180,avail:'Enquire',parking:'None',desc:'Loop Street.',source:'Vermaak',notes:[]},
-    {id:'l083',building:'Westminster House (276m2)',address:'Adderley Street, CBD',node:'CBD',type:'let',gla:276,grade:'B',price:48300,rate:175,avail:'Enquire',parking:'Enquire',desc:'Heritage building.',source:'Vermaak',notes:[]},
-    {id:'l084',building:'Roggebaai Place Retail (218m2)',address:'4 Jetty Street, Foreshore',node:'Foreshore',type:'let',gla:218,grade:'P',price:43600,rate:200,avail:'Immediately',parking:'R1,800/bay',desc:'AAA Grade retail.',source:'Vermaak',notes:[]},
-    {id:'l085',building:'73 Hertzog Blvd Showroom (1,843m2)',address:'73 Hertzog Boulevard, Foreshore',node:'Foreshore',type:'let',gla:1843,grade:'A',price:294880,rate:160,avail:'Immediately',parking:'Enquire',desc:'Ground floor showroom.',source:'Vermaak',notes:[]}
-  ];
-  nl.forEach(function(n){if(!listings.find(function(l){return l.id===n.id;})){listings.push(n);}});
-  listings.forEach(function(l){if(l.type==='sale'&&!l.p24Active){l.p24Active=true;l.p24AddedDate=l.p24AddedDate||'2026-07-01';}});
-  save();
-})();
 updateStats();renderListings();renderMarket();renderClients();renderLandlords();renderPipeline();
 
 
@@ -2227,186 +2111,11 @@ function closeLLProfile(){
 }
 
 
-// ══ CLIENT STATUS ═════════════════════════════════════════════════
-var CLIENT_STATUSES=['Connected','Qualified','Active','Pending','Closed'];
-function cycleClientStatus(id){
-  var cl=clients.find(function(x){return x.id===id;});
-  if(!cl)return;
-  var idx=CLIENT_STATUSES.indexOf(cl.clientStatus||'Connected');
-  cl.clientStatus=CLIENT_STATUSES[(idx+1)%CLIENT_STATUSES.length];
-  save();renderClients();showToast(cl.first+' → '+cl.clientStatus);
-}
-
-// ══ CLIENT CARD TOGGLE ════════════════════════════════════════════
-function toggleClientCard(id){
-  var d=document.getElementById('cd-'+id);
-  if(!d)return;
-  d.style.display=d.style.display==='none'?'block':'none';
-}
-
-// ══ CONTACT NOTES ═════════════════════════════════════════════════
-function renderContactNotes(item){
-  var notes=item.notes2||[];
-  if(!notes.length)return '<div style="font-size:11px;color:var(--text3);font-family:var(--mono)">No activity yet.</div>';
-  return notes.slice().reverse().map(function(n){return '<div class="note-item"><div class="note-date">'+n.date+'</div><div class="note-txt">'+n.text+'</div></div>';}).join('');
-}
-function addContactNote(id,type){
-  var inputEl=document.getElementById((type==='client'?'cnote-':'llnote-')+id);
-  var notesEl=document.getElementById((type==='client'?'cnotes-':'llnotes-')+id);
-  var text=inputEl?inputEl.value.trim():'';
-  if(!text)return;
-  var item=type==='client'?clients.find(function(x){return x.id===id;}):landlords.find(function(x){return x.id===id;});
-  if(!item)return;
-  if(!item.notes2)item.notes2=[];
-  item.notes2.push({date:new Date().toISOString().slice(0,10),text:text});
-  if(inputEl)inputEl.value='';
-  if(notesEl)notesEl.innerHTML=renderContactNotes(item);
-  save();showToast('Note logged ✓');
-}
-
-// ══ EDIT / DELETE CLIENT ══════════════════════════════════════════
-function editClient(id){
-  var cl=clients.find(function(x){return x.id===id;});if(!cl)return;
-  var f=document.getElementById('addClientForm');
-  f.classList.add('open');
-  document.getElementById('toggleAddClient').textContent='✕ Cancel';
-  ['cfN','clN','ccN','cpN','ceN','crN','cnN'].forEach(function(fid){var el=document.getElementById(fid);if(el)el.value='';});
-  if(document.getElementById('cfN'))document.getElementById('cfN').value=cl.first||'';
-  if(document.getElementById('clN'))document.getElementById('clN').value=cl.last||'';
-  if(document.getElementById('ccN'))document.getElementById('ccN').value=cl.company||'';
-  if(document.getElementById('cpN'))document.getElementById('cpN').value=cl.phone||'';
-  if(document.getElementById('ceN'))document.getElementById('ceN').value=cl.email||'';
-  if(document.getElementById('crN'))document.getElementById('crN').value=cl.req||'';
-  if(document.getElementById('cnN'))document.getElementById('cnN').value=cl.notes||'';
-  if(document.getElementById('ctypeN'))document.getElementById('ctypeN').value=cl.clientType||'Tenant';
-  var saveBtn=document.getElementById('saveClient');
-  saveBtn.textContent='Update Client';
-  saveBtn.onclick=function(){
-    var g=function(i){return document.getElementById(i)?document.getElementById(i).value.trim():'';};
-    cl.first=g('cfN');cl.last=g('clN');cl.company=g('ccN');cl.phone=g('cpN');
-    cl.email=g('ceN');cl.req=g('crN');cl.notes=g('cnN');
-    if(document.getElementById('ctypeN'))cl.clientType=document.getElementById('ctypeN').value;
-    save();renderClients();
-    f.classList.remove('open');
-    document.getElementById('toggleAddClient').textContent='+ Add Client';
-    saveBtn.textContent='Save Client';saveBtn.onclick=null;
-    showToast('Client updated ✓');
-  };
-  f.scrollIntoView({behavior:'smooth'});
-}
-function deleteClient(id){
-  if(!confirm('Delete this client?'))return;
-  clients=clients.filter(function(x){return x.id!==id;});
-  save();renderClients();showToast('Client deleted');
-}
-
-// ══ LANDLORD TOGGLE ═══════════════════════════════════════════════
-function toggleLLCard(id){
-  var d=document.getElementById('lld-'+id);
-  if(!d)return;
-  d.style.display=d.style.display==='none'?'block':'none';
-}
-function editLandlord(id){
-  var ll=landlords.find(function(x){return x.id===id;});if(!ll)return;
-  var f=document.getElementById('addLLForm');
-  f.classList.add('open');
-  document.getElementById('toggleAddLL').textContent='✕ Cancel';
-  if(document.getElementById('llfN'))document.getElementById('llfN').value=ll.first||'';
-  if(document.getElementById('lllN'))document.getElementById('lllN').value=ll.last||'';
-  if(document.getElementById('llcN'))document.getElementById('llcN').value=ll.company||'';
-  if(document.getElementById('llpN'))document.getElementById('llpN').value=ll.phone||'';
-  if(document.getElementById('lleN'))document.getElementById('lleN').value=ll.email||'';
-  if(document.getElementById('llnotes'))document.getElementById('llnotes').value=ll.notes||'';
-  if(document.getElementById('llnN'))document.getElementById('llnN').value=ll.node||'CBD';
-  if(document.getElementById('llrN'))document.getElementById('llrN').value=ll.rel||'Active';
-  var saveBtn=document.getElementById('saveLL');
-  saveBtn.textContent='Update Landlord';
-  saveBtn.onclick=function(){
-    var g=function(i){return document.getElementById(i)?document.getElementById(i).value.trim():'';};
-    ll.first=g('llfN');ll.last=g('lllN');ll.company=g('llcN');ll.phone=g('llpN');
-    ll.email=g('lleN');ll.notes=g('llnotes');
-    if(document.getElementById('llnN'))ll.node=document.getElementById('llnN').value;
-    if(document.getElementById('llrN'))ll.rel=document.getElementById('llrN').value;
-    save();renderLandlords();
-    f.classList.remove('open');
-    document.getElementById('toggleAddLL').textContent='+ Add Landlord';
-    saveBtn.textContent='Save Landlord';saveBtn.onclick=null;
-    showToast('Landlord updated ✓');
-  };
-  f.scrollIntoView({behavior:'smooth'});
-}
-function deleteLandlord(id){
-  if(!confirm('Delete this landlord?'))return;
-  landlords=landlords.filter(function(x){return x.id!==id;});
-  save();renderLandlords();showToast('Landlord deleted');
-}
-
-// Auto-add new listings on load
-(function(){
-  var nl=[
-    {id:'l073',building:'Oceana House (2,030m²)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:2030,grade:'A',price:365346,rate:180,avail:'July 2026',parking:'Enquire',desc:'Available July 2026.',source:'Vermaak',notes:[]},
-    {id:'l074',building:'Oceana House (1,957m²)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:1957,grade:'A',price:352260,rate:180,avail:'June 2026',parking:'Enquire',desc:'Available June 2026.',source:'Vermaak',notes:[]},
-    {id:'l075',building:'11 Adderley Street (1,896m²)',address:'11 Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:1896,grade:'A',price:331800,rate:175,avail:'Immediately',parking:'Enquire',desc:'NEW. Iconic CBD landmark.',source:'Vermaak',notes:[]},
-    {id:'l076',building:'One Thibault (286m²)',address:'One Thibault, Cape Town CBD',node:'CBD',type:'let',gla:286,grade:'A',price:48620,rate:170,avail:'Enquire',parking:'Building',desc:'Premier mixed-use skyscraper.',source:'Vermaak',notes:[]},
-    {id:'l077',building:'Northgate Island (3,000m²)',address:'Northgate Park, Brooklyn',node:'Northgate',type:'let',gla:3000,grade:'A',price:510000,rate:170,avail:'Enquire',parking:'On-site',desc:'A-Grade. Large format office.',source:'Vermaak',notes:[]},
-    {id:'l078',building:'Newspaper House (7,200m²)',address:'122 St Georges Mall, Cape Town CBD',node:'CBD',type:'let',gla:7200,grade:'A',price:1224000,rate:170,avail:'Enquire',parking:'Nearby',desc:'Full building. St Georges Mall.',source:'Vermaak',notes:[]},
-    {id:'l079',building:'Matador Centre (226m² Retail)',address:'62 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:226,grade:'B',price:38235,rate:169,avail:'Enquire',parking:'R1,450/bay',desc:'Ground floor retail.',source:'Vermaak',notes:[]},
-    {id:'l080',building:'The Felix (274m²)',address:'58 Strand Street, Cape Town CBD',node:'CBD',type:'let',gla:274,grade:'A',price:46032,rate:168,avail:'Enquire',parking:'882 bays',desc:'Multi-use. 882 parking bays.',source:'Vermaak',notes:[]},
-    {id:'l081',building:'Norton Rose House (622m²)',address:'8 Riebeek Street, Cape Town CBD',node:'CBD',type:'let',gla:622,grade:'A',price:102630,rate:165,avail:'Immediately',parking:'Enquire',desc:'NEW. Riebeek Street.',source:'Vermaak',notes:[]},
-    {id:'l082',building:'Bergstan Building (657m²)',address:'52 Loop Street, Cape Town CBD',node:'CBD',type:'let',gla:657,grade:'B',price:118260,rate:180,avail:'Enquire',parking:'None',desc:'Bergstan Building.',source:'Vermaak',notes:[]},
-    {id:'l083',building:'Westminster House (276m²)',address:'Adderley Street, Cape Town CBD',node:'CBD',type:'let',gla:276,grade:'B',price:48300,rate:175,avail:'Enquire',parking:'Enquire',desc:'Heritage building.',source:'Vermaak',notes:[]},
-    {id:'l084',building:'Roggebaai Place (218m² Retail)',address:'4 Jetty Street, Foreshore',node:'Foreshore',type:'let',gla:218,grade:'P',price:43600,rate:200,avail:'Immediately',parking:'R1,800/bay',desc:'AAA Grade retail.',source:'Vermaak',notes:[]},
-    {id:'l085',building:'73 Hertzog Blvd (1,843m²)',address:'73 Hertzog Boulevard, Foreshore',node:'Foreshore',type:'let',gla:1843,grade:'A',price:294880,rate:160,avail:'Immediately',parking:'Enquire',desc:'Ground floor showroom.',source:'Vermaak',notes:[]}
-  ];
-  nl.forEach(function(n){if(!listings.find(function(l){return l.id===n.id;})){listings.push(n);}});
-  listings.forEach(function(l){if(l.type==='sale'){l.p24Active=true;l.p24AddedDate=l.p24AddedDate||'2026-07-01';}});
-  save();
-})();
-
-
-// ══ LANDLORD SAVE ═════════════════════════════════════════════════
-function getFL2(){
-  var l=[...landlords];
-  if(typeof llSrch!=='undefined'&&llSrch){var q=llSrch.toLowerCase();l=l.filter(function(x){return (x.first+' '+x.last+' '+(x.company||'')+(x.buildings||'')).toLowerCase().includes(q);});}
-  return l;
-}
-function saveLandlord(){
-  var g=function(id){return document.getElementById(id)?document.getElementById(id).value.trim():'';};
-  var first=g('llfN');var last=g('lllN');
-  if(!first&&!last){showToast('Please enter a name');return;}
-  var newLL={id:'ll'+Date.now(),first:first,last:last,company:g('llcN'),phone:g('llpN'),email:g('lleN'),buildings:g('llbN')||'',node:document.getElementById('llnN')?document.getElementById('llnN').value:'CBD',rel:document.getElementById('llrN')?document.getElementById('llrN').value:'Active',notes:g('llnotes'),notes2:[]};
-  landlords.unshift(newLL);
-  save();renderLandlords();
-  document.getElementById('addLLForm').classList.remove('open');
-  document.getElementById('toggleAddLL').textContent='+ Add Landlord';
-  ['llfN','lllN','llcN','llpN','lleN','llbN','llnotes'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-  showToast('Landlord saved ✓');
-}
-
-
-// ══ CLIENT SAVE ═══════════════════════════════════════════════════
-function saveClient(){
-  var g=function(id){return document.getElementById(id)?document.getElementById(id).value.trim():'';};
-  var first=g('cfN');var last=g('clN');
-  if(!first&&!last){showToast('Please enter a name');return;}
-  var ct=document.getElementById('ctypeN');
-  var cs=document.getElementById('cstatusN');
-  var newCl={id:'c'+Date.now(),first:first,last:last,company:g('ccN'),clientType:ct?ct.value:'Tenant',clientStatus:cs?cs.value:'Connected',phone:g('cpN'),email:g('ceN'),req:g('crN'),notes:g('cnN'),notes2:[]};
-  clients.unshift(newCl);
-  save();renderClients();
-  document.getElementById('addClientForm').classList.remove('open');
-  document.getElementById('toggleAddClient').textContent='+ Add Client';
-  ['cfN','clN','ccN','cpN','ceN','crN','cnN'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-  showToast('Client saved ✓');
-}
-
-
-// ══ P24 MANAGEMENT ════════════════════════════════════════════════
 function toggleP24(id){
   var l=listings.find(function(x){return x.id===id;});
   if(!l)return;
   var p24Let=listings.filter(function(x){return x.type==='let'&&x.p24Active;}).length;
-  if(!l.p24Active&&l.type==='let'&&p24Let>=30){showToast('P24 limit reached');return;}
+  if(!l.p24Active&&l.type==='let'&&p24Let>=30){showToast('P24 limit reached - remove a listing first');return;}
   l.p24Active=!l.p24Active;
   if(l.p24Active)l.p24AddedDate=new Date().toISOString().slice(0,10);
   save();renderListings();updateStats();
@@ -2416,41 +2125,43 @@ function toggleP24(id){
 function showRotationPlan(){
   var today=new Date();
   var onP24=listings.filter(function(l){return l.type==='let'&&l.p24Active;});
+  var offP24=listings.filter(function(l){return l.type==='let'&&!l.p24Active;});
   var rotateable=onP24.filter(function(l){
     if(!l.p24AddedDate)return true;
     return Math.floor((today-new Date(l.p24AddedDate))/(1000*60*60*24))>=14;
   });
-  var offP24=listings.filter(function(l){return l.type==='let'&&!l.p24Active;});
-  
-  var html='<div style="padding:16px 20px">';
-  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">';
-  html+='<div style="background:var(--bg3);border-radius:8px;padding:10px 12px"><div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:2px">On P24</div>';
-  html+='<div style="font-size:20px;font-weight:700;color:var(--sage)">'+onP24.length+'<span style="font-size:10px;color:var(--text3)">/30</span></div></div>';
-  html+='<div style="background:var(--bg3);border-radius:8px;padding:10px 12px"><div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:2px">Ready to Rotate</div>';
-  html+='<div style="font-size:20px;font-weight:700;color:var(--gold)">'+rotateable.length+'<span style="font-size:10px;color:var(--text3)"> (14d+)</span></div></div></div>';
-  
+
+  var html='<div style="padding:16px">';
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">';
+  html+='<div style="background:var(--bg3);border-radius:8px;padding:10px"><div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:2px">On P24</div><div style="font-size:20px;font-weight:700;color:var(--sage)">'+onP24.length+'<span style="font-size:10px;color:var(--text3)">/30</span></div></div>';
+  html+='<div style="background:var(--bg3);border-radius:8px;padding:10px"><div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:2px">Ready to Rotate</div><div style="font-size:20px;font-weight:700;color:var(--gold)">'+rotateable.length+'</div></div>';
+  html+='</div>';
+
   if(offP24.length>0&&rotateable.length>0){
-    html+='<div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">14-Day Rotation (2/day)</div>';
+    html+='<div style="font-family:var(--mono);font-size:7px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">14-Day Schedule (2 swaps/day)</div>';
     html+='<div style="max-height:260px;overflow-y:auto;border:1px solid var(--border);border-radius:8px">';
-    var rQ=offP24.slice();var rmQ=rotateable.slice();
+    var rQ=offP24.slice();
+    var rmQ=rotateable.slice();
     for(var day=0;day<14&&rQ.length>0;day++){
-      var d=new Date(today);d.setDate(d.getDate()+day);
+      var d=new Date(today);
+      d.setDate(d.getDate()+day);
       var ds=d.toLocaleDateString('en-ZA',{weekday:'short',day:'numeric',month:'short'});
-      var toAdd=rQ.splice(0,2);var toRm=rmQ.splice(0,toAdd.length);
+      var toAdd=rQ.splice(0,2);
+      var toRm=rmQ.splice(0,toAdd.length);
       html+='<div style="padding:8px 12px;border-bottom:1px solid var(--border)">';
       html+='<div style="font-family:var(--mono);font-size:8px;color:var(--sage);margin-bottom:4px">'+ds+'</div>';
-      toAdd.forEach(function(l,i){
-        html+='<div style="font-size:11px;margin-bottom:2px">&#x2795; <strong>'+l.building+'</strong></div>';
-        if(toRm[i])html+='<div style="font-size:11px;color:var(--text3)">&#x2796; '+toRm[i].building+'</div>';
-      });
+      for(var i=0;i<toAdd.length;i++){
+        html+='<div style="font-size:11px;margin-bottom:2px">+ <strong>'+toAdd[i].building+'</strong></div>';
+        if(toRm[i])html+='<div style="font-size:11px;color:var(--text3)">- '+toRm[i].building+'</div>';
+      }
       html+='</div>';
     }
     html+='</div>';
   } else {
-    html+='<div style="font-size:11px;color:var(--text2);padding:10px;background:var(--bg3);border-radius:8px">'+(offP24.length===0?'All To Let listings on P24.':'No listings ready to rotate yet.')+'</div>';
+    html+='<div style="font-size:11px;color:var(--text2);padding:10px;background:var(--bg3);border-radius:8px">'+(offP24.length===0?'All To Let listings are on P24.':'No listings ready to rotate yet.')+'</div>';
   }
   html+='</div>';
-  
+
   var ov=document.getElementById('rotationOverlay');
   if(!ov){
     ov=document.createElement('div');
@@ -2459,83 +2170,14 @@ function showRotationPlan(){
     ov.onclick=function(e){if(e.target===ov)ov.remove();};
     document.body.appendChild(ov);
   }
-  var inner='<div style="background:var(--bg1);width:520px;max-width:95vw;max-height:85vh;border-radius:14px;border:1px solid var(--border2);overflow-y:auto">';
-  inner+='<div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg1)">';
-  inner+='<div style="font-size:15px;font-weight:600;color:var(--text1)">P24 Rotation Planner</div>';
-  inner+='<button onclick="document.getElementById('rotationOverlay').remove()" style="background:var(--bg3);border:none;border-radius:50%;width:28px;height:28px;color:var(--text2);cursor:pointer;font-size:14px">&#x2715;</button></div>';
-  inner+=html+'</div>';
-  ov.innerHTML=inner;
+  var modal='<div style="background:var(--bg1);width:520px;max-width:95vw;max-height:85vh;border-radius:14px;border:1px solid var(--border2);overflow-y:auto">';
+  modal+='<div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg1)">';
+  modal+='<div style="font-size:15px;font-weight:600;color:var(--text1)">P24 Rotation Planner</div>';
+  modal+='<button onclick="document.getElementById('rotationOverlay').remove()" style="background:var(--bg3);border:none;border-radius:50%;width:28px;height:28px;color:var(--text2);cursor:pointer;font-size:14px">x</button>';
+  modal+='</div>'+html+'</div>';
+  ov.innerHTML=modal;
   ov.style.display='flex';
 }
-
-
-
-
-// ══ MISSING FUNCTIONS ════════════════════════════════════════════
-function renderContactNotes(i){
-  var n=i.notes2||[];
-  if(!n.length)return'<div style="font-size:11px;color:var(--text3)">No activity yet.</div>';
-  return n.slice().reverse().map(function(x){
-    return'<div class="note-item"><div class="note-date">'+x.date+'</div><div class="note-txt">'+x.text+'</div></div>';
-  }).join('');
-}
-function toggleClientCard(id){
-  var d=document.getElementById('cd-'+id);
-  if(d)d.style.display=d.style.display==='none'?'block':'none';
-}
-function toggleLLCard(id){
-  var d=document.getElementById('lld-'+id);
-  if(d)d.style.display=d.style.display==='none'?'block':'none';
-}
-function getFL2(){
-  var l=[...landlords];
-  if(llSrch){var q=llSrch.toLowerCase();l=l.filter(function(x){return(x.first+' '+x.last+' '+(x.company||'')+(x.buildings||'')).toLowerCase().includes(q);});}
-  return l;
-}
-function addContactNote(id,type){
-  var inp=document.getElementById((type==='client'?'cnote-':'llnote-')+id);
-  var ntd=document.getElementById((type==='client'?'cnotes-':'llnotes-')+id);
-  var text=inp?inp.value.trim():'';
-  if(!text)return;
-  var item=type==='client'?clients.find(function(x){return x.id===id;}):landlords.find(function(x){return x.id===id;});
-  if(!item)return;
-  if(!item.notes2)item.notes2=[];
-  item.notes2.push({date:new Date().toISOString().slice(0,10),text:text});
-  if(inp)inp.value='';
-  if(ntd)ntd.innerHTML=renderContactNotes(item);
-  save();showToast('Note logged');
-}
-
-// ══ INIT ══════════════════════════════════════════════════════════
-// Auto-add new listings
-(function(){
-  var nl=[
-    {id:'l073',building:'Oceana House (2,030m2)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:2030,grade:'A',price:365346,rate:180,avail:'July 2026',parking:'Enquire',desc:'Foreshore office.',source:'Vermaak',notes:[]},
-    {id:'l074',building:'Oceana House (1,957m2)',address:'25 Jan Smuts Avenue, Foreshore',node:'Foreshore',type:'let',gla:1957,grade:'A',price:352260,rate:180,avail:'June 2026',parking:'Enquire',desc:'Foreshore office.',source:'Vermaak',notes:[]},
-    {id:'l075',building:'11 Adderley Street (1,896m2)',address:'11 Adderley Street, CBD',node:'CBD',type:'let',gla:1896,grade:'A',price:331800,rate:175,avail:'Immediately',parking:'Enquire',desc:'NEW. Iconic CBD landmark.',source:'Vermaak',notes:[]},
-    {id:'l076',building:'One Thibault (286m2)',address:'One Thibault, CBD',node:'CBD',type:'let',gla:286,grade:'A',price:48620,rate:170,avail:'Enquire',parking:'Building',desc:'Premier skyscraper.',source:'Vermaak',notes:[]},
-    {id:'l077',building:'Northgate Island Office (3,000m2)',address:'Northgate Park, Brooklyn',node:'Northgate',type:'let',gla:3000,grade:'A',price:510000,rate:170,avail:'Enquire',parking:'On-site',desc:'Large format office.',source:'Vermaak',notes:[]},
-    {id:'l078',building:'Newspaper House (7,200m2)',address:'122 St Georges Mall, CBD',node:'CBD',type:'let',gla:7200,grade:'A',price:1224000,rate:170,avail:'Enquire',parking:'Nearby',desc:'Full building.',source:'Vermaak',notes:[]},
-    {id:'l079',building:'Matador Centre Retail (226m2)',address:'62 Strand Street, CBD',node:'CBD',type:'let',gla:226,grade:'B',price:38235,rate:169,avail:'Enquire',parking:'R1,450/bay',desc:'Ground floor retail.',source:'Vermaak',notes:[]},
-    {id:'l080',building:'The Felix Office (274m2)',address:'58 Strand Street, CBD',node:'CBD',type:'let',gla:274,grade:'A',price:46032,rate:168,avail:'Enquire',parking:'882 bays',desc:'Multi-use building.',source:'Vermaak',notes:[]},
-    {id:'l081',building:'Norton Rose House (622m2)',address:'8 Riebeek Street, CBD',node:'CBD',type:'let',gla:622,grade:'A',price:102630,rate:165,avail:'Immediately',parking:'Enquire',desc:'NEW. Riebeek Street.',source:'Vermaak',notes:[]},
-    {id:'l082',building:'Bergstan Building (657m2)',address:'52 Loop Street, CBD',node:'CBD',type:'let',gla:657,grade:'B',price:118260,rate:180,avail:'Enquire',parking:'None',desc:'Loop Street.',source:'Vermaak',notes:[]},
-    {id:'l083',building:'Westminster House (276m2)',address:'Adderley Street, CBD',node:'CBD',type:'let',gla:276,grade:'B',price:48300,rate:175,avail:'Enquire',parking:'Enquire',desc:'Heritage building.',source:'Vermaak',notes:[]},
-    {id:'l084',building:'Roggebaai Place Retail (218m2)',address:'4 Jetty Street, Foreshore',node:'Foreshore',type:'let',gla:218,grade:'P',price:43600,rate:200,avail:'Immediately',parking:'R1,800/bay',desc:'AAA Grade retail.',source:'Vermaak',notes:[]},
-    {id:'l085',building:'73 Hertzog Blvd Showroom (1,843m2)',address:'73 Hertzog Boulevard, Foreshore',node:'Foreshore',type:'let',gla:1843,grade:'A',price:294880,rate:160,avail:'Immediately',parking:'Enquire',desc:'Ground floor showroom.',source:'Vermaak',notes:[]}
-  ];
-  nl.forEach(function(n){if(!listings.find(function(l){return l.id===n.id;})){listings.push(n);}});
-  listings.forEach(function(l){if(l.type==='sale'&&!l.p24Active){l.p24Active=true;l.p24AddedDate=l.p24AddedDate||'2026-07-01';}});
-  save();
-})();
-
-updateStats();
-renderListings();
-renderMarket();
-renderClients();
-renderLandlords();
-renderPipeline();
-  function renderContactNotes(i){var n=i.notes2||[];if(!n.length)return'No activity yet.';return n.slice().reverse().map(function(x){return'<div class="note-item"><div class="note-date">'+x.date+'</div><div class="note-txt">'+x.text+'</div></div>';}).join('');}function toggleClientCard(id){var d=document.getElementById('cd-'+id);if(d)d.style.display=d.style.display==='none'?'block':'none';}function toggleLLCard(id){var d=document.getElementById('lld-'+id);if(d)d.style.display=d.style.display==='none'?'block':'none';}function getFL2(){return[].concat(landlords);}function saveClientForm(){var g=function(i){var e=document.getElementById(i);return e?e.value.trim():'';};clients.unshift({id:'c'+Date.now(),first:g('cfN'),last:g('clN'),company:g('ccN'),phone:g('cpN'),email:g('ceN'),req:g('crN'),notes:g('cnN'),notes2:[]});save();renderClients();document.getElementById('addClientForm').classList.remove('open');document.getElementById('toggleAddClient').textContent='+ Add Client';showToast('Saved');}function saveLLForm(){var g=function(i){var e=document.getElementById(i);return e?e.value.trim():'';};landlords.unshift({id:'ll'+Date.now(),first:g('llfN'),last:g('lllN'),company:g('llcN'),phone:g('llpN'),email:g('lleN'),buildings:g('llbN'),node:document.getElementById('llnN')?document.getElementById('llnN').value:'CBD',rel:document.getElementById('llrN')?document.getElementById('llrN').value:'Active',notes:g('llnotes'),notes2:[]});save();renderLandlords();document.getElementById('addLLForm').classList.remove('open');document.getElementById('toggleAddLL').textContent='+ Add Landlord';showToast('Saved');}
 </script>
 </body>
 </html>
